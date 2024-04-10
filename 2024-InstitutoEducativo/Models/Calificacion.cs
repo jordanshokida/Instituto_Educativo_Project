@@ -1,6 +1,6 @@
 ﻿namespace _2024_InstitutoEducativo.Models
 {
-    public class Calificaion
+    public class Calificacion
     {
         public int Id { get; set; }
 

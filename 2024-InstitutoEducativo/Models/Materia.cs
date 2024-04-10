@@ -4,7 +4,7 @@
     {
         public int Id { get; set; }
 
-        public string MateriaNome { get; set; }
+        public string MateriaNombre { get; set; }
 
         public int CodMateria { get; set; }
 
@@ -12,11 +12,11 @@
 
         public int CupoMaximo { get; set; }
 
-        public string MateriaCursadas { get; set; }
+        public string MateriasCursadas { get; set; }
 
         public string Calificaciones { get; set; }
 
-        public string carrera { get; set; }
+        public string Carrera { get; set; }
 
     }
 }
