@@ -12,6 +12,8 @@
 
         public Telefono Telefono { get; set;}
 
+        public List<Telefono> Telefonos { get; set;}
+
         public Direccion Direccion { get; set; }
 
         public string Dni { get; set; }
