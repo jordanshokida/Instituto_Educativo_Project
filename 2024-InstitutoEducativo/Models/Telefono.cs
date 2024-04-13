@@ -4,7 +4,7 @@
     {
         public int Id { get; set; }
 
-        public int codArea { get; set; }
+        public int CodArea { get; set; }
 
         public string Numero { get; set;}
 

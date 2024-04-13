@@ -6,13 +6,21 @@
 
         public string NotaFinal { get; set; }
 
-        public string Materia { get; set; }
+        public int MateriaId { get; set; }
 
-        public string MateriaCursada { get; set; }
+        public Materia Materia { get; set; }
 
-        public string Profesor {  get; set; }
+        public int MateriaCursadaId { get; set; }
 
-        public string Alumno {  get; set; }
+        public MateriaCursada MateriaCursada { get; set; }
+
+        public int ProfesorId { get; set; }
+
+        public Profesor Profesor {  get; set; }
+
+        public int AlumnoId { get; set; }
+
+        public Alumno Alumno {  get; set; }
 
 
     }

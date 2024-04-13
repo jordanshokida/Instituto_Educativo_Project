@@ -16,6 +16,10 @@
 
         public Direccion Direccion { get; set; }
 
+        public DateTime FechaAlta { get; set; } = DateTime.Now.Date;
+
+        public String Password { get; set;}
+
         public string Dni { get; set; }
 
         public string NombreCompleto

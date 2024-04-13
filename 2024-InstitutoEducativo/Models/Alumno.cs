@@ -3,17 +3,15 @@
     public class Alumno : Persona
     {
 
-        public int FechaAlta { get; set; }
-
         public bool Activo { get; set; }
 
         public int NumeroMatricula { get; set; }
 
-        public Materia MateriasCursadas { get; set; }
+        public List<Materia> MateriasCursadas { get; set; }
 
         public Carrera Carrera { get; set; }
 
-        public Calificacion Calificaciones { get; set; }
+        public List<Calificacion> Calificaciones { get; set; }
 
 
 

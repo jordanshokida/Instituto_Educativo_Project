@@ -2,10 +2,15 @@
 {
     public class Profesor: Persona
     {
-        public int Legajo { get; set; }
+        private String _legajo;
+        public String Legajo {
+            get { return _legajo.ToUpper();}
+            set {_legajo = value.ToUpper();}
+        }
 
-        public Calificacion CalificacionesRealizadas { get; set; }
-
-        public MateriaCursada MateriasCursadaActiva { get; set; }
+        public int CalificacionId { get; set; }
+        public List<Calificacion> CalificacionesRealizadas { get; set; }
+        public int MateriaCursadaId { get; set; }
+        public List<MateriaCursada> MateriasCursadaActiva { get; set; }
     }
 }

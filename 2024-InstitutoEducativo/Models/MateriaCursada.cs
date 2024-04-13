@@ -1,23 +1,29 @@
-﻿namespace _2024_InstitutoEducativo.Models
+﻿using System.ComponentModel.DataAnnotations.Schema;
+using System.ComponentModel.DataAnnotations;
+
+namespace _2024_InstitutoEducativo.Models
 {
     public class MateriaCursada
     {
+        [Key, ForeignKey("Materia")]
         public int Id { get; set; }
 
         public string Nombre { get; set; }
 
-        public int Anio { get; set; }
+        public int AnioCursada { get; set; } = DateTime.Now.Year;
 
         public string Cuatrimestre { get; set; }
 
-        public string Activo { get; set; }
+        public Materia Materia { get; set; }
 
-        public string Materia { get; set; }
+        public int ProfesorId { get; set; }
 
-        public string Profesor { get; set; }
+        public Profesor Profesor { get; set; }
 
-        public string Alumnos { get; set; }
+        public int AlumnoId { get; set; }
 
-        public string Calificaciones { get; set; }  
+        public Alumno Alumnos { get; set; }
+
+        public List<Calificacion> Calificaciones { get; set; }  
     }
 }

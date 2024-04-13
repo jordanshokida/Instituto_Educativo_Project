@@ -2,6 +2,11 @@
 {
     public class Empleado: Persona
     {
-        public int Legajo {  get; set; }
+        private String _legajo;
+        public String Legajo
+        {
+            get { return _legajo.ToUpper(); }
+            set { _legajo = value.ToUpper(); }
+        }
     }
 }

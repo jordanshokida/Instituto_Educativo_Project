@@ -6,7 +6,7 @@
 
         public string Nombre { get; set; }
 
-        public string Materias { get; set; }
+        public List<Materia> Materia { get; set; }
 
         public string Alumno { get; set; }
     }
