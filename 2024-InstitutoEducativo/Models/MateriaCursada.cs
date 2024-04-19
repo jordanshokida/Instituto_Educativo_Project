@@ -22,7 +22,9 @@ namespace _2024_InstitutoEducativo.Models
 
         public int AlumnoId { get; set; }
 
-        public Alumno Alumnos { get; set; }
+        public Alumno Alumno { get; set; }
+
+        public Calificacion Calificacion { get; set; }
 
         public List<Calificacion> Calificaciones { get; set; }  
     }

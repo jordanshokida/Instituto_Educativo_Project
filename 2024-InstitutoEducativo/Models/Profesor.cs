@@ -8,9 +8,10 @@
             set {_legajo = value.ToUpper();}
         }
 
-        public int CalificacionId { get; set; }
+        public Calificacion Calificacion { get; set; }
         public List<Calificacion> CalificacionesRealizadas { get; set; }
-        public int MateriaCursadaId { get; set; }
+       
+        public MateriaCursada MateriaCursada { get; set; }
         public List<MateriaCursada> MateriasCursadaActiva { get; set; }
     }
 }

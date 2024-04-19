@@ -16,7 +16,11 @@ namespace _2024_InstitutoEducativo.Models
 
         public int CupoMaximo { get; set; }
 
-        public MateriaCursada MateriasCursadas { get; set; }
+        public int MateriaCursadaId { get; set; }
+
+        public MateriaCursada MateriaCursada { get; set; }
+
+        public Calificacion Calificacion { get; set; }
 
         public List<Calificacion> Calificaciones { get; set; }
 
