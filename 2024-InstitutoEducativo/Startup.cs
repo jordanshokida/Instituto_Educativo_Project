@@ -17,7 +17,7 @@
             // Add services to the container.
             builder.Services.AddControllersWithViews();
         }
-        private static void Configure(WebApplication app)
+        public static void Configure(WebApplication app)
         {
             // Configure the HTTP request pipeline.
             if (!app.Environment.IsDevelopment())
