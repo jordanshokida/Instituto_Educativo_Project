@@ -2,6 +2,7 @@
 {
     public class Empleado: Persona
     {
+
         private String _legajo;
         public String Legajo
         {

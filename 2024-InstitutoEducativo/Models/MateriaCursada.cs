@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
+using _2024_InstitutoEducativo.Helpers;
 
 namespace _2024_InstitutoEducativo.Models
 {
@@ -16,10 +17,14 @@ namespace _2024_InstitutoEducativo.Models
 
         public Materia Materia { get; set; }
 
+        [Key]
+        [Display(Name = Alias.ProfesorId)]
         public int ProfesorId { get; set; }
 
         public Profesor Profesor { get; set; }
 
+        [Key]
+        [Display(Name = Alias.AlumnoId)]
         public int AlumnoId { get; set; }
 
         public Alumno Alumno { get; set; }
