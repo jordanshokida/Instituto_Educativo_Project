@@ -12,13 +12,32 @@ namespace _2024_InstitutoEducativo.Models
 
         public Persona Persona { get; set; }
 
+        [Required(ErrorMessage = ErrorMsge.Required)]
+        [RegularExpression("@[a-zA-Z áéíóú]*", ErrorMessage = ErrorMsge.OnlyAlphabet)]
+        [StringLength(30, MinimumLength = 2, ErrorMessage = ErrorMsge.StringMaxMin)]
+
         public string Calle { get; set; }
+
+        [Required(ErrorMessage = ErrorMsge.Required)]
+        [Range(1, 99999, ErrorMessage = ErrorMsge.IntMaxMin)]
 
         public int Numero { get; set; }
 
+        [Required(ErrorMessage = ErrorMsge.Required)]
+        [RegularExpression("@[a-zA-Z áéíóú]*", ErrorMessage = ErrorMsge.OnlyAlphabet)]
+        [StringLength(30, MinimumLength = 2, ErrorMessage = ErrorMsge.StringMaxMin)]
+
         public string Localidad { get; set; }
 
+        [Required(ErrorMessage = ErrorMsge.Required)]
+        [RegularExpression("@[a-zA-Z áéíóú]*", ErrorMessage = ErrorMsge.OnlyAlphabet)]
+        [StringLength(30, MinimumLength = 2, ErrorMessage = ErrorMsge.StringMaxMin)]
+
         public string Provincia { get; set; }
+
+        [Required(ErrorMessage = ErrorMsge.Required)]
+        [RegularExpression("@[a-zA-Z áéíóú]*", ErrorMessage = ErrorMsge.OnlyAlphabet)]
+        [StringLength(30, MinimumLength = 2, ErrorMessage = ErrorMsge.StringMaxMin)]
 
         public string Pais { get; set; }
     }
