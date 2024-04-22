@@ -10,6 +10,8 @@ namespace _2024_InstitutoEducativo.Models
         public int Id { get; set; }
 
         [Required(ErrorMessage = ErrorMsge.Required)]
+        [StringLength(30, MinimumLength = 2, ErrorMessage = ErrorMsge.StringMaxMin)]
+        [Required(ErrorMessage = ErrorMsge.Required)]
         [RegularExpression("@[a-zA-Z áéíóú]*", ErrorMessage = ErrorMsge.OnlyAlphabet)]
         [StringLength(30, MinimumLength = 2, ErrorMessage = ErrorMsge.StringMaxMin)]
 
@@ -20,9 +22,12 @@ namespace _2024_InstitutoEducativo.Models
 
         public int CodMateria { get; set; }
 
+        [Required(ErrorMessage = ErrorMsge.Required)]
+        [StringLength(80, MinimumLength = 2, ErrorMessage = ErrorMsge.StringMaxMin)]
 
 
         public string Descripcion { get; set; }
+
 
         public int CupoMaximo { get; set; }
 

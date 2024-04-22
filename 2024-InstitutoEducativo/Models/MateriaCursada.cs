@@ -9,10 +9,14 @@ namespace _2024_InstitutoEducativo.Models
         [Key, ForeignKey("Materia")]
         public int Id { get; set; }
 
+        [Required(ErrorMessage = ErrorMsge.Required)]
+        [StringLength(30, MinimumLength = 2, ErrorMessage = ErrorMsge.StringMaxMin)]
         public string Nombre { get; set; }
 
         public int AnioCursada { get; set; } = DateTime.Now.Year;
 
+        [Required(ErrorMessage = ErrorMsge.Required)]
+        [StringLength(3, MinimumLength = 2, ErrorMessage = ErrorMsge.StringMaxMin)]
         public string Cuatrimestre { get; set; }
 
         public Materia Materia { get; set; }

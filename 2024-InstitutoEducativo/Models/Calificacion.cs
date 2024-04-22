@@ -1,9 +1,14 @@
-﻿namespace _2024_InstitutoEducativo.Models
+﻿using _2024_InstitutoEducativo.Helpers;
+using System.ComponentModel.DataAnnotations;
+
+namespace _2024_InstitutoEducativo.Models
 {
     public class Calificacion
     {
         public int Id { get; set; }
-
+        
+        [Required(ErrorMessage = ErrorMsge.NotaFinalRequerida)]
+        [RegularExpression ("@[1-10]*", ErrorMessage = ErrorMsge.NotaFinalRango)]
         public string NotaFinal { get; set; }
 
         public int MateriaId { get; set; }
@@ -22,6 +27,6 @@
 
         public Alumno Alumno {  get; set; }
 
-
+         
     }
 }
