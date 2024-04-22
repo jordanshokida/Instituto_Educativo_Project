@@ -18,5 +18,7 @@
 
         public const string NotaFinalRequerida = "La Nota Final es requerida";
 
+        public const string Range = "{0} debe estar entre {1} y {2} como mínimo";
+
     }
 }
