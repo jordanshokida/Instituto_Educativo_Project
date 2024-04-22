@@ -13,5 +13,12 @@
         public const string IntMaxMin = "{0} debe estar comprendido entre {1} y {2}";
 
         public const string NotValid = "{0} inválido";
+
+        public const string NotaFinalRango = "Sólo se permiten poner números del 1 al 10";
+
+        public const string NotaFinalRequerida = "La Nota Final es requerida";
+
+        public const string Range = "{0} debe estar entre {1} y {2} como mínimo";
+
     }
 }

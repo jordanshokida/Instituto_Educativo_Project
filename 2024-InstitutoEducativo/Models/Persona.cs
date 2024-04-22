@@ -14,6 +14,7 @@ namespace _2024_InstitutoEducativo.Models
         public string Nombre { get; set; }
 
         [Required(ErrorMessage = ErrorMsge.Required)]
+        [RegularExpression("@[a-zA-Z áéíóú]*", ErrorMessage = ErrorMsge.OnlyAlphabet)]
         [StringLength(30, MinimumLength = 2, ErrorMessage = ErrorMsge.StringMaxMin)]
         public string Apellido { get; set;}
 
