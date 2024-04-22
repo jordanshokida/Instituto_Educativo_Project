@@ -14,8 +14,8 @@ namespace _2024_InstitutoEducativo.Models
 
         public List<Materia> Materias { get; set; }
 
-        public Alumno Alumno { get; set; }  
-
+        public Alumno Alumno { get; set; } 
+        
         public List<Alumno> Alumnos { get; set; }
     }
 }

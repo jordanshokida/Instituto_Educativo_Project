@@ -1,4 +1,7 @@
-﻿namespace _2024_InstitutoEducativo.Models
+﻿using _2024_InstitutoEducativo.Helpers;
+using System.ComponentModel.DataAnnotations;
+
+namespace _2024_InstitutoEducativo.Models
 {
     public class Calificacion
     {
