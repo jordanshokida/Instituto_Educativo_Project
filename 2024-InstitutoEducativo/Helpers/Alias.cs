@@ -15,5 +15,9 @@
         public const string AlumnoId = "Alumno";
 
         public const string ProfesorId = "Profesor";
+
+        public const string MateriaId = "Materia";
+
+        public const int CupoMax = 10;
     }
 }

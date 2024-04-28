@@ -6,25 +6,41 @@ namespace _2024_InstitutoEducativo.Models
 {
     public class Materia
     {
-        
+
         public int Id { get; set; }
 
         [Required(ErrorMessage = ErrorMsge.Required)]
         [StringLength(30, MinimumLength = 2, ErrorMessage = ErrorMsge.StringMaxMin)]
+        [Required(ErrorMessage = ErrorMsge.Required)]
+        [RegularExpression("@[a-zA-Z áéíóú]*", ErrorMessage = ErrorMsge.OnlyAlphabet)]
+        [StringLength(30, MinimumLength = 2, ErrorMessage = ErrorMsge.StringMaxMin)]
+
         public string MateriaNombre { get; set; }
+
+        [Required(ErrorMessage = ErrorMsge.Required)]
+        [Range(1, 1000000, ErrorMessage = ErrorMsge.IntMaxMin)]
 
         public int CodMateria { get; set; }
 
         [Required(ErrorMessage = ErrorMsge.Required)]
         [StringLength(80, MinimumLength = 2, ErrorMessage = ErrorMsge.StringMaxMin)]
+
+
         public string Descripcion { get; set; }
 
 
         public int CupoMaximo { get; set; }
 
+        [Required(ErrorMessage = ErrorMsge.Required)]
+        [Range(1, 1000000, ErrorMessage = ErrorMsge.IntMaxMin)]
+        [Display(Name = Alias.MateriaId)]
+
         public int MateriaCursadaId { get; set; }
 
         public MateriaCursada MateriaCursada { get; set; }
+
+        [Required(ErrorMessage = ErrorMsge.Required)]
+        [Range(1, 10, ErrorMessage = ErrorMsge.IntMaxMin)]
 
         public Calificacion Calificacion { get; set; }
 
