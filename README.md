@@ -216,3 +216,6 @@ De la misma manera Uds. deben definir los tipos de datos asociados a cada una de
 - Información institucional.
 - Se listarán las carreras y materias por carrera.
 - Se listarán profesores de la institución.# 2024-1C-E-InstitutoEducativo
+
+![image](https://github.com/KarinaAuday/2024-1C-E-InstitutoEducativo/assets/95180785/fbdd5437-1412-4480-a649-fa9a2d67baa3)
+
