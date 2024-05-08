@@ -1,4 +1,7 @@
-﻿namespace _2024_InstitutoEducativo
+﻿using _2024_InstitutoEducativo.Data;
+using Microsoft.EntityFrameworkCore;
+
+namespace _2024_InstitutoEducativo
 {
     public static class Startup
     {
@@ -14,6 +17,7 @@
 
         private static void ConfigureServices(WebApplicationBuilder builder)
         {
+            builder.Services.AddDbContext<InstitutoContext>(options => options.UseInMemoryDatabase("InstitutoDb"));
             // Add services to the container.
             builder.Services.AddControllersWithViews();
         }
