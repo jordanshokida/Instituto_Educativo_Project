@@ -20,5 +20,7 @@
 
         public const string Range = "{0} debe estar entre {1} y {2} como mínimo";
 
+        public const string OnlyNumbers = "Sólo se admiten numeros";
+
     }
 }
