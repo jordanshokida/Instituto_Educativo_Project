@@ -1,5 +1,6 @@
 ﻿using _2024_InstitutoEducativo.Helpers;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace _2024_InstitutoEducativo.Models
 {
