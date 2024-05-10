@@ -5,6 +5,7 @@ namespace _2024_InstitutoEducativo.Models
 {
     public class Calificacion
     {
+        [Key]
         public int Id { get; set; }
         
         [Required(ErrorMessage = ErrorMsge.NotaFinalRequerida)]

@@ -6,11 +6,9 @@ namespace _2024_InstitutoEducativo.Models
 {
     public class Materia
     {
-
+        [Key]
         public int Id { get; set; }
 
-        [Required(ErrorMessage = ErrorMsge.Required)]
-        [StringLength(30, MinimumLength = 2, ErrorMessage = ErrorMsge.StringMaxMin)]
         [Required(ErrorMessage = ErrorMsge.Required)]
         [RegularExpression("@[a-zA-Z áéíóú]*", ErrorMessage = ErrorMsge.OnlyAlphabet)]
         [StringLength(Restrictions.STRINGLENGTH_MAX, MinimumLength = Restrictions.STRINGLENGTH_MIN1, ErrorMessage = ErrorMsge.StringMaxMin)]

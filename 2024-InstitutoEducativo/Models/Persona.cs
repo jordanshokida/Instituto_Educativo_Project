@@ -5,7 +5,8 @@ namespace _2024_InstitutoEducativo.Models
 {
     public class Persona
 
-    {  
+    {
+        [Key]
         public int Id { get; set; }
 
         [Required(ErrorMessage = ErrorMsge.Required)]

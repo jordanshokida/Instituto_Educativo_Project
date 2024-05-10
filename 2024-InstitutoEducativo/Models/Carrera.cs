@@ -6,7 +6,7 @@ namespace _2024_InstitutoEducativo.Models
 {
     public class Carrera
     {
-        
+        [Key]
         public int Id { get; set; }
 
         [Required (ErrorMessage = ErrorMsge.Required)]
