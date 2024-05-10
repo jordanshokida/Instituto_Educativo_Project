@@ -6,6 +6,11 @@ namespace _2024_InstitutoEducativo.Models
     public class Persona
 
     {
+        public Persona()
+        {
+            
+        }
+
         [Key]
         public int Id { get; set; }
 

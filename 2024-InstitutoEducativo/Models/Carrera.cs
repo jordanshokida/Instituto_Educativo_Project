@@ -6,6 +6,11 @@ namespace _2024_InstitutoEducativo.Models
 {
     public class Carrera
     {
+        public Carrera()
+        {
+            
+        }
+
         [Key]
         public int Id { get; set; }
 

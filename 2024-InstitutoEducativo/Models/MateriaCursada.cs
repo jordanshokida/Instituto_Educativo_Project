@@ -6,6 +6,11 @@ namespace _2024_InstitutoEducativo.Models
 {
     public class MateriaCursada
     {
+        public MateriaCursada()
+        {
+            
+        }
+
         [Key, ForeignKey("Materia")]
         public int Id { get; set; }
 

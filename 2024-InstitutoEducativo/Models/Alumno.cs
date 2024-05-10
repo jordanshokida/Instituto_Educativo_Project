@@ -5,6 +5,11 @@ namespace _2024_InstitutoEducativo.Models
 {
     public class Alumno : Persona
     {
+        public Alumno()
+        {
+            
+        }
+
         [Required(ErrorMessage = ErrorMsge.Required)]
         public bool Activo { get; set; }
 

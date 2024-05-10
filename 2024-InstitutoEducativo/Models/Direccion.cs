@@ -6,6 +6,11 @@ namespace _2024_InstitutoEducativo.Models
 {
     public class Direccion
     {
+        public Direccion()
+        {
+            
+        }
+
         [Key,ForeignKey("Persona")]
         public int Id { get; set; }
 

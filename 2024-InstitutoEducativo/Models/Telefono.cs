@@ -6,6 +6,11 @@ namespace _2024_InstitutoEducativo.Models
 {
     public class Telefono
     {
+        public Telefono()
+        {
+            
+        }
+
         [Key, ForeignKey("Telefono")]
         public int Id { get; set; }
 
