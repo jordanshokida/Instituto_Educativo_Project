@@ -1,4 +1,6 @@
-﻿namespace _2024_InstitutoEducativo.Helpers
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace _2024_InstitutoEducativo.Helpers
 {
     public static class Alias
     {
@@ -17,6 +19,11 @@
         public const string ProfesorId = "Profesor";
 
         public const string MateriaId = "Materia";
+
+        public const string AnioCursada = "Año de cursada";
+
+        public const string CupoMaximo = "Cupo máximo";
+
 
         public const int CupoMax = 10;
     }

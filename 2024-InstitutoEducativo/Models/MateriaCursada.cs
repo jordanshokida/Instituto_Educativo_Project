@@ -10,13 +10,14 @@ namespace _2024_InstitutoEducativo.Models
         public int Id { get; set; }
 
         [Required(ErrorMessage = ErrorMsge.Required)]
-        [StringLength(30, MinimumLength = 2, ErrorMessage = ErrorMsge.StringMaxMin)]
+        [StringLength(Restrictions.STRINGLENGTH_MAX, MinimumLength = Restrictions.STRINGLENGTH_MIN1, ErrorMessage = ErrorMsge.StringMaxMin)]
         public string Nombre { get; set; }
 
+        [Display(Name = Alias.AnioCursada)]
         public int AnioCursada { get; set; } = DateTime.Now.Year;
 
         [Required(ErrorMessage = ErrorMsge.Required)]
-        [StringLength(3, MinimumLength = 2, ErrorMessage = ErrorMsge.StringMaxMin)]
+        [StringLength(Restrictions.STRINGLENGTH_MIN2, MinimumLength = Restrictions.STRINGLENGTH_MIN, ErrorMessage = ErrorMsge.StringMaxMin)]
         public string Cuatrimestre { get; set; }
 
         public Materia Materia { get; set; }

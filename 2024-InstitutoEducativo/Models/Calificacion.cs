@@ -9,7 +9,7 @@ namespace _2024_InstitutoEducativo.Models
         
         [Required(ErrorMessage = ErrorMsge.NotaFinalRequerida)]
         [RegularExpression ("@[1-10]*", ErrorMessage = ErrorMsge.NotaFinalRango)]
-        public string NotaFinal { get; set; }
+        public int NotaFinal { get; set; }
 
         public int MateriaId { get; set; }
 

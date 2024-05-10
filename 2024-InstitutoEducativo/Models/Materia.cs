@@ -13,26 +13,26 @@ namespace _2024_InstitutoEducativo.Models
         [StringLength(30, MinimumLength = 2, ErrorMessage = ErrorMsge.StringMaxMin)]
         [Required(ErrorMessage = ErrorMsge.Required)]
         [RegularExpression("@[a-zA-Z áéíóú]*", ErrorMessage = ErrorMsge.OnlyAlphabet)]
-        [StringLength(30, MinimumLength = 2, ErrorMessage = ErrorMsge.StringMaxMin)]
+        [StringLength(Restrictions.STRINGLENGTH_MAX, MinimumLength = Restrictions.STRINGLENGTH_MIN1, ErrorMessage = ErrorMsge.StringMaxMin)]
 
         public string MateriaNombre { get; set; }
 
         [Required(ErrorMessage = ErrorMsge.Required)]
-        [Range(1, 1000000, ErrorMessage = ErrorMsge.IntMaxMin)]
+        [Range(Restrictions.RANGE_MIN, Restrictions.RANGE_MAX, ErrorMessage = ErrorMsge.IntMaxMin)]
 
         public int CodMateria { get; set; }
 
         [Required(ErrorMessage = ErrorMsge.Required)]
-        [StringLength(80, MinimumLength = 2, ErrorMessage = ErrorMsge.StringMaxMin)]
+        [StringLength(Restrictions.STRINGLENGTH_MAX3, MinimumLength = Restrictions.STRINGLENGTH_MIN1, ErrorMessage = ErrorMsge.StringMaxMin)]
 
 
         public string Descripcion { get; set; }
 
-
+        [Display(Name = Alias.CupoMaximo)]
         public int CupoMaximo { get; set; }
 
         [Required(ErrorMessage = ErrorMsge.Required)]
-        [Range(1, 1000000, ErrorMessage = ErrorMsge.IntMaxMin)]
+        [Range(Restrictions.RANGE_MIN, Restrictions.RANGE_MAX, ErrorMessage = ErrorMsge.IntMaxMin)]
         [Display(Name = Alias.MateriaId)]
 
         public int MateriaCursadaId { get; set; }
@@ -40,7 +40,7 @@ namespace _2024_InstitutoEducativo.Models
         public MateriaCursada MateriaCursada { get; set; }
 
         [Required(ErrorMessage = ErrorMsge.Required)]
-        [Range(1, 10, ErrorMessage = ErrorMsge.IntMaxMin)]
+        [Range(Restrictions.RANGE_MIN, Restrictions.RANGE_MAX1, ErrorMessage = ErrorMsge.IntMaxMin)]
 
         public Calificacion Calificacion { get; set; }
 

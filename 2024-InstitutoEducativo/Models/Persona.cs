@@ -10,12 +10,12 @@ namespace _2024_InstitutoEducativo.Models
 
         [Required(ErrorMessage = ErrorMsge.Required)]
         [RegularExpression("@[a-zA-Z áéíóú]*",ErrorMessage = ErrorMsge.OnlyAlphabet)]
-        [StringLength(30,MinimumLength =2,ErrorMessage = ErrorMsge.StringMaxMin)]
+        [StringLength(Restrictions.STRINGLENGTH_MAX, MinimumLength = Restrictions.STRINGLENGTH_MIN1, ErrorMessage = ErrorMsge.StringMaxMin)]
         public string Nombre { get; set; }
 
         [Required(ErrorMessage = ErrorMsge.Required)]
         [RegularExpression("@[a-zA-Z áéíóú]*", ErrorMessage = ErrorMsge.OnlyAlphabet)]
-        [StringLength(30, MinimumLength = 2, ErrorMessage = ErrorMsge.StringMaxMin)]
+        [StringLength(Restrictions.STRINGLENGTH_MAX, MinimumLength = Restrictions.STRINGLENGTH_MIN1, ErrorMessage = ErrorMsge.StringMaxMin)]
         public string Apellido { get; set;}
 
         [Required(ErrorMessage = ErrorMsge.Required)]

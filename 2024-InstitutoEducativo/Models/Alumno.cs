@@ -9,7 +9,7 @@ namespace _2024_InstitutoEducativo.Models
         public bool Activo { get; set; }
 
         [Required(ErrorMessage = ErrorMsge.Required)]
-        [Range(1,1000000,ErrorMessage = ErrorMsge.IntMaxMin)]
+        [Range(Restrictions.RANGE_MIN, Restrictions.RANGE_MAX,ErrorMessage = ErrorMsge.IntMaxMin)]
         [Display(Name = Alias.Matricula)]
         public int NumeroMatricula { get; set; }
 

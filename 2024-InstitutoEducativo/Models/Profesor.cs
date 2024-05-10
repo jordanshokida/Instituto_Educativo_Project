@@ -6,7 +6,7 @@ namespace _2024_InstitutoEducativo.Models
     public class Profesor: Persona
     {
         [Required(ErrorMessage = ErrorMsge.Required)]
-        [StringLength(30, MinimumLength = 2, ErrorMessage = ErrorMsge.StringMaxMin)]
+        [StringLength(Restrictions.STRINGLENGTH_MAX, MinimumLength = Restrictions.STRINGLENGTH_MIN1, ErrorMessage = ErrorMsge.StringMaxMin)]
         private String _legajo;
         public String Legajo {
             get { return _legajo.ToUpper();}

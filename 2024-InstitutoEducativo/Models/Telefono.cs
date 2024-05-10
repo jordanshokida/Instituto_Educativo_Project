@@ -11,12 +11,12 @@ namespace _2024_InstitutoEducativo.Models
 
         [Required(ErrorMessage = ErrorMsge.Required)]
         [RegularExpression("@[0-9]*", ErrorMessage = ErrorMsge.OnlyNumbers)]
-        [StringLength(5, MinimumLength = 2, ErrorMessage = ErrorMsge.StringMaxMin)]
+        [StringLength(Restrictions.STRINGLENGTH_MAX4, MinimumLength = Restrictions.STRINGLENGTH_MIN1, ErrorMessage = ErrorMsge.StringMaxMin)]
         public String CodArea { get; set; }
 
         [Required(ErrorMessage = ErrorMsge.Required)]
         [RegularExpression("@[0-9]*", ErrorMessage = ErrorMsge.OnlyNumbers)]
-        [StringLength(10, MinimumLength = 6, ErrorMessage = ErrorMsge.StringMaxMin)]
+        [StringLength(Restrictions.STRINGLENGTH_MAX2, MinimumLength = Restrictions.STRINGLENGTH_MIN3, ErrorMessage = ErrorMsge.StringMaxMin)]
         public string Numero { get; set;}
 
         public int PersonaId { get; set;}
