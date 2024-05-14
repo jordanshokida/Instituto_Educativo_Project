@@ -10,7 +10,19 @@ namespace _2024_InstitutoEducativo.Data
 
         }
 
-       
+        public InstitutoContext()
+        {
+
+        }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+        }
+
+
+
+
 
         public DbSet<Persona> Personas { get; set; }
         public DbSet<Alumno> Alumnos { get; set; }

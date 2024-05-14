@@ -10,16 +10,16 @@ namespace _2024_InstitutoEducativo.Models
             
         }
 
-        [Key]
+        
         public int Id { get; set; }
         
         [Required(ErrorMessage = ErrorMsge.NotaFinalRequerida)]
         [RegularExpression ("@[1-10]*", ErrorMessage = ErrorMsge.NotaFinalRango)]
         public int NotaFinal { get; set; }
 
-        public int MateriaId { get; set; }
+       //public int MateriaId { get; set; }
 
-        public Materia Materia { get; set; }
+        //public Materia Materia { get; set; }
 
         public int MateriaCursadaId { get; set; }
 

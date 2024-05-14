@@ -11,7 +11,6 @@ namespace _2024_InstitutoEducativo.Models
             
         }
 
-        [Key,ForeignKey("Persona")]
         public int Id { get; set; }
 
         public int PersonaId { get; set; }

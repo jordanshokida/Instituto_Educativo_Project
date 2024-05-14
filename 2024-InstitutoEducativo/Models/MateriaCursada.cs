@@ -11,8 +11,9 @@ namespace _2024_InstitutoEducativo.Models
             
         }
 
-        [Key, ForeignKey("Materia")]
+      
         public int Id { get; set; }
+
 
         [Required(ErrorMessage = ErrorMsge.Required)]
         [StringLength(Restrictions.STRINGLENGTH_MAX, MinimumLength = Restrictions.STRINGLENGTH_MIN1, ErrorMessage = ErrorMsge.StringMaxMin)]
@@ -25,21 +26,17 @@ namespace _2024_InstitutoEducativo.Models
         [StringLength(Restrictions.STRINGLENGTH_MIN2, MinimumLength = Restrictions.STRINGLENGTH_MIN, ErrorMessage = ErrorMsge.StringMaxMin)]
         public string Cuatrimestre { get; set; }
 
+        public int MateriaId { get; set; }
+
         public Materia Materia { get; set; }
 
-        [Key]
-        [Display(Name = Alias.ProfesorId)]
         public int ProfesorId { get; set; }
 
         public Profesor Profesor { get; set; }
 
-        [Key]
-        [Display(Name = Alias.AlumnoId)]
         public int AlumnoId { get; set; }
 
         public Alumno Alumno { get; set; }
-
-        public Calificacion Calificacion { get; set; }
 
         public List<Calificacion> Calificaciones { get; set; }  
     }

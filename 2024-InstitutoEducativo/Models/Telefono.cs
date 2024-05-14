@@ -11,7 +11,7 @@ namespace _2024_InstitutoEducativo.Models
             
         }
 
-        [Key, ForeignKey("Telefono")]
+       
         public int Id { get; set; }
 
         [Required(ErrorMessage = ErrorMsge.Required)]

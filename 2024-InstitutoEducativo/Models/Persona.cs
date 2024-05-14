@@ -11,7 +11,7 @@ namespace _2024_InstitutoEducativo.Models
             
         }
 
-        [Key]
+       
         public int Id { get; set; }
 
         [Required(ErrorMessage = ErrorMsge.Required)]
@@ -29,7 +29,7 @@ namespace _2024_InstitutoEducativo.Models
         [EmailAddress(ErrorMessage = ErrorMsge.NotValid)]
         public string Email { get; set;}
         
-        public Telefono Telefono { get; set;}
+        
 
         public List<Telefono> Telefonos { get; set;}
 
@@ -41,11 +41,11 @@ namespace _2024_InstitutoEducativo.Models
         [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MM/yyyy HH:mm}")]
         public DateTime FechaAlta { get; set; } = DateTime.Now.Date;
 
-        [Required(ErrorMessage = ErrorMsge.Required)]
-        [Display(Name = Alias.Contrasenia)]
-        [DataType(DataType.Password)]
-        public String Password { get; set;}
-        [Required(ErrorMessage = ErrorMsge.Required)]
+        //[Required(ErrorMessage = ErrorMsge.Required)]
+        //[Display(Name = Alias.Contrasenia)]
+        //[DataType(DataType.Password)]
+        //public String Password { get; set;}
+        //[Required(ErrorMessage = ErrorMsge.Required)]
 
         [RegularExpression(@"^[0-9]{8}$", ErrorMessage= ErrorMsge.DniFormat)]
         [Display(Name = Alias.PersonaDocumento)]

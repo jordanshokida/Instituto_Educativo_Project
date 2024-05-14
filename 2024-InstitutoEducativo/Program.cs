@@ -6,6 +6,7 @@ namespace _2024_InstitutoEducativo
         {
             var app = Startup.InicializarApp(args);//Pasamos los argumentos que son recibidos en la ejecución
 
+
             app.Run();
         }
     }
