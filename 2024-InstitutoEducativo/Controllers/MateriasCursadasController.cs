@@ -10,11 +10,11 @@ using _2024_InstitutoEducativo.Models;
 
 namespace _2024_InstitutoEducativo.Controllers
 {
-    public class MateriaCursadasController : Controller
+    public class MateriasCursadasController : Controller
     {
         private readonly InstitutoContext _context;
 
-        public MateriaCursadasController(InstitutoContext context)
+        public MateriasCursadasController(InstitutoContext context)
         {
             _context = context;
         }
