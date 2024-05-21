@@ -18,6 +18,33 @@ namespace _2024_InstitutoEducativo.Data
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
+
+            modelBuilder.Entity<Alumno>()
+                .HasOne(a => a.Carrera)
+                .WithMany(c => c.Alumnos)
+                .HasForeignKey(a => a.CarreraId);
+
+            modelBuilder.Entity<Carrera>()
+            .HasMany(c => c.Materias)
+            .WithOne(m => m.Carrera)
+            .HasForeignKey(m => m.CarreraId);
+
+            modelBuilder.Entity<Calificacion>()
+            .HasOne(c => c.MateriaCursada)
+            .WithMany(mc => mc.Calificaciones)
+            .HasForeignKey(c => c.MateriaCursadaId);
+
+            modelBuilder.Entity<Calificacion>()
+            .HasOne(c => c.Profesor)
+            .WithMany(p => p.CalificacionesRealizadas)
+            .HasForeignKey(c => c.ProfesorId);
+
+            modelBuilder.Entity<Calificacion>()
+            .HasOne(c => c.Alumno)
+            .WithMany(a => a.Calificaciones)
+            .HasForeignKey(c => c.AlumnoId);
+
+            
         }
 
 

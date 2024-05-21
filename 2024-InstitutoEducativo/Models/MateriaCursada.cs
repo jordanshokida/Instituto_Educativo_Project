@@ -26,14 +26,15 @@ namespace _2024_InstitutoEducativo.Models
         [StringLength(Restrictions.STRINGLENGTH_MIN2, MinimumLength = Restrictions.STRINGLENGTH_MIN, ErrorMessage = ErrorMsge.StringMaxMin)]
         public string Cuatrimestre { get; set; }
 
+      
         public int MateriaId { get; set; }
 
         public Materia Materia { get; set; }
-
+        
         public int ProfesorId { get; set; }
 
         public Profesor Profesor { get; set; }
-
+       
         public int AlumnoId { get; set; }
 
         public Alumno Alumno { get; set; }
