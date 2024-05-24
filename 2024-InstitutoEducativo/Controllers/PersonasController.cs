@@ -28,7 +28,7 @@ namespace _2024_InstitutoEducativo.Controllers
         // GET: Personas/Details/5
         public async Task<IActionResult> Details(int? id)
         {
-            if (id == null)
+            if (id == null || _context.Personas == null)
             {
                 return NotFound();
             }
