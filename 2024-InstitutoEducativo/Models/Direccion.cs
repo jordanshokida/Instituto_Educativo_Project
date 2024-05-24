@@ -28,19 +28,19 @@ namespace _2024_InstitutoEducativo.Models
         public int Numero { get; set; }
 
         [Required(ErrorMessage = ErrorMsge.Required)]
-        [RegularExpression("@[a-zA-Z áéíóú]*", ErrorMessage = ErrorMsge.OnlyAlphabet)]
+        [RegularExpression(@"[a-zA-Z áéíóú]*", ErrorMessage = ErrorMsge.OnlyAlphabet)]
         [StringLength(Restrictions.STRINGLENGTH_MAX, MinimumLength =  Restrictions.STRINGLENGTH_MIN1, ErrorMessage = ErrorMsge.StringMaxMin)]
 
         public string Localidad { get; set; }
 
         [Required(ErrorMessage = ErrorMsge.Required)]
-        [RegularExpression("@[a-zA-Z áéíóú]*", ErrorMessage = ErrorMsge.OnlyAlphabet)]
+        [RegularExpression(@"[a-zA-Z áéíóú]*", ErrorMessage = ErrorMsge.OnlyAlphabet)]
         [StringLength(Restrictions.STRINGLENGTH_MAX, MinimumLength = Restrictions.STRINGLENGTH_MIN1, ErrorMessage = ErrorMsge.StringMaxMin)]
 
         public string Provincia { get; set; }
 
         [Required(ErrorMessage = ErrorMsge.Required)]
-        [RegularExpression("@[a-zA-Z áéíóú]*", ErrorMessage = ErrorMsge.OnlyAlphabet)]
+        [RegularExpression(@"[a-zA-Z áéíóú]*", ErrorMessage = ErrorMsge.OnlyAlphabet)]
         [StringLength(Restrictions.STRINGLENGTH_MAX, MinimumLength = Restrictions.STRINGLENGTH_MIN1, ErrorMessage = ErrorMsge.StringMaxMin)]
 
         public string Pais { get; set; }

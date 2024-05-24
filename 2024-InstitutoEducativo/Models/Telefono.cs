@@ -15,12 +15,12 @@ namespace _2024_InstitutoEducativo.Models
         public int Id { get; set; }
 
         [Required(ErrorMessage = ErrorMsge.Required)]
-        [RegularExpression("@[0-9]*", ErrorMessage = ErrorMsge.OnlyNumbers)]
+        [RegularExpression(@"[0-9]*", ErrorMessage = ErrorMsge.OnlyNumbers)]
         [StringLength(Restrictions.STRINGLENGTH_MAX4, MinimumLength = Restrictions.STRINGLENGTH_MIN1, ErrorMessage = ErrorMsge.StringMaxMin)]
         public String CodArea { get; set; }
 
         [Required(ErrorMessage = ErrorMsge.Required)]
-        [RegularExpression("@[0-9]*", ErrorMessage = ErrorMsge.OnlyNumbers)]
+        [RegularExpression(@"[0-9]*", ErrorMessage = ErrorMsge.OnlyNumbers)]
         [StringLength(Restrictions.STRINGLENGTH_MAX2, MinimumLength = Restrictions.STRINGLENGTH_MIN3, ErrorMessage = ErrorMsge.StringMaxMin)]
         public string Numero { get; set;}
 
