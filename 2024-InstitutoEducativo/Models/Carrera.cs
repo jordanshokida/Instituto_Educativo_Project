@@ -15,7 +15,7 @@ namespace _2024_InstitutoEducativo.Models
         public int Id { get; set; }
 
         [Required (ErrorMessage = ErrorMsge.Required)]
-        [RegularExpression("@[a-zA-Z áéíóú 1-10]*", ErrorMessage = ErrorMsge.NotValid)]
+        [RegularExpression(@"[a-zA-Z áéíóú 1-10]*", ErrorMessage = ErrorMsge.NotValid)]
         [StringLength(Restrictions.STRINGLENGTH_MAX5, MinimumLength = Restrictions.STRINGLENGTH_MIN, ErrorMessage = ErrorMsge.StringMaxMin)]
         public string Nombre { get; set; }
 
