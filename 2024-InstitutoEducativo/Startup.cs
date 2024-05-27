@@ -17,7 +17,9 @@ namespace _2024_InstitutoEducativo
 
         private static void ConfigureServices(WebApplicationBuilder builder)
         {
-            builder.Services.AddDbContext<InstitutoContext>(options => options.UseInMemoryDatabase("InstitutoDb"));
+            //builder.Services.AddDbContext<InstitutoContext>(options => options.UseInMemoryDatabase("InstitutoDb"));
+            builder.Services.AddDbContext<InstitutoContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("InstitutoDB")));
+
             // Add services to the container.
             builder.Services.AddControllersWithViews();
         }
