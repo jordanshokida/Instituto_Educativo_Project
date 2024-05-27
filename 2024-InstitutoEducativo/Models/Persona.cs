@@ -33,7 +33,7 @@ namespace _2024_InstitutoEducativo.Models
 
         public List<Telefono> Telefonos { get; set;}
 
-        public Direccion Direccion { get; set; }
+        public Direccion? Direccion { get; set; }
 
         [Required(ErrorMessage = ErrorMsge.Required)]
         [Display(Name = Alias.FechaAlta)]

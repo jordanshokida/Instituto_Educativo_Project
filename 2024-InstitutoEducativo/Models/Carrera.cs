@@ -19,11 +19,11 @@ namespace _2024_InstitutoEducativo.Models
         [StringLength(Restrictions.STRINGLENGTH_MAX5, MinimumLength = Restrictions.STRINGLENGTH_MIN, ErrorMessage = ErrorMsge.StringMaxMin)]
         public string Nombre { get; set; }
 
-        public Materia Materia { get; set; }
+        //public Materia Materia { get; set; }
 
         public List<Materia> Materias { get; set; }
 
-        public Alumno Alumno { get; set; } 
+        //public Alumno Alumno { get; set; } 
         
         public List<Alumno> Alumnos { get; set; }
     }
