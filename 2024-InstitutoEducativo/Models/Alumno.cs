@@ -19,7 +19,6 @@ namespace _2024_InstitutoEducativo.Models
         public int NumeroMatricula { get; set; }
 
         
-
         public List<MateriaCursada> MateriasCursadas { get; set; }
 
         public int CarreraId { get; set; }
