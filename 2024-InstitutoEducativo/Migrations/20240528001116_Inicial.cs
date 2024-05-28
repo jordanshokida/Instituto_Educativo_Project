@@ -73,7 +73,7 @@ namespace _2024_InstitutoEducativo.Migrations
                         column: x => x.CarreraId,
                         principalTable: "Carreras",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
