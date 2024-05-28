@@ -17,6 +17,7 @@ namespace _2024_InstitutoEducativo.Controllers
         }
         public IActionResult Index()
         {
+            AddDirecciones();
             return View();
         }
 
