@@ -12,7 +12,7 @@ using _2024_InstitutoEducativo.Data;
 namespace _2024_InstitutoEducativo.Migrations
 {
     [DbContext(typeof(InstitutoContext))]
-    [Migration("20240527235157_Inicial")]
+    [Migration("20240528001116_Inicial")]
     partial class Inicial
     {
         /// <inheritdoc />

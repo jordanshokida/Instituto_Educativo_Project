@@ -121,19 +121,19 @@ namespace _2024_InstitutoEducativo.Migrations
                         column: x => x.MateriaId,
                         principalTable: "Materias",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_MateriasCursadas_Personas_AlumnoId",
                         column: x => x.AlumnoId,
                         principalTable: "Personas",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_MateriasCursadas_Personas_ProfesorId",
                         column: x => x.ProfesorId,
                         principalTable: "Personas",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -177,7 +177,7 @@ namespace _2024_InstitutoEducativo.Migrations
                         column: x => x.MateriaCursadaId,
                         principalTable: "MateriasCursadas",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_Calificaciones_Materias_MateriaId",
                         column: x => x.MateriaId,
@@ -188,13 +188,13 @@ namespace _2024_InstitutoEducativo.Migrations
                         column: x => x.AlumnoId,
                         principalTable: "Personas",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_Calificaciones_Personas_ProfesorId",
                         column: x => x.ProfesorId,
                         principalTable: "Personas",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateIndex(
