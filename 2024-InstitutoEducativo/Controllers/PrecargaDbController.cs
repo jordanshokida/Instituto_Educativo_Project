@@ -2,21 +2,39 @@
 using _2024_InstitutoEducativo.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace _2024_InstitutoEducativo.Controllers
 {
     public class PrecargaDbController : Controller
     {
         private readonly InstitutoContext _context;
+        private readonly UserManager<Persona> _userManager;
+        private readonly RoleManager<IdentityRole> _rolmanager;
 
+        public PrecargaDbController(InstitutoContext context, UserManager<Persona> userManager, RoleManager<IdentityRole> rolmanager)
+        {
+
+            this._context = context;
+            this._userManager = userManager;
+            this._rolmanager = rolmanager;
+        }
 
         public PrecargaDbController(InstitutoContext context)
         {
 
             this._context = context;
         }
-        public IActionResult Index()
+
+        public IActionResult Seed()
         {
+            //Delete Database 
+            _context.Database.EnsureDeleted();
+            _context.Database.Migrate();
+            //Re-createDatabase
+            //AddRoles
+            //Agregas todo lo demas en orden de dependica. 
+
             AddDirecciones();
             return View();
         }
