@@ -19,14 +19,14 @@ namespace _2024_InstitutoEducativo.Controllers
             _context = context;
         }
 
-        // GET: Calificacions
+        // GET: Calificaciones
         public async Task<IActionResult> Index()
         {
             var institutoContext = _context.Calificaciones.Include(c => c.Alumno).Include(c => c.MateriaCursada).Include(c => c.Profesor);
             return View(await institutoContext.ToListAsync());
         }
 
-        // GET: Calificacions/Details/5
+        // GET: Calificaciones/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -47,7 +47,7 @@ namespace _2024_InstitutoEducativo.Controllers
             return View(calificacion);
         }
 
-        // GET: Calificacions/Create
+        // GET: Calificaciones/Create
         public IActionResult Create()
         {
             ViewData["AlumnoId"] = new SelectList(_context.Alumnos, "Id", "Apellido");
@@ -56,7 +56,7 @@ namespace _2024_InstitutoEducativo.Controllers
             return View();
         }
 
-        // POST: Calificacions/Create
+        // POST: Calificaciones/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
@@ -75,7 +75,7 @@ namespace _2024_InstitutoEducativo.Controllers
             return View(calificacion);
         }
 
-        // GET: Calificacions/Edit/5
+        // GET: Calificaciones/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -94,7 +94,7 @@ namespace _2024_InstitutoEducativo.Controllers
             return View(calificacion);
         }
 
-        // POST: Calificacions/Edit/5
+        // POST: Calificaciones/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
@@ -132,7 +132,7 @@ namespace _2024_InstitutoEducativo.Controllers
             return View(calificacion);
         }
 
-        // GET: Calificacions/Delete/5
+        // GET: Calificaciones/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -153,7 +153,7 @@ namespace _2024_InstitutoEducativo.Controllers
             return View(calificacion);
         }
 
-        // POST: Calificacions/Delete/5
+        // POST: Calificaciones/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)

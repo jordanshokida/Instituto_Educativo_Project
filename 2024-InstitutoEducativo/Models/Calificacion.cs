@@ -14,7 +14,7 @@ namespace _2024_InstitutoEducativo.Models
         public int Id { get; set; }
         
         [Required(ErrorMessage = ErrorMsge.NotaFinalRequerida)]
-        [RegularExpression (@"[1-10]*", ErrorMessage = ErrorMsge.NotaFinalRango)]
+        [Range (1,10, ErrorMessage = ErrorMsge.NotaFinalRango)]
         public int NotaFinal { get; set; }
 
        //public int MateriaId { get; set; }
