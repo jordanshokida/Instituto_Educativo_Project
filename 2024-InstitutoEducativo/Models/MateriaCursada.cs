@@ -17,6 +17,7 @@ namespace _2024_InstitutoEducativo.Models
 
         [Required(ErrorMessage = ErrorMsge.Required)]
         [StringLength(Restrictions.STRINGLENGTH_MAX, MinimumLength = Restrictions.STRINGLENGTH_MIN1, ErrorMessage = ErrorMsge.StringMaxMin)]
+        [Display(Name = Alias.MateriaCursada)]
         public string Nombre { get; set; }
 
         [Display(Name = Alias.AnioCursada)]

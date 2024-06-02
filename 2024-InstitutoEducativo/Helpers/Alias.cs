@@ -34,6 +34,8 @@ namespace _2024_InstitutoEducativo.Helpers
 
         public const string CodArea = "Código de área";
 
+        public const string MateriaCursada = "Materia cursada";
+         
         public const int CupoMax = 10;
     }
 }
