@@ -15,6 +15,7 @@ namespace _2024_InstitutoEducativo.Models
         
         [Required(ErrorMessage = ErrorMsge.NotaFinalRequerida)]
         [Range (1,10, ErrorMessage = ErrorMsge.NotaFinalRango)]
+        [Display(Name = Alias.NotaFinal)]
         public int NotaFinal { get; set; }
 
        //public int MateriaId { get; set; }

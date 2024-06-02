@@ -17,10 +17,12 @@ namespace _2024_InstitutoEducativo.Models
         [Required(ErrorMessage = ErrorMsge.Required)]
         [RegularExpression(@"[a-zA-Z áéíóú]*", ErrorMessage = ErrorMsge.OnlyAlphabet)]
         [StringLength(Restrictions.STRINGLENGTH_MAX, MinimumLength = Restrictions.STRINGLENGTH_MIN1, ErrorMessage = ErrorMsge.StringMaxMin)]
+        [Display(Name = Alias.MateriaNombre)]
         public string MateriaNombre { get; set; }
 
         [Required(ErrorMessage = ErrorMsge.Required)]
         [Range(Restrictions.RANGE_MIN, Restrictions.RANGE_MAX, ErrorMessage = ErrorMsge.IntMaxMin)]
+        [Display(Name = Alias.CodMateria)]
         public int CodMateria { get; set; }
 
         [Required(ErrorMessage = ErrorMsge.Required)]

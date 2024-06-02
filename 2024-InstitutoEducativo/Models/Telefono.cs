@@ -17,6 +17,7 @@ namespace _2024_InstitutoEducativo.Models
         [Required(ErrorMessage = ErrorMsge.Required)]
         [RegularExpression(@"[0-9]*", ErrorMessage = ErrorMsge.OnlyNumbers)]
         [StringLength(Restrictions.STRINGLENGTH_MAX4, MinimumLength = Restrictions.STRINGLENGTH_MIN1, ErrorMessage = ErrorMsge.StringMaxMin)]
+        [Display(Name = Alias.CodArea)]
         public String CodArea { get; set; }
 
         [Required(ErrorMessage = ErrorMsge.Required)]

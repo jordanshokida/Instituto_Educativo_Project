@@ -22,8 +22,17 @@ namespace _2024_InstitutoEducativo.Helpers
 
         public const string AnioCursada = "Año de cursada";
 
+        public const string NotaFinal = "Nota final";
+
         public const string CupoMaximo = "Cupo máximo";
 
+        public const string Carrera = "Nombre de la carrera";
+
+        public const string MateriaNombre = "Nombre de la materia";
+
+        public const string CodMateria = "Código de materia";
+
+        public const string CodArea = "Código de área";
 
         public const int CupoMax = 10;
     }

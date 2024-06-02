@@ -6,13 +6,13 @@
     <title>@ViewData["Title"] - _2024_InstitutoEducativo</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/_2024_InstitutoEducativo.styles.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/MisEstilos.css" asp-append-version="true" />
 </head>
 <body>
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
             <div class="container-fluid">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">_2024_InstitutoEducativo</a>
+                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index"></a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -20,44 +20,41 @@
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1">
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                            <a class="nav-link text-light" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                            <a class="nav-link text-light" asp-area="" asp-controller="Alumnos" asp-action="Index">Alumnos</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Alumnos" asp-action="Index">Alumnos</a>
+                            <a class="nav-link text-light" asp-area="" asp-controller="Calificaciones" asp-action="Index">Calificaciones</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Calificaciones" asp-action="Index">Calificaciones</a>
+                            <a class="nav-link text-light" asp-area="" asp-controller="Carreras" asp-action="Index">Carreras</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Carreras" asp-action="Index">Carreras</a>
+                            <a class="nav-link text-light" asp-area="" asp-controller="Direcciones" asp-action="Index">Direcciones</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Direcciones" asp-action="Index">Direcciones</a>
+                            <a class="nav-link text-light" asp-area="" asp-controller="Empleados" asp-action="Index">Empleados</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Empleados" asp-action="Index">Empleados</a>
+                            <a class="nav-link text-light" asp-area="" asp-controller="Materias" asp-action="Index">Materias</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Materias" asp-action="Index">Materias</a>
+                            <a class="nav-link text-light" asp-area="" asp-controller="MateriasCursadas" asp-action="Index">MateriasCursadas</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="MateriasCursadas" asp-action="Index">MateriasCursadas</a>
+                            <a class="nav-link text-light" asp-area="" asp-controller="Profesores" asp-action="Index">Profesores</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Profesores" asp-action="Index">Profesores</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Telefonos" asp-action="Index">Telefonos</a>
+                            <a class="nav-link text-light" asp-area="" asp-controller="Telefonos" asp-action="Index">Telefonos</a>
                         </li>
                     </ul>
                 </div>
             </div>
         </nav>
     </header>
-    <div class="container">
+    <div class="container-view">
         <main role="main" class="pb-3">
             @RenderBody()
         </main>
@@ -65,10 +62,10 @@
 
 
     <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; 2024 - Instituto Tecnologico Argentino - <a asp-controller="PrecargaDb" asp-action="seed">Precarga</a>|<a asp-controller="PrecargaDb" asp-action="Recreate" class="badge bg-danger">Recreate</a>
+        <div class="container text-light">
+            &copy; 2024 - Instituto Tecnológico Del Futuro - <a asp-controller="PrecargaDb" asp-action="seed">Precarga</a>|<a asp-controller="PrecargaDb" asp-action="Recreate" class="badge bg-danger">Recreate</a>
         </div>
-        <div class="container">
+        <div class="container text-light">
             <p>Proyecto de Programación en Nuevas Tecnologías 1 - Instituto de Tecnología de Educación Superior ORT Argentina</p>
         </div>
     </footer>
