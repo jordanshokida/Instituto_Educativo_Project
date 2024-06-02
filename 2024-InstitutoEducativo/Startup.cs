@@ -1,4 +1,6 @@
 ﻿using _2024_InstitutoEducativo.Data;
+using _2024_InstitutoEducativo.Models;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
 namespace _2024_InstitutoEducativo
@@ -18,7 +20,33 @@ namespace _2024_InstitutoEducativo
         private static void ConfigureServices(WebApplicationBuilder builder)
         {
             //builder.Services.AddDbContext<InstitutoContext>(options => options.UseInMemoryDatabase("InstitutoDb"));
+            
             builder.Services.AddDbContext<InstitutoContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("InstitutoDB")));
+            #region Identity
+            builder.Services.AddIdentity<Persona, Rol>().AddEntityFrameworkStores<InstitutoContext>();
+            builder.Services.Configure<IdentityOptions>(opciones =>
+           {
+               opciones.Password.RequireNonAlphanumeric = false;
+               opciones.Password.RequireLowercase = false;
+               opciones.Password.RequireUppercase = false;
+               opciones.Password.RequireDigit = false;
+               opciones.Password.RequiredLength = 5;
+            }
+            );
+
+            //Password por defecto en pre-carga = Password1!
+
+            //CVonfiguraciones por defecto para password:
+            /*
+             * opciones.Password.RequireNonAlphanumeric = true;
+               opciones.Password.RequireLowercase = true;
+               opciones.Password.RequireUppercase = true;
+               opciones.Password.RequireDigit = true;
+               opciones.Password.RequiredLength = 6;
+             */
+
+
+            #endregion
 
             // Add services to the container.
             builder.Services.AddControllersWithViews();
@@ -37,6 +65,8 @@ namespace _2024_InstitutoEducativo
             app.UseStaticFiles();
 
             app.UseRouting();
+
+            app.UseAuthentication();
 
             app.UseAuthorization();
 

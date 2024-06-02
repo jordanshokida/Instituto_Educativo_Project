@@ -1,9 +1,11 @@
 ﻿using _2024_InstitutoEducativo.Models;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace _2024_InstitutoEducativo.Data
 {
-    public class InstitutoContext : DbContext
+    public class InstitutoContext : IdentityDbContext<IdentityUser<int>,IdentityRole<int>,int>
     {
         public InstitutoContext(DbContextOptions options) : base(options)
         {
@@ -44,7 +46,16 @@ namespace _2024_InstitutoEducativo.Data
             //.WithMany(a => a.Calificaciones)
             //.HasForeignKey(c => c.AlumnoId);
 
-            
+            #region Establecer nombres para los Identity Stores
+
+            modelBuilder.Entity<IdentityUser<int>>().ToTable("Personas"); //resuelve la utilización de ASPNETUSERS
+
+            modelBuilder.Entity<IdentityRole<int>>().ToTable("Roles"); //resuelve la utilización de ASPNETROLES
+
+            modelBuilder.Entity<IdentityUserRole<int>>().ToTable("PersonasRoles");
+
+            #endregion
+
         }
 
 
@@ -62,7 +73,7 @@ namespace _2024_InstitutoEducativo.Data
         public DbSet<Profesor> Profesores { get; set; }
         public DbSet<Telefono> Telefonos { get; set; }
 
-
+        public DbSet<Rol> Roles {  get; set; }
 
 
 

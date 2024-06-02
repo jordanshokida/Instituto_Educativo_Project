@@ -1,9 +1,10 @@
 ﻿using _2024_InstitutoEducativo.Helpers;
+using Microsoft.AspNetCore.Identity;
 using System.ComponentModel.DataAnnotations;
 
 namespace _2024_InstitutoEducativo.Models
 {
-    public class Persona
+    public class Persona : IdentityUser<int>
 
     {
         public Persona()
@@ -12,7 +13,7 @@ namespace _2024_InstitutoEducativo.Models
         }
 
        
-        public int Id { get; set; }
+        //public int Id { get; set; }
 
         [Required(ErrorMessage = ErrorMsge.Required)]
         [RegularExpression(@"[a-zA-Z áéíóú]*", ErrorMessage = ErrorMsge.OnlyAlphabet)]
@@ -27,7 +28,10 @@ namespace _2024_InstitutoEducativo.Models
         [Required(ErrorMessage = ErrorMsge.Required)]
         [Display(Name = Alias.CorreoElectronico)]
         [EmailAddress(ErrorMessage = ErrorMsge.NotValid)]
-        public string Email { get; set;}
+        public override string Email {
+            get {  return base.Email; }
+            set { base.Email = value; }
+        }
         
         
 
