@@ -54,10 +54,11 @@ namespace _2024_InstitutoEducativo.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Nombre,Apellido,Email,FechaAlta,Dni")] Persona persona)
+        public async Task<IActionResult> Create([Bind("Id,Nombre,Apellido,Email,Dni")] Persona persona)
         {
             if (ModelState.IsValid)
             {
+                persona.FechaAlta = DateTime.Now;
                 _context.Add(persona);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
@@ -86,7 +87,7 @@ namespace _2024_InstitutoEducativo.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Nombre,Apellido,Email,FechaAlta,Dni")] Persona persona)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Nombre,Apellido,Email,Dni")] Persona persona)
         {
             if (id != persona.Id)
             {

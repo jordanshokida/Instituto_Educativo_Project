@@ -57,7 +57,7 @@ namespace _2024_InstitutoEducativo.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Activo,NumeroMatricula,CarreraId,Id,Nombre,Apellido,Email,FechaAlta,Dni")] Alumno alumno)
+        public async Task<IActionResult> Create([Bind("Activo,NumeroMatricula,CarreraId,Id,Nombre,Apellido,Email,Dni")] Alumno alumno)
         {
             if (ModelState.IsValid)
             {
@@ -91,7 +91,7 @@ namespace _2024_InstitutoEducativo.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Activo,NumeroMatricula,CarreraId,Id,Nombre,Apellido,Email,FechaAlta,Dni")] Alumno alumno)
+        public async Task<IActionResult> Edit(int id, [Bind("Activo,NumeroMatricula,CarreraId,Id,Nombre,Apellido,Email,Dni")] Alumno alumno)
         {
             if (id != alumno.Id)
             {

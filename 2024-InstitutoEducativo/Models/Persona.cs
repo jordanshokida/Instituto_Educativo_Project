@@ -39,7 +39,7 @@ namespace _2024_InstitutoEducativo.Models
 
         public Direccion? Direccion { get; set; }
 
-        [Required(ErrorMessage = ErrorMsge.Required)]
+        
         [Display(Name = Alias.FechaAlta)]
         [DataType(DataType.DateTime)]
         [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MM/yyyy HH:mm}")]
