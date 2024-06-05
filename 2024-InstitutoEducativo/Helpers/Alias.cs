@@ -12,6 +12,8 @@ namespace _2024_InstitutoEducativo.Helpers
 
         public const string Contrasenia = "Contraseña";
 
+        public const string ConfirmContrasenia = "Confirmación Contraseña";
+
         public const string Matricula = "Número de matrícula";
 
         public const string AlumnoId = "Alumno";

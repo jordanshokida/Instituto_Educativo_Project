@@ -91,9 +91,9 @@ namespace _2024_InstitutoEducativo.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Activo,NumeroMatricula,CarreraId,Id,Nombre,Apellido,Email,Dni")] Alumno alumno)
+        public async Task<IActionResult> Edit(int id, [Bind("Activo,NumeroMatricula,CarreraId,Id,Nombre,Apellido,Email,Dni")] Alumno alumnoDelForm)
         {
-            if (id != alumno.Id)
+            if (id != alumnoDelForm.Id)
             {
                 return NotFound();
             }
@@ -101,13 +101,36 @@ namespace _2024_InstitutoEducativo.Controllers
             if (ModelState.IsValid)
             {
                 try
+
                 {
-                    _context.Update(alumno);
+
+                    var alumnoEnDb = _context.Alumnos.Find(alumnoDelForm.Id);
+                    if (alumnoEnDb == null)
+                    {
+                        return NotFound();
+                    }
+
+                    alumnoEnDb.Activo= alumnoDelForm.Activo;
+                    alumnoEnDb.NumeroMatricula = alumnoDelForm.NumeroMatricula;
+                    alumnoEnDb.CarreraId = alumnoDelForm.CarreraId;
+                    alumnoEnDb.Id = alumnoDelForm.Id;
+                    alumnoEnDb.Nombre = alumnoDelForm.Nombre;
+                    alumnoEnDb.Apellido = alumnoDelForm.Apellido;
+                    alumnoEnDb.Dni = alumnoDelForm.Dni;
+                    alumnoEnDb.Activo = alumnoDelForm.Activo;
+
+                    if(!ActualizarEmail(alumnoDelForm, alumnoEnDb))
+                    {
+                        ModelState.AddModelError("Email", "El mail ya está en uso");
+                        return View(alumnoDelForm);
+                    }
+
+                    _context.Update(alumnoDelForm);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!AlumnoExists(alumno.Id))
+                    if (!AlumnoExists(alumnoDelForm.Id))
                     {
                         return NotFound();
                     }
@@ -118,8 +141,48 @@ namespace _2024_InstitutoEducativo.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["CarreraId"] = new SelectList(_context.Carreras, "Id", "Nombre", alumno.CarreraId);
-            return View(alumno);
+            ViewData["CarreraId"] = new SelectList(_context.Carreras, "Id", "Nombre", alumnoDelForm.CarreraId);
+            return View(alumnoDelForm);
+        }
+
+        private bool ActualizarEmail(Alumno alumnoForm, Alumno alumnoDb)
+        {
+            bool resultado = true;
+            try
+            {
+                if (!alumnoDb.NormalizedEmail.Equals(alumnoForm.Email.ToUpper()))
+                {
+                    //si no son iguales - tengo que procesar
+                    //verifico si ya existe el email
+                    if (ExistEmail(alumnoForm.Email))
+                    {
+                        //si existe, no puede ser actualizado
+                        resultado = false;
+                    }
+                    else
+                    {
+                        //como no existe, puedo actualizar
+                        alumnoDb.Email = alumnoForm.Email;
+                        alumnoDb.NormalizedEmail = alumnoForm.Email.ToUpper();
+                        alumnoDb.UserName = alumnoForm.Email;
+                        alumnoDb.NormalizedUserName = alumnoForm.NormalizedEmail;
+                    }
+                }
+                else
+                {
+                    //son iguales, No actualicé pero está actualizado
+                }
+            }
+            catch
+            { 
+                resultado = false;
+            }
+            return resultado;
+        }
+
+        private bool ExistEmail(string email)
+        {
+            return _context.Personas.Any(p=>p.NormalizedEmail == email.ToUpper());
         }
 
         // GET: Alumnos/Delete/5

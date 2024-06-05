@@ -22,5 +22,7 @@
 
         public const string OnlyNumbers = "Sólo se admiten numeros";
 
+        public const string PassMissmatch = "La constraseña no coincide";
+
     }
 }

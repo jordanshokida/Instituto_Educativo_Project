@@ -274,7 +274,7 @@ namespace _2024_InstitutoEducativo.Migrations
 
                     b.HasIndex("ProfesorId");
 
-                    b.ToTable("Calificaciones");
+                    b.ToTable("Calificaciones", (string)null);
                 });
 
             modelBuilder.Entity("_2024_InstitutoEducativo.Models.Carrera", b =>
@@ -292,7 +292,7 @@ namespace _2024_InstitutoEducativo.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Carreras");
+                    b.ToTable("Carreras", (string)null);
                 });
 
             modelBuilder.Entity("_2024_InstitutoEducativo.Models.Direccion", b =>
@@ -334,7 +334,7 @@ namespace _2024_InstitutoEducativo.Migrations
                     b.HasIndex("PersonaId")
                         .IsUnique();
 
-                    b.ToTable("Direcciones");
+                    b.ToTable("Direcciones", (string)null);
                 });
 
             modelBuilder.Entity("_2024_InstitutoEducativo.Models.Materia", b =>
@@ -368,7 +368,7 @@ namespace _2024_InstitutoEducativo.Migrations
 
                     b.HasIndex("CarreraId");
 
-                    b.ToTable("Materias");
+                    b.ToTable("Materias", (string)null);
                 });
 
             modelBuilder.Entity("_2024_InstitutoEducativo.Models.MateriaCursada", b =>
@@ -410,7 +410,7 @@ namespace _2024_InstitutoEducativo.Migrations
 
                     b.HasIndex("ProfesorId");
 
-                    b.ToTable("MateriasCursadas");
+                    b.ToTable("MateriasCursadas", (string)null);
                 });
 
             modelBuilder.Entity("_2024_InstitutoEducativo.Models.Telefono", b =>
@@ -438,7 +438,7 @@ namespace _2024_InstitutoEducativo.Migrations
 
                     b.HasIndex("PersonaId");
 
-                    b.ToTable("Telefonos");
+                    b.ToTable("Telefonos", (string)null);
                 });
 
             modelBuilder.Entity("_2024_InstitutoEducativo.Models.Rol", b =>
@@ -506,7 +506,7 @@ namespace _2024_InstitutoEducativo.Migrations
                     b.Property<string>("Legajo")
                         .HasColumnType("nvarchar(max)");
 
-                    b.ToTable("Personas", t =>
+                    b.ToTable("Personas", null, t =>
                         {
                             t.Property("Legajo")
                                 .HasColumnName("Profesor_Legajo");
