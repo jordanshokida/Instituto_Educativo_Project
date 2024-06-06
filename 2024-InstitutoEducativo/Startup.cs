@@ -61,7 +61,14 @@ namespace _2024_InstitutoEducativo
                 app.UseHsts();
             }
 
-            app.UseHttpsRedirection();
+            using (var serviceScope = app.Services.GetService<IServiceScopeFactory>().CreateScope())
+            {
+                var contexto = serviceScope.ServiceProvider.GetRequiredService<InstitutoContext>();
+
+                contexto.Database.Migrate();
+            }
+
+                app.UseHttpsRedirection();
             app.UseStaticFiles();
 
             app.UseRouting();
