@@ -56,6 +56,16 @@ namespace _2024_InstitutoEducativo.Data
 
             #endregion
 
+
+            #region Unique
+
+            modelBuilder.Entity<Empleado>().HasIndex(e => e.Legajo).IsUnique();
+
+
+
+            #endregion
+
+
         }
 
 

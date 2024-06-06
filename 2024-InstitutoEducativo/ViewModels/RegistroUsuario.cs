@@ -1,4 +1,5 @@
 ﻿using _2024_InstitutoEducativo.Helpers;
+using Microsoft.AspNetCore.Mvc;
 using System.ComponentModel.DataAnnotations;
 
 namespace _2024_InstitutoEducativo.ViewModels
@@ -9,6 +10,7 @@ namespace _2024_InstitutoEducativo.ViewModels
         [Required(ErrorMessage = ErrorMsge.Required)]
         [Display(Name = Alias.CorreoElectronico)]
         [EmailAddress(ErrorMessage = ErrorMsge.NotValid)]
+        [Remote(action: "EmailDisponible",controller: "Account")]
         public string Email{ get; set;}
 
         [Required(ErrorMessage = ErrorMsge.Required)]

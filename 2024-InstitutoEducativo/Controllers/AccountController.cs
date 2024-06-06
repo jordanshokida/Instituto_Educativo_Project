@@ -1,6 +1,7 @@
 ﻿using _2024_InstitutoEducativo.Models;
 using _2024_InstitutoEducativo.ViewModels;
 using Azure.Identity;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.VisualStudio.Web.CodeGenerators.Mvc.Templates.BlazorIdentity.Pages.Manage;
@@ -84,5 +85,33 @@ namespace _2024_InstitutoEducativo.Controllers
              await _signInManager.SignOutAsync();
             return RedirectToAction("Index", "Home");
         }
+
+        [AllowAnonymous]
+        [HttpGet]
+        public async Task<IActionResult> EmailDisponible(string email)
+        {
+            var personaExistente = await _usermanager.FindByEmailAsync(email);
+            if (personaExistente == null)
+            {
+                //No hay una persona existente con ese email
+                return Json(true);
+            }else
+            {
+                //El email ya está en uso
+                return Json($"El correo {email} ya está en uso.");
+            }
+        }
+
+
+
+
+
+
+
+
+
+
+
+
     }
 }

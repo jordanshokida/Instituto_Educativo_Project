@@ -7,6 +7,9 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using _2024_InstitutoEducativo.Data;
 using _2024_InstitutoEducativo.Models;
+using Microsoft.Data.SqlClient;
+using _2024_InstitutoEducativo.Helpers;
+using Microsoft.IdentityModel.Tokens;
 
 namespace _2024_InstitutoEducativo.Controllers
 {
@@ -56,13 +59,64 @@ namespace _2024_InstitutoEducativo.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Legajo,Id,Nombre,Apellido,Email,Dni")] Empleado empleado)
         {
+            VerificarLegajo(empleado);
+
             if (ModelState.IsValid)
             {
                 _context.Add(empleado);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+
+                try
+                {
+                    await _context.SaveChangesAsync();
+                    return RedirectToAction(nameof(Index));
+
+                }catch(DbUpdateException dbex)
+                {
+                    ProcesarDuplicado(dbex);                 
+                }                             
             }
             return View(empleado);
+        }
+
+        private void VerificarLegajo(Empleado empleado)
+        {
+            if (LegajoExist(empleado))
+            {
+                ModelState.AddModelError("Legajo", "El legajo ya existe, verificao en BE");
+            }
+        }
+
+        private bool LegajoExist(Empleado empleado)
+        {
+            bool resultado = false;
+            if (!string.IsNullOrEmpty(empleado.Legajo))
+            {
+                if(empleado.Id != null && empleado.Id != 0)
+                {
+                    //
+                    resultado = _context.Empleados.Any(e => e.Legajo == empleado.Legajo && e.Id != empleado.Id);
+                }
+                else
+                {
+                    //Es una creación, solo me interesa que no exista lapatente
+                    resultado = _context.Empleados.Any(e => e.Legajo == empleado.Legajo);
+                }
+               
+            }
+            return resultado;
+        }
+
+        private void ProcesarDuplicado(DbUpdateException dbex)
+        {
+            SqlException innerException = dbex.InnerException as SqlException;
+            if (innerException != null && (innerException.Number == 2627 || innerException.Number == 2601))
+            {
+                ModelState.AddModelError("Legajo", ErrorMsge.LegajoExistente);
+            }
+            else
+            {
+                ModelState.AddModelError(string.Empty, dbex.Message);
+            }
         }
 
         // GET: Empleados/Edit/5
@@ -88,10 +142,21 @@ namespace _2024_InstitutoEducativo.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("Legajo,Id,Nombre,Apellido,Email,Dni")] Empleado empleado)
         {
+
+            
+
+            if(LegajoExist(empleado.Legajo))
+            {
+                ModelState.AddModelError("Legajo", "El legajo ya existe en el sistema");
+            }
+            
+
             if (id != empleado.Id)
             {
                 return NotFound();
             }
+
+            VerificarLegajo(empleado);
 
             if (ModelState.IsValid)
             {
@@ -99,6 +164,7 @@ namespace _2024_InstitutoEducativo.Controllers
                 {
                     _context.Update(empleado);
                     await _context.SaveChangesAsync();
+                    return RedirectToAction(nameof(Index));
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -111,10 +177,15 @@ namespace _2024_InstitutoEducativo.Controllers
                         throw;
                     }
                 }
-                return RedirectToAction(nameof(Index));
+                catch(DbUpdateException dbex) 
+                {
+                    ProcesarDuplicado(dbex);
+                }
             }
             return View(empleado);
         }
+
+        
 
         // GET: Empleados/Delete/5
         public async Task<IActionResult> Delete(int? id)

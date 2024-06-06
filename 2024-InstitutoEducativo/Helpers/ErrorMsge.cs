@@ -24,5 +24,7 @@
 
         public const string PassMissmatch = "La constraseña no coincide";
 
+        public const string LegajoExistente = "Legajo Existente";
+
     }
 }
