@@ -55,5 +55,34 @@ namespace _2024_InstitutoEducativo.Controllers
             return View(viewModel);
         }
 
+
+        public IActionResult IniciarSesion()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> IniciarSesion(Login viewModel) 
+        {
+            if (ModelState.IsValid)
+            {
+               var resultado = await _signInManager.PasswordSignInAsync(viewModel.Email,viewModel.Password,viewModel.Recordarme,false);
+
+                if (resultado.Succeeded)
+                {
+                    return RedirectToAction("Index", "Home");
+                }
+
+                ModelState.AddModelError(String.Empty, "Inicio de sesión inválido");
+
+            }
+            return View(viewModel);
+        }
+
+        public async Task<IActionResult> CerrarSesion()
+        {
+             await _signInManager.SignOutAsync();
+            return RedirectToAction("Index", "Home");
+        }
     }
 }
