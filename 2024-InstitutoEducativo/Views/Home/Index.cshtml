@@ -2,6 +2,15 @@
     ViewData["Title"] = "Home Page";
 }
 
+@if(ViewBag.Mensaje != null)
+{
+    <div>
+        <p class="text-info">@ViewBag.Mensaje</p>
+    </div>
+    
+}
+
+
 <div class="text-center">
     <div class="image-container pulsating-shadow">
         <img src="img/Logo-Icon.png" alt="Imagen con sombra titilante"></img>

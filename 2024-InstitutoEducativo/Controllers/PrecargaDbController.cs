@@ -10,21 +10,23 @@ namespace _2024_InstitutoEducativo.Controllers
     {
         private readonly InstitutoContext _context;
         private readonly UserManager<Persona> _userManager;
-        private readonly RoleManager<IdentityRole> _rolmanager;
+        private readonly RoleManager<Rol> _rolemanager;
 
-        public PrecargaDbController(InstitutoContext context, UserManager<Persona> userManager, RoleManager<IdentityRole> rolmanager)
+        private List<string> roles = new List<string>() { "Alumno", "Profesor", "Empleado","Usuario" };
+
+        public PrecargaDbController(InstitutoContext context, UserManager<Persona> userManager, RoleManager<Rol> rolemanager)
         {
 
             this._context = context;
             this._userManager = userManager;
-            this._rolmanager = rolmanager;
+            this._rolemanager = rolemanager;
         }
 
-        public PrecargaDbController(InstitutoContext context)
-        {
+       // public PrecargaDbController(InstitutoContext context)
+       // {
 
-            this._context = context;
-        }
+       //     this._context = context;
+        //}
 
         public IActionResult Seed()
         {
@@ -32,11 +34,49 @@ namespace _2024_InstitutoEducativo.Controllers
             _context.Database.EnsureDeleted();
             _context.Database.Migrate();
             //Re-createDatabase
-            //AddRoles
+            //CrearRoles
+            CrearRoles().Wait();
+            CrearUsuario().Wait();
+            CrearAlumno().Wait();
+            CrearProfesor().Wait();
+            CrearEmpleado().Wait();
+
+
+
             //Agregas todo lo demas en orden de dependica. 
 
             AddDirecciones();
-            return View();
+            return RedirectToAction("Index","Home", new {mensaje="Proceso Seed Finalizado"});
+        }
+
+        private async Task CrearEmpleado()
+        {
+            
+        }
+
+        private async Task CrearProfesor()
+        {
+            
+        }
+
+        private async Task CrearAlumno()
+        {
+            
+        }
+
+        private async Task CrearUsuario()
+        {
+            
+        }
+
+        private async Task CrearRoles()
+        {
+            foreach(var rolName in roles)
+            {
+                if(! await _rolemanager.RoleExistsAsync(rolName)) {
+                   await _rolemanager.CreateAsync(new Rol(rolName));
+                }
+            }
         }
 
 
