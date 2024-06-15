@@ -145,10 +145,6 @@ namespace _2024_InstitutoEducativo.Controllers
 
             
 
-            if(LegajoExist(empleado.Legajo))
-            {
-                ModelState.AddModelError("Legajo", "El legajo ya existe en el sistema");
-            }
             
 
             if (id != empleado.Id)
