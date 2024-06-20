@@ -169,20 +169,27 @@ namespace _2024_InstitutoEducativo.Controllers
         public void AgregarMateriaCursada(MateriaCursada materiaCursada)
         {
             // Implementación para agregar materia cursada
+            _context.MateriasCursadas.Add(materiaCursada);
+            _context.SaveChanges();
         }*/
 
         /*// Método para obtener calificaciones
         public List<Calificacion> ObtenerCalificaciones()
         {
             // Implementación para obtener calificaciones
-            return Calificaciones;
+            return _context.Calificaciones.ToList();
         }*/
 
         /*// Método para verificar cupo
         public bool VerificarCupo()
         {
             // Implementación para verificar cupo
-            return MateriaCursada.Alumnos.Count < CupoMaximo;
+            var materia = _context.Materias.Include(m => m.MateriasCursadas).FirstOrDefault(m => m.Id == materiaId);
+            if (materia != null)
+            {
+                return materia.MateriasCursadas.Count < materia.CupoMaximo;
+            }
+            return false;
         }*/
 
 

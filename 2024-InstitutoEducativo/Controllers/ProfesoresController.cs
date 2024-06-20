@@ -163,7 +163,7 @@ namespace _2024_InstitutoEducativo.Controllers
         public List<MateriaCursada> ListarMateriasCursadas()
         {
             // Implementación para listar materias cursadas
-            return MateriasCursadaActiva;
+            return _context.MateriasCursadas.Include(mc => mc.Materia).Include(mc => mc.Alumno).ToList();
         }*/
 
 
@@ -171,6 +171,15 @@ namespace _2024_InstitutoEducativo.Controllers
         public void CalificarAlumno(MateriaCursada materia, Alumno alumno, int nota)
         {
             // Implementación de calificación de alumno
+            var calificacion = new Calificacion
+            {
+                MateriaCursadaId = materia.Id,
+                AlumnoId = alumno.Id,
+                NotaFinal = nota
+            };
+
+            _context.Calificaciones.Add(calificacion);
+            _context.SaveChanges();
         }*/
 
 
@@ -178,7 +187,9 @@ namespace _2024_InstitutoEducativo.Controllers
         public double ObtenerPromedioNotas(MateriaCursada materia)
         {
             // Implementación para obtener promedio de notas
-            return CalificacionesRealizadas.Average(c => c.NotaFinal);
+             return _context.Calificaciones
+                .Where(c => c.MateriaCursadaId == materia.Id)
+                .Average(c => c.NotaFinal);
         }*/
 
 

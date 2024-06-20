@@ -181,6 +181,8 @@ namespace _2024_InstitutoEducativo.Controllers
         public void AgregarCalificacion(Calificacion calificacion)
         {
             // Implementación para agregar calificación
+             _context.Calificaciones.Add(calificacion);
+            _context.SaveChanges();
         }*/
 
 
@@ -188,7 +190,7 @@ namespace _2024_InstitutoEducativo.Controllers
         public List<Alumno> ObtenerAlumnosInscriptos()
         {
             // Implementación para obtener alumnos inscriptos
-            return Alumnos;
+            return _context.Alumnos.Include(a => a.MateriasCursadas).ToList();
         }*/
 
 
@@ -196,7 +198,7 @@ namespace _2024_InstitutoEducativo.Controllers
         public double ObtenerPromedioCalificaciones()
         {
             // Implementación para obtener promedio de calificaciones
-            return Calificaciones.Average(c => c.NotaFinal);
+            return _context.Calificaciones.Average(c => c.NotaFinal);
         }*/
 
 

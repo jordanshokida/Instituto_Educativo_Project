@@ -231,7 +231,11 @@ namespace _2024_InstitutoEducativo.Controllers
         /*// Método para registrar alumno
         public void RegistrarAlumno(Alumno alumno)
         {
-            // Implementación de registro de alumno
+             if (alumno != null)
+            {
+                _context.Alumnos.Add(alumno);
+                _context.SaveChanges();
+            }
         }*/
 
 
@@ -240,6 +244,15 @@ namespace _2024_InstitutoEducativo.Controllers
         {
             // Verificar si el alumno está activo y si la materia pertenece a su carrera
             // Implementación de inscripción
+             var alumno = _context.Alumnos.Find(materia.AlumnoId);
+            var carrera = _context.Carreras.Find(alumno?.CarreraId);
+
+            if (alumno != null && alumno.Activo && carrera != null && carrera.Materias.Any(m => m.Id == materia.MateriaId))
+            {
+                _context.MateriasCursadas.Add(materia);
+                _context.SaveChanges();
+            }
+
         }*/
 
 
@@ -248,13 +261,21 @@ namespace _2024_InstitutoEducativo.Controllers
         {
             // Verificar si no tiene calificaciones asociadas
             // Implementación de cancelación
+             var materiaCursada = _context.MateriasCursadas.Include(m => m.Calificaciones).FirstOrDefault(m => m.Id == materia.Id);
+
+            if (materiaCursada != null && !materiaCursada.Calificaciones.Any())
+            {
+                _context.MateriasCursadas.Remove(materiaCursada);
+                _context.SaveChanges();
+            }
         }*/
+
 
         /*// Método para obtener materias cursadas
         public List<MateriaCursada> ObtenerMateriasCursadas()
         {
             // Implementación para obtener materias cursadas
-            return MateriasCursadas;
+            return  return _context.MateriasCursadas.Include(m => m.Materia).ToList();
         }*/
 
 
@@ -262,7 +283,7 @@ namespace _2024_InstitutoEducativo.Controllers
         public List<Calificacion> ObtenerCalificaciones()
         {
             // Implementación para obtener calificaciones
-            return Calificaciones;
+            return _context.Calificaciones.Include(c => c.MateriaCursada).ToList();
         }*/
 
     }

@@ -163,6 +163,16 @@ namespace _2024_InstitutoEducativo.Controllers
         public void AgregarMateria(Materia materia)
         {
             // Implementación para agregar materia
+         
+            public void AgregarMateria(Materia materia)
+            {
+            var carrera = _context.Carreras.Find(materia.CarreraId);
+            if (carrera != null)
+            {
+                carrera.Materias.Add(materia);
+                _context.SaveChanges();
+            }
+        }
         }*/
 
 
@@ -170,7 +180,11 @@ namespace _2024_InstitutoEducativo.Controllers
         public List<Alumno> ListarAlumnos()
         {
             // Implementación para listar alumnos
-            return Alumnos;
+             var carrera = _context.Carreras
+                .Include(c => c.Alumnos)
+                .FirstOrDefault(c => c.Id == carreraId);
+
+            return carrera?.Alumnos.ToList() ?? new List<Alumno>();
         }*/
 
 
@@ -178,7 +192,11 @@ namespace _2024_InstitutoEducativo.Controllers
         public List<Materia> ObtenerMaterias()
         {
             // Implementación para obtener materias
-            return Materias;
+            var carrera = _context.Carreras
+                .Include(c => c.Materias)
+                .FirstOrDefault(c => c.Id == carreraId);
+
+            return carrera?.Materias.ToList() ?? new List<Materia>();
         }*/
 
 
