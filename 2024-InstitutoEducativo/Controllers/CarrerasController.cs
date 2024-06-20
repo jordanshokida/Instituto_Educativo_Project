@@ -153,5 +153,38 @@ namespace _2024_InstitutoEducativo.Controllers
         {
             return _context.Carreras.Any(e => e.Id == id);
         }
+
+
+
+        //METODOS:
+
+
+        /*// Método para agregar materia a carrera
+        public void AgregarMateria(Materia materia)
+        {
+            // Implementación para agregar materia
+        }*/
+
+
+        /*// Método para listar alumnos de carrera
+        public List<Alumno> ListarAlumnos()
+        {
+            // Implementación para listar alumnos
+            return Alumnos;
+        }*/
+
+
+        /*// Método para obtener materias de carrera
+        public List<Materia> ObtenerMaterias()
+        {
+            // Implementación para obtener materias
+            return Materias;
+        }*/
+
+
+
+
+
+
     }
 }

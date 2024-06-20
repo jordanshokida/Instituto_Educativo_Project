@@ -223,5 +223,47 @@ namespace _2024_InstitutoEducativo.Controllers
         {
             return _context.Alumnos.Any(e => e.Id == id);
         }
+
+
+
+        //METODOS:
+
+        /*// Método para registrar alumno
+        public void RegistrarAlumno(Alumno alumno)
+        {
+            // Implementación de registro de alumno
+        }*/
+
+
+        /*/// Método para inscribir alumno en materia
+        public void InscribirEnMateria(MateriaCursada materia)
+        {
+            // Verificar si el alumno está activo y si la materia pertenece a su carrera
+            // Implementación de inscripción
+        }*/
+
+
+        /*// Método para cancelar inscripción en materia
+        public void CancelarInscripcion(MateriaCursada materia)
+        {
+            // Verificar si no tiene calificaciones asociadas
+            // Implementación de cancelación
+        }*/
+
+        /*// Método para obtener materias cursadas
+        public List<MateriaCursada> ObtenerMateriasCursadas()
+        {
+            // Implementación para obtener materias cursadas
+            return MateriasCursadas;
+        }*/
+
+
+        /*// Método para obtener calificaciones
+        public List<Calificacion> ObtenerCalificaciones()
+        {
+            // Implementación para obtener calificaciones
+            return Calificaciones;
+        }*/
+
     }
 }

@@ -220,5 +220,44 @@ namespace _2024_InstitutoEducativo.Controllers
         {
             return _context.Empleados.Any(e => e.Id == id);
         }
+
+
+        //METODOS:
+
+        /* // Método para crear alumno
+         public void CrearAlumno(Alumno alumno)
+         {
+             // Implementación de creación de alumno
+         }*/
+
+
+        /*// Método para crear profesor
+        public void CrearProfesor(Profesor profesor)
+        {
+            // Implementación de creación de profesor
+        }*/
+
+
+        /*// Método para crear carrera
+        public void CrearCarrera(Carrera carrera)
+        {
+            // Implementación de creación de carrera
+        }*/
+
+
+        /*// Método para crear materia
+        public void CrearMateria(Materia materia)
+        {
+            // Implementación de creación de materia
+        }*/
+
+
+        /*// Método para asignar profesor a materia cursada
+        public void AsignarProfesorAMateria(Profesor profesor, MateriaCursada materia)
+        {
+            // Implementación de asignación de profesor
+        }*/
+
+
     }
 }

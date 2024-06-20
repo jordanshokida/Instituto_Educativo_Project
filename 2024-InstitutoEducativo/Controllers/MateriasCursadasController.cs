@@ -172,5 +172,36 @@ namespace _2024_InstitutoEducativo.Controllers
         {
             return _context.MateriasCursadas.Any(e => e.Id == id);
         }
+
+
+
+        //METODOS:
+
+        /*// Método para agregar calificación
+        public void AgregarCalificacion(Calificacion calificacion)
+        {
+            // Implementación para agregar calificación
+        }*/
+
+
+        /*// Método para obtener alumnos inscriptos
+        public List<Alumno> ObtenerAlumnosInscriptos()
+        {
+            // Implementación para obtener alumnos inscriptos
+            return Alumnos;
+        }*/
+
+
+        /*// Método para obtener promedio de calificaciones
+        public double ObtenerPromedioCalificaciones()
+        {
+            // Implementación para obtener promedio de calificaciones
+            return Calificaciones.Average(c => c.NotaFinal);
+        }*/
+
+
+
+
+
     }
 }

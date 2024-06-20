@@ -153,5 +153,36 @@ namespace _2024_InstitutoEducativo.Controllers
         {
             return _context.Profesores.Any(e => e.Id == id);
         }
+
+
+
+
+        //METODOS:
+
+        /*// Método para listar materias cursadas
+        public List<MateriaCursada> ListarMateriasCursadas()
+        {
+            // Implementación para listar materias cursadas
+            return MateriasCursadaActiva;
+        }*/
+
+
+        /*// Método para calificar alumno
+        public void CalificarAlumno(MateriaCursada materia, Alumno alumno, int nota)
+        {
+            // Implementación de calificación de alumno
+        }*/
+
+
+        /*// Método para obtener promedio de notas
+        public double ObtenerPromedioNotas(MateriaCursada materia)
+        {
+            // Implementación para obtener promedio de notas
+            return CalificacionesRealizadas.Average(c => c.NotaFinal);
+        }*/
+
+
+
+
     }
 }

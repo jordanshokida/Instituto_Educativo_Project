@@ -160,5 +160,40 @@ namespace _2024_InstitutoEducativo.Controllers
         {
             return _context.Materias.Any(e => e.Id == id);
         }
+
+
+
+        //METODOS:
+
+        /*// Método para agregar materia cursada
+        public void AgregarMateriaCursada(MateriaCursada materiaCursada)
+        {
+            // Implementación para agregar materia cursada
+        }*/
+
+        /*// Método para obtener calificaciones
+        public List<Calificacion> ObtenerCalificaciones()
+        {
+            // Implementación para obtener calificaciones
+            return Calificaciones;
+        }*/
+
+        /*// Método para verificar cupo
+        public bool VerificarCupo()
+        {
+            // Implementación para verificar cupo
+            return MateriaCursada.Alumnos.Count < CupoMaximo;
+        }*/
+
+
+
+
+
+
+
+
+
+
+
     }
 }
