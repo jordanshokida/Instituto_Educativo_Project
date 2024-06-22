@@ -7,12 +7,22 @@ namespace _2024_InstitutoEducativo.Models
     public class Persona : IdentityUser<int>
 
     {
+
         public Persona()
         {
             
         }
 
-       
+
+        public Persona(string nombre, string apellido, string email, string dni)
+        {
+            Nombre = nombre;
+            Apellido = apellido;
+            Email = email;
+            Dni = dni;
+        }
+
+
         //public int Id { get; set; }
 
         [Required(ErrorMessage = ErrorMsge.Required)]

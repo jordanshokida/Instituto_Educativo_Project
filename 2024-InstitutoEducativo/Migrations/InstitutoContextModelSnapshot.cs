@@ -274,7 +274,7 @@ namespace _2024_InstitutoEducativo.Migrations
 
                     b.HasIndex("ProfesorId");
 
-                    b.ToTable("Calificaciones", (string)null);
+                    b.ToTable("Calificaciones");
                 });
 
             modelBuilder.Entity("_2024_InstitutoEducativo.Models.Carrera", b =>
@@ -292,7 +292,7 @@ namespace _2024_InstitutoEducativo.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Carreras", (string)null);
+                    b.ToTable("Carreras");
                 });
 
             modelBuilder.Entity("_2024_InstitutoEducativo.Models.Direccion", b =>
@@ -334,7 +334,7 @@ namespace _2024_InstitutoEducativo.Migrations
                     b.HasIndex("PersonaId")
                         .IsUnique();
 
-                    b.ToTable("Direcciones", (string)null);
+                    b.ToTable("Direcciones");
                 });
 
             modelBuilder.Entity("_2024_InstitutoEducativo.Models.Materia", b =>
@@ -368,7 +368,7 @@ namespace _2024_InstitutoEducativo.Migrations
 
                     b.HasIndex("CarreraId");
 
-                    b.ToTable("Materias", (string)null);
+                    b.ToTable("Materias");
                 });
 
             modelBuilder.Entity("_2024_InstitutoEducativo.Models.MateriaCursada", b =>
@@ -410,7 +410,7 @@ namespace _2024_InstitutoEducativo.Migrations
 
                     b.HasIndex("ProfesorId");
 
-                    b.ToTable("MateriasCursadas", (string)null);
+                    b.ToTable("MateriasCursadas");
                 });
 
             modelBuilder.Entity("_2024_InstitutoEducativo.Models.Telefono", b =>
@@ -438,7 +438,7 @@ namespace _2024_InstitutoEducativo.Migrations
 
                     b.HasIndex("PersonaId");
 
-                    b.ToTable("Telefonos", (string)null);
+                    b.ToTable("Telefonos");
                 });
 
             modelBuilder.Entity("_2024_InstitutoEducativo.Models.Rol", b =>
@@ -494,7 +494,11 @@ namespace _2024_InstitutoEducativo.Migrations
                     b.HasBaseType("_2024_InstitutoEducativo.Models.Persona");
 
                     b.Property<string>("Legajo")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasIndex("Legajo")
+                        .IsUnique()
+                        .HasFilter("[Legajo] IS NOT NULL");
 
                     b.HasDiscriminator().HasValue("Empleado");
                 });
@@ -506,7 +510,7 @@ namespace _2024_InstitutoEducativo.Migrations
                     b.Property<string>("Legajo")
                         .HasColumnType("nvarchar(max)");
 
-                    b.ToTable("Personas", null, t =>
+                    b.ToTable("Personas", t =>
                         {
                             t.Property("Legajo")
                                 .HasColumnName("Profesor_Legajo");

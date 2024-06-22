@@ -7,6 +7,6 @@
         public const string AdminRolName = "AdminRol";
         public const string EmpleadoRolName = "EmpleadoRol";
         public const string AlumnoRolName = "ClienteRol";
-        public const string AdminRolRame = "AdminRol";
+        
     }
 }

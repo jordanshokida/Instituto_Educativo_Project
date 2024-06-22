@@ -11,6 +11,16 @@ namespace _2024_InstitutoEducativo.Models
             
         }
 
+        public Direccion(int personaId, string calle, int numero, string localidad, string provincia, string pais)
+        {
+            PersonaId = personaId;
+            Calle = calle;
+            Numero = numero;
+            Localidad = localidad;
+            Provincia = provincia;
+            Pais = pais;
+        }
+
         public int Id { get; set; }
 
         public int PersonaId { get; set; }

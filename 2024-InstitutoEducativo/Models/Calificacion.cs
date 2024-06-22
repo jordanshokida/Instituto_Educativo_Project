@@ -10,7 +10,18 @@ namespace _2024_InstitutoEducativo.Models
             
         }
 
-        
+        public Calificacion(int id, int notaFinal, int materiaCursadaId, MateriaCursada materiaCursada, int profesorId, Profesor profesor, int alumnoId, Alumno alumno)
+        {
+            Id = id;
+            NotaFinal = notaFinal;
+            MateriaCursadaId = materiaCursadaId;
+            MateriaCursada = materiaCursada;
+            ProfesorId = profesorId;
+            Profesor = profesor;
+            AlumnoId = alumnoId;
+            Alumno = alumno;
+        }
+
         public int Id { get; set; }
         
         [Required(ErrorMessage = ErrorMsge.NotaFinalRequerida)]

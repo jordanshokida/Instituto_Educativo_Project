@@ -11,7 +11,14 @@ namespace _2024_InstitutoEducativo.Models
             
         }
 
-      
+        public Materia(string materiaNombre, int codMateria, string descripcion, int cupoMaximo)
+        {
+            MateriaNombre = materiaNombre;
+            CodMateria = codMateria;
+            Descripcion = descripcion;
+            CupoMaximo = cupoMaximo;
+        }
+
         public int Id { get; set; }
 
         [Required(ErrorMessage = ErrorMsge.Required)]

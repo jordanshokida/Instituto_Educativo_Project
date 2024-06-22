@@ -1,4 +1,5 @@
-﻿using _2024_InstitutoEducativo.Models;
+﻿using _2024_InstitutoEducativo.Data;
+using _2024_InstitutoEducativo.Models;
 using _2024_InstitutoEducativo.ViewModels;
 using Azure.Identity;
 using Microsoft.AspNetCore.Authorization;
@@ -12,11 +13,15 @@ namespace _2024_InstitutoEducativo.Controllers
     {
         private readonly UserManager<Persona> _usermanager;
         private readonly SignInManager<Persona> _signInManager;
+        private readonly RoleManager<Rol> _rolManager;
+        private readonly InstitutoContext _context;
 
-        public AccountController(UserManager<Persona> usermanager, SignInManager<Persona> signInManager)
+        public AccountController(UserManager<Persona> usermanager, SignInManager<Persona> signInManager, RoleManager<Rol> rolManager, InstitutoContext context)
         {
             this._usermanager = usermanager;
             this._signInManager = signInManager;
+            this._rolManager = rolManager;
+            this._context = context;
         }
 
         public IActionResult Registrar()
@@ -33,8 +38,8 @@ namespace _2024_InstitutoEducativo.Controllers
                 Alumno clienteAcrear = new Alumno()
                 {
                     Email = viewModel.Email,
-                    UserName = viewModel.Email
-
+                    UserName = viewModel.Email,
+                    CarreraId = 1
                 };
                 
                var resultadoCreate =  await _usermanager.CreateAsync(clienteAcrear,viewModel.Password);

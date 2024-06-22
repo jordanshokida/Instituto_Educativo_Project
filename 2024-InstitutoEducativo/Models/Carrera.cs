@@ -11,7 +11,13 @@ namespace _2024_InstitutoEducativo.Models
             
         }
 
- 
+        public Carrera(string nombre)
+        {
+            
+            Nombre = nombre;
+            
+        }
+
         public int Id { get; set; }
 
         [Required (ErrorMessage = ErrorMsge.Required)]

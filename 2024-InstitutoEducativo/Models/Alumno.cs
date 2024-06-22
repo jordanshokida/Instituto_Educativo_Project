@@ -1,14 +1,24 @@
 ﻿using _2024_InstitutoEducativo.Helpers;
+using Microsoft.VisualStudio.Web.CodeGenerators.Mvc.Templates.BlazorIdentity.Pages.Manage;
 using System.ComponentModel.DataAnnotations;
-
+using System.Transactions;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 namespace _2024_InstitutoEducativo.Models
 {
     public class Alumno : Persona
     {
         public Alumno()
         {
+        }
+
+        public Alumno(string nombre, string apellido, string email,string dni,bool activo, int numeroMatricula) : base(nombre,apellido,email,dni)
+        {
+            
+            Activo = activo;
+            NumeroMatricula = numeroMatricula;
             
         }
+
 
         [Required(ErrorMessage = ErrorMsge.Required)]
         public bool Activo { get; set; }

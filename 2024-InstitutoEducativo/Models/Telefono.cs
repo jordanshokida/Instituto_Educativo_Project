@@ -11,7 +11,14 @@ namespace _2024_InstitutoEducativo.Models
             
         }
 
-       
+        public Telefono(string codArea, string numero)
+        {
+           
+            CodArea = codArea;
+            Numero = numero;
+            
+        }
+
         public int Id { get; set; }
 
         [Required(ErrorMessage = ErrorMsge.Required)]

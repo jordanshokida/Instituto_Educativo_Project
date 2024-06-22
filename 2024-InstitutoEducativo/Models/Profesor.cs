@@ -10,6 +10,13 @@ namespace _2024_InstitutoEducativo.Models
             
         }
 
+        public Profesor(string nombre, string apellido, string email, string dni, string legajo) : base(nombre, apellido, email, dni)
+        {
+           
+            Legajo = legajo;
+            
+        }
+
         [Required(ErrorMessage = ErrorMsge.Required)]
         [StringLength(Restrictions.STRINGLENGTH_MAX, MinimumLength = Restrictions.STRINGLENGTH_MIN1, ErrorMessage = ErrorMsge.StringMaxMin)]
         private String _legajo;

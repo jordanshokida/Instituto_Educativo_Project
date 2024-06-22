@@ -59,6 +59,12 @@ namespace _2024_InstitutoEducativo.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Activo,NumeroMatricula,CarreraId,Id,Nombre,Apellido,Email,Dni")] Alumno alumno)
         {
+            if (alumno.CarreraId == 0)
+            {
+                
+                alumno.CarreraId = _context.Carreras.FirstOrDefault(c => c.Nombre == "Ingeniería Mecánica")?.Id ?? 2;
+            }
+
             if (ModelState.IsValid)
             {
                 _context.Add(alumno);
@@ -110,6 +116,11 @@ namespace _2024_InstitutoEducativo.Controllers
                         return NotFound();
                     }
 
+                    if (alumnoDelForm.CarreraId == 0)
+                    {
+                        alumnoDelForm.CarreraId = _context.Carreras.FirstOrDefault(c => c.Nombre == "Ingeniería Mecánica")?.Id ?? 2;
+                    }
+
                     alumnoEnDb.Activo= alumnoDelForm.Activo;
                     alumnoEnDb.NumeroMatricula = alumnoDelForm.NumeroMatricula;
                     alumnoEnDb.CarreraId = alumnoDelForm.CarreraId;
@@ -125,7 +136,7 @@ namespace _2024_InstitutoEducativo.Controllers
                         return View(alumnoDelForm);
                     }
 
-                    _context.Update(alumnoDelForm);
+                    _context.Update(alumnoEnDb);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)

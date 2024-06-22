@@ -1,12 +1,18 @@
 ﻿using _2024_InstitutoEducativo.Helpers;
+using Microsoft.VisualStudio.Web.CodeGenerators.Mvc.Templates.BlazorIdentity.Pages.Manage;
 using System.ComponentModel.DataAnnotations;
-
+using System.Net;
 namespace _2024_InstitutoEducativo.Models
 {
     public class Empleado: Persona
     {
         public Empleado()
         {
+        }
+
+        public Empleado(string nombre, string apellido, string email, string dni, string legajo) : base(nombre, apellido, email, dni)
+        {
+            Legajo = legajo;
             
         }
 
