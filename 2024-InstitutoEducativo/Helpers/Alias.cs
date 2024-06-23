@@ -40,6 +40,6 @@ namespace _2024_InstitutoEducativo.Helpers
 
         public const string RoleName = "Nombre del Rol";
 
-        public const int CupoMax = 10;
+        public const int CupoMax = 5;
     }
 }

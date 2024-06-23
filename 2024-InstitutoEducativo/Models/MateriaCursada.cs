@@ -13,7 +13,7 @@ namespace _2024_InstitutoEducativo.Models
 
         public MateriaCursada(int id, string nombre, int anioCursada, string cuatrimestre)
         {
-           
+            Id = id;
             Nombre = nombre;
             AnioCursada = anioCursada;
             Cuatrimestre = cuatrimestre;    

@@ -10,16 +10,13 @@ namespace _2024_InstitutoEducativo.Models
             
         }
 
-        public Calificacion(int id, int notaFinal, int materiaCursadaId, MateriaCursada materiaCursada, int profesorId, Profesor profesor, int alumnoId, Alumno alumno)
+        public Calificacion(int id, int notaFinal, int materiaCursadaId, int profesorId, int alumnoId)
         {
             Id = id;
             NotaFinal = notaFinal;
             MateriaCursadaId = materiaCursadaId;
-            MateriaCursada = materiaCursada;
-            ProfesorId = profesorId;
-            Profesor = profesor;
-            AlumnoId = alumnoId;
-            Alumno = alumno;
+            ProfesorId = profesorId;          
+            AlumnoId = alumnoId;            
         }
 
         public int Id { get; set; }

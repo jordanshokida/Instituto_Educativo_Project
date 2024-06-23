@@ -49,15 +49,17 @@ namespace _2024_InstitutoEducativo.Controllers
             CrearCarreras().Wait();
             CrearProfesores().Wait();
             CrearEmpleados().Wait();
-            
             CrearPersonas().Wait();
+            CrearMaterias().Wait();
+            CrearMateriasCursadas().Wait();
+            CrearCalificaciones().Wait();
             CrearDirecciones().Wait();
             CrearTelefonos().Wait();
             /*
-            CrearCalificaciones().Wait();
+            
             ;
-            CrearMaterias().Wait();
-            CrearMateriasCursadas().Wait();
+            
+            
             ;*/
             
             //Agregas todo lo demas en orden de dependica. 
@@ -278,6 +280,68 @@ namespace _2024_InstitutoEducativo.Controllers
             }
             await _context.SaveChangesAsync();
         }
+
+
+        private List<Materia> materias = new List<Materia>()
+        {
+            new Materia(1, "Matemáticas", 101, "CálculoyÁlgebra", 5,1),
+            new Materia(2, "Física", 102, "MecánicayTermodinámica", 5,2),
+            new Materia(3, "Química", 103, "QuímicaGeneral", 5,4)
+        };
+
+        public async Task CrearMaterias()
+        {
+            foreach (var materia in materias)
+            {
+                if (!_context.Materias.Any(m => m.Id == materia.Id))
+                {
+                    _context.Materias.Add(materia);
+                }
+            }
+            await _context.SaveChangesAsync();
+        }
+
+
+        private List<MateriaCursada> materiasCursadas = new List<MateriaCursada>()
+        {
+            new MateriaCursada(1, "Matemáticas", 2024, "1º Cuatrimestre"),
+            new MateriaCursada(2, "Física", 2024, "1º Cuatrimestre"),
+            new MateriaCursada(3, "Química", 2024, "2º Cuatrimestre")
+        };
+
+        public async Task CrearMateriasCursadas()
+        {
+            foreach (var materiaCursada in materiasCursadas)
+            {
+                if (!_context.MateriasCursadas.Any(mc => mc.Id == materiaCursada.Id))
+                {
+                    _context.MateriasCursadas.Add(materiaCursada);
+                }
+            }
+            await _context.SaveChangesAsync();
+        }
+
+
+        private List<Calificacion> calificaciones = new List<Calificacion>()
+        {
+            new Calificacion(1, 8, 1, 32, 46),
+            new Calificacion(2, 9, 2, 33, 47),
+            new Calificacion(3, 10, 3, 34, 48)
+        };
+
+
+        public async Task CrearCalificaciones()
+        {
+            foreach (var calificacion in calificaciones)
+            {
+                if (!_context.Calificaciones.Any(c => c.Id == calificacion.Id))
+                {
+                    _context.Calificaciones.Add(calificacion);
+                }
+            }
+            await _context.SaveChangesAsync();
+        }
+
 
 
         private List<Direccion> direcciones = new List<Direccion>()
