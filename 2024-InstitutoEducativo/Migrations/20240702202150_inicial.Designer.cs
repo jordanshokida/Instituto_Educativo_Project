@@ -12,8 +12,8 @@ using _2024_InstitutoEducativo.Data;
 namespace _2024_InstitutoEducativo.Migrations
 {
     [DbContext(typeof(InstitutoContext))]
-    [Migration("20240624224847_ultima1")]
-    partial class ultima1
+    [Migration("20240702202150_inicial")]
+    partial class inicial
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -478,10 +478,7 @@ namespace _2024_InstitutoEducativo.Migrations
                 {
                     b.HasBaseType("_2024_InstitutoEducativo.Models.Persona");
 
-                    b.Property<bool>("Activo")
-                        .HasColumnType("bit");
-
-                    b.Property<int?>("CarreraId")
+                    b.Property<int>("CarreraId")
                         .HasColumnType("int");
 
                     b.Property<int>("NumeroMatricula")
@@ -668,7 +665,9 @@ namespace _2024_InstitutoEducativo.Migrations
                 {
                     b.HasOne("_2024_InstitutoEducativo.Models.Carrera", "Carrera")
                         .WithMany("Alumnos")
-                        .HasForeignKey("CarreraId");
+                        .HasForeignKey("CarreraId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Carrera");
                 });

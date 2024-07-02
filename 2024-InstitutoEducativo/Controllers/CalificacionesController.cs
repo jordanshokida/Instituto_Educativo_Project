@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using _2024_InstitutoEducativo.Data;
 using _2024_InstitutoEducativo.Models;
+using Microsoft.AspNetCore.Authorization;
+using _2024_InstitutoEducativo.Helpers;
 
 namespace _2024_InstitutoEducativo.Controllers
 {
@@ -48,6 +50,7 @@ namespace _2024_InstitutoEducativo.Controllers
         }
 
         // GET: Calificaciones/Create
+        [Authorize(Roles = $"{Configs.AdminRolName},{Configs.ProfesorRolName}")]
         public IActionResult Create()
         {
             ViewData["AlumnoId"] = new SelectList(_context.Alumnos, "Id", "Apellido");
@@ -59,6 +62,7 @@ namespace _2024_InstitutoEducativo.Controllers
         // POST: Calificaciones/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [Authorize(Roles = $"{Configs.AdminRolName},{Configs.ProfesorRolName}")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,NotaFinal,MateriaCursadaId,ProfesorId,AlumnoId")] Calificacion calificacion)

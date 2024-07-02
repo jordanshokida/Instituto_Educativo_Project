@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using _2024_InstitutoEducativo.Data;
 using _2024_InstitutoEducativo.Models;
+using _2024_InstitutoEducativo.Helpers;
+using Microsoft.AspNetCore.Authorization;
 
 namespace _2024_InstitutoEducativo.Controllers
 {
@@ -22,10 +24,13 @@ namespace _2024_InstitutoEducativo.Controllers
         // GET: MateriaCursadas
         public async Task<IActionResult> Index()
         {
+            ViewData["MateriasCursadas"] = new SelectList(_context.MateriasCursadas.ToList(), "Id", "Nombre");
+
             var institutoContext = _context.MateriasCursadas.Include(m => m.Alumno).Include(m => m.Materia).Include(m => m.Profesor);
             return View(await institutoContext.ToListAsync());
         }
 
+        [Authorize(Roles = $"{Configs.AdminRolName},{Configs.ProfesorRolName}")]
         // GET: MateriaCursadas/Details/5
         public async Task<IActionResult> Details(int? id)
         {

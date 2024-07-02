@@ -7,16 +7,22 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using _2024_InstitutoEducativo.Data;
 using _2024_InstitutoEducativo.Models;
+using _2024_InstitutoEducativo.Helpers;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 
 namespace _2024_InstitutoEducativo.Controllers
 {
     public class ProfesoresController : Controller
+        
     {
+        private readonly UserManager<Persona> _userManager;
         private readonly InstitutoContext _context;
 
-        public ProfesoresController(InstitutoContext context)
+        public ProfesoresController(InstitutoContext context, UserManager<Persona> usermanager)
         {
             _context = context;
+            _userManager = usermanager;
         }
 
         // GET: Profesores
@@ -52,16 +58,42 @@ namespace _2024_InstitutoEducativo.Controllers
         // POST: Profesores/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [Authorize(Roles = $"{Configs.AdminRolName},{Configs.EmpleadoRolName}")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Legajo,Id,Nombre,Apellido,Email,Dni")] Profesor profesor)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(profesor);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                profesor.UserName = profesor.Email;
+                var resultadoNewProfesor = await _userManager.CreateAsync(profesor, Configs.PasswordGenerica);
+
+                if (resultadoNewProfesor.Succeeded)
+                {
+                    IdentityResult resultadoAddRole;
+                    string rolDefinido = Configs.ProfesorRolName;
+
+                    resultadoAddRole = await _userManager.AddToRoleAsync(profesor, rolDefinido);                 
+
+                    if (resultadoAddRole.Succeeded)
+                    {
+                        return RedirectToAction("Index", "Profesores");
+                    }
+                    else
+                    {
+                        return Content($"No se ha podido agregar el rol {rolDefinido} ");
+                    }
+                }
+                foreach (var error in resultadoNewProfesor.Errors)
+                {
+                    ModelState.AddModelError(string.Empty, error.Description);
+                }
+                //_context.Add(empleado);
+                //await _context.SaveChangesAsync();
+                //return RedirectToAction(nameof(Index));
             }
+
+            // ViewData["DireccionId"] = new SelectList(_context.Direcciones, "Id", "Calle", empleado.DireccionId);
             return View(profesor);
         }
 

@@ -7,16 +7,21 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using _2024_InstitutoEducativo.Data;
 using _2024_InstitutoEducativo.Models;
+using _2024_InstitutoEducativo.Helpers;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 
 namespace _2024_InstitutoEducativo.Controllers
 {
     public class AlumnosController : Controller
     {
         private readonly InstitutoContext _context;
+        private readonly UserManager<Persona> _userManager;
 
-        public AlumnosController(InstitutoContext context)
+        public AlumnosController(InstitutoContext context, UserManager<Persona> usermanager)
         {
             _context = context;
+            _userManager = usermanager;
         }
 
         // GET: Alumnos
@@ -55,25 +60,56 @@ namespace _2024_InstitutoEducativo.Controllers
         // POST: Alumnos/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [Authorize(Roles = $"{Configs.AdminRolName},{Configs.EmpleadoRolName}")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("NumeroMatricula,CarreraId,Id,Nombre,Apellido,Email,Dni")] Alumno alumno)
         {
             if (alumno.CarreraId == 0)
             {
-                
+
                 alumno.CarreraId = _context.Carreras.FirstOrDefault(c => c.Nombre == "Ingeniería Mecánica")?.Id ?? 2;
             }
 
             if (ModelState.IsValid)
             {
-                _context.Add(alumno);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                alumno.UserName = alumno.Email;
+                var resultadoNewAlumno = await _userManager.CreateAsync(alumno, Configs.PasswordGenerica);
+
+                if (resultadoNewAlumno.Succeeded)
+                {
+                    IdentityResult resultadoAddRole;
+                    string rolDefinido = Configs.AlumnoRolName;
+
+                    resultadoAddRole = await _userManager.AddToRoleAsync(alumno, rolDefinido);
+
+                    if (resultadoAddRole.Succeeded)
+                    {
+                        return RedirectToAction("Index", "Alumnos");
+                    }
+                    else
+                    {
+                        return Content($"No se ha podido agregar el rol {rolDefinido} ");
+                    }
+                }
+                foreach (var error in resultadoNewAlumno.Errors)
+                {
+                    ModelState.AddModelError(string.Empty, error.Description);
+                }
+                //_context.Add(empleado);
+                //await _context.SaveChangesAsync();
+                //return RedirectToAction(nameof(Index));
             }
-            ViewData["CarreraId"] = new SelectList(_context.Carreras, "Id", "Nombre", alumno.CarreraId);
-            return View(alumno);
+
+            // ViewData["DireccionId"] = new SelectList(_context.Direcciones, "Id", "Calle", empleado.DireccionId);
+           ViewData["CarreraId"] = new SelectList(_context.Carreras, "Id", "Nombre", alumno.CarreraId);
+             return View(alumno);
+
         }
+        
+        
+
+
 
         // GET: Alumnos/Edit/5
         public async Task<IActionResult> Edit(int? id)

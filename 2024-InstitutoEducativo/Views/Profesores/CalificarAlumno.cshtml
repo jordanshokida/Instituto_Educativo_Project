@@ -13,6 +13,16 @@
         <span asp-validation-for="NotaFinal" class="text-danger"></span>
     </div>
     <div class="form-group">
+        <label asp-for="Alumno.NombreCompleto" class="control-label">Alumno</label>
+        <input asp-for="Alumno.NombreCompleto" class="form-control" />
+        <span asp-validation-for="Alumno" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="MateriaCursada.Nombre" class="control-label">Materia Cursada</label>
+        <input asp-for="MateriaCursada.Nombre" class="form-control" />
+        <span asp-validation-for="MateriaCursada.Nombre" class="text-danger"></span>
+    </div>
+    <div class="form-group">
         <input type="submit" value="Calificar" class="btn btn-primary" />
     </div>
 </form>

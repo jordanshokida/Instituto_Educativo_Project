@@ -38,7 +38,8 @@ namespace _2024_InstitutoEducativo.Models
         [Required(ErrorMessage = ErrorMsge.Required)]
         [Display(Name = Alias.CorreoElectronico)]
         [EmailAddress(ErrorMessage = ErrorMsge.NotValid)]
-        public override string Email {
+        public override string Email
+        {
             get {  return base.Email; }
             set { base.Email = value; }
         }

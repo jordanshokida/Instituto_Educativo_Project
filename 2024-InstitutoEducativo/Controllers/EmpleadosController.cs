@@ -10,16 +10,20 @@ using _2024_InstitutoEducativo.Models;
 using Microsoft.Data.SqlClient;
 using _2024_InstitutoEducativo.Helpers;
 using Microsoft.IdentityModel.Tokens;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 
 namespace _2024_InstitutoEducativo.Controllers
 {
     public class EmpleadosController : Controller
     {
         private readonly InstitutoContext _context;
+        private readonly UserManager<Persona> _userManager;
 
-        public EmpleadosController(InstitutoContext context)
+        public EmpleadosController(InstitutoContext context, UserManager<Persona> usermanager)
         {
             _context = context;
+            _userManager = usermanager;
         }
 
         // GET: Empleados
@@ -55,6 +59,7 @@ namespace _2024_InstitutoEducativo.Controllers
         // POST: Empleados/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [Authorize(Roles = $"{Configs.AdminRolName},{Configs.EmpleadoRolName}")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Legajo,Id,Nombre,Apellido,Email,Dni")] Empleado empleado)
@@ -63,18 +68,35 @@ namespace _2024_InstitutoEducativo.Controllers
 
             if (ModelState.IsValid)
             {
-                _context.Add(empleado);
+                empleado.UserName = empleado.Email;
+                var resultadoNewEmpleado = await _userManager.CreateAsync(empleado, Configs.PasswordGenerica);
 
-                try
+                if (resultadoNewEmpleado.Succeeded)
                 {
-                    await _context.SaveChangesAsync();
-                    return RedirectToAction(nameof(Index));
+                    IdentityResult resultadoAddRole;
+                    string rolDefinido = Configs.EmpleadoRolName;
 
-                }catch(DbUpdateException dbex)
+                    resultadoAddRole = await _userManager.AddToRoleAsync(empleado, rolDefinido);
+
+                    if (resultadoAddRole.Succeeded)
+                    {
+                        return RedirectToAction("Index", "Empleados");
+                    }
+                    else
+                    {
+                        return Content($"No se ha podido agregar el rol {rolDefinido} ");
+                    }
+                }
+                foreach (var error in resultadoNewEmpleado.Errors)
                 {
-                    ProcesarDuplicado(dbex);                 
-                }                             
+                    ModelState.AddModelError(string.Empty, error.Description);
+                }
+                //_context.Add(empleado);
+                //await _context.SaveChangesAsync();
+                //return RedirectToAction(nameof(Index));
             }
+
+            // ViewData["DireccionId"] = new SelectList(_context.Direcciones, "Id", "Calle", empleado.DireccionId);
             return View(empleado);
         }
 
