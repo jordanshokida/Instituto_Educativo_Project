@@ -37,8 +37,8 @@ namespace _2024_InstitutoEducativo.Controllers
         public IActionResult Seed()
         {
             //Delete Database 
-            /*_context.Database.EnsureDeleted();
-            _context.Database.Migrate();*/
+            _context.Database.EnsureDeleted();
+            _context.Database.Migrate();
             //Re-createDatabase
             //CrearRoles
             CrearRoles().Wait();
@@ -286,7 +286,7 @@ namespace _2024_InstitutoEducativo.Controllers
         {
             new Materia(1, "Matemáticas", 101, "CálculoyÁlgebra", 5,1),
             new Materia(2, "Física", 102, "MecánicayTermodinámica", 5,2),
-            new Materia(3, "Química", 103, "QuímicaGeneral", 5,4)
+            new Materia(3, "Química", 103, "QuímicaGeneral", 5,2)
         };
 
         public async Task CrearMaterias()
