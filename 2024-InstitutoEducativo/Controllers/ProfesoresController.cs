@@ -159,38 +159,71 @@ namespace _2024_InstitutoEducativo.Controllers
 
         //METODOS:
 
-        /*// Método para listar materias cursadas
-        public List<MateriaCursada> ListarMateriasCursadas()
+        // Método para listar materias cursadas
+        public IActionResult ListarMateriasCursadas(int profesorId)
         {
-            // Implementación para listar materias cursadas
-            return _context.MateriasCursadas.Include(mc => mc.Materia).Include(mc => mc.Alumno).ToList();
-        }*/
+            var materiasCursadas = _context.MateriasCursadas
+                .Where(mc => mc.ProfesorId == profesorId)
+                .Include(mc => mc.Materia)
+                .Include(mc => mc.Alumno)
+                .ToList();
+            return View(materiasCursadas);
+        }
 
 
-        /*// Método para calificar alumno
-        public void CalificarAlumno(MateriaCursada materia, Alumno alumno, int nota)
+        // Método para calificar alumno
+        public IActionResult CalificarAlumno(int alumnoId, int materiaId)
         {
-            // Implementación de calificación de alumno
-            var calificacion = new Calificacion
+            var viewModel = new Calificacion
             {
-                MateriaCursadaId = materia.Id,
-                AlumnoId = alumno.Id,
-                NotaFinal = nota
+                AlumnoId = alumnoId,
+                MateriaCursadaId = materiaId
             };
-
-            _context.Calificaciones.Add(calificacion);
-            _context.SaveChanges();
-        }*/
+            return View(viewModel);
+        }
 
 
-        /*// Método para obtener promedio de notas
-        public double ObtenerPromedioNotas(MateriaCursada materia)
+        [HttpPost]
+        public IActionResult CalificarAlumno(Calificacion model)
         {
-            // Implementación para obtener promedio de notas
-             return _context.Calificaciones
-                .Where(c => c.MateriaCursadaId == materia.Id)
-                .Average(c => c.NotaFinal);
+            if (ModelState.IsValid)
+            {
+                var materiaCursada = _context.MateriasCursadas.Find(model.MateriaCursadaId);
+                var alumno = _context.Alumnos.Find(model.AlumnoId);
+
+                if (materiaCursada != null && alumno != null)
+                {
+                    materiaCursada.AlumnoId = model.AlumnoId;
+                    _context.SaveChanges();
+                }
+                return RedirectToAction("VerAlumnos", new { materiaCursadaId = model.MateriaCursadaId });
+            }
+            return View(model);
+        }
+
+        //Metodo para ver alumnos por materiacursada
+        /*public IActionResult VerAlumnos(int materiaCursadaId)
+        {
+            var materiaCursada = _context.MateriasCursadas
+                .Include(mc => mc.Alumno)
+                .FirstOrDefault(mc => mc.Id == materiaCursadaId);
+            return View(materiaCursada);
         }*/
+
+        // Método para obtener promedio de notas
+        public IActionResult ObtenerPromedioNotas(int materiaId)
+        {
+            var materiaCursada = _context.MateriasCursadas
+                .Include(mc => mc.Alumno)
+                .FirstOrDefault(mc => mc.Id == materiaId);
+
+            if (materiaCursada != null)
+            {
+                var promedio = materiaCursada.Alumno.Calificaciones.Average(a => a.NotaFinal);
+                return View(promedio);
+            }
+            return NotFound();
+        }
 
 
 

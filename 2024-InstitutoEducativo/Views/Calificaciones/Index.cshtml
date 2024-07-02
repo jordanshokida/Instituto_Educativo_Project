@@ -16,6 +16,9 @@
                 @Html.DisplayNameFor(model => model.NotaFinal)
             </th>
             <th>
+                @Html.DisplayNameFor(model => model.MateriaCursada.Cuatrimestre)
+            </th>
+            <th>
                 @Html.DisplayNameFor(model => model.MateriaCursada)
             </th>
             <th>
@@ -36,11 +39,14 @@
             <td>
                 @Html.DisplayFor(modelItem => item.MateriaCursada.Cuatrimestre)
             </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.MateriaCursada.Nombre)
+                </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Profesor.Apellido)
+                @Html.DisplayFor(modelItem => item.Profesor.NombreCompleto)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Alumno.Apellido)
+                    @Html.DisplayFor(modelItem => item.Alumno.NombreCompleto)
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |

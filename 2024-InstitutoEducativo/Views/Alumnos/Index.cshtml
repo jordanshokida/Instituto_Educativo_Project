@@ -11,10 +11,7 @@
 </p>
 <table class="table">
     <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Activo)
-            </th>
+        <tr>           
             <th>
                 @Html.DisplayNameFor(model => model.NumeroMatricula)
             </th>
@@ -41,10 +38,7 @@
     </thead>
     <tbody>
 @foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Activo)
-            </td>
+        <tr>           
             <td>
                 @Html.DisplayFor(modelItem => item.NumeroMatricula)
             </td>

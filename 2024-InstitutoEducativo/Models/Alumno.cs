@@ -11,17 +11,13 @@ namespace _2024_InstitutoEducativo.Models
         {
         }
 
-        public Alumno(string nombre, string apellido, string email,string dni,bool activo, int numeroMatricula) : base(nombre,apellido,email,dni)
+        public Alumno(string nombre, string apellido, string email,string dni, int numeroMatricula) : base(nombre,apellido,email,dni)
         {
             
-            Activo = activo;
+            
             NumeroMatricula = numeroMatricula;
             
         }
-
-
-        [Required(ErrorMessage = ErrorMsge.Required)]
-        public bool Activo { get; set; }
 
         [Required(ErrorMessage = ErrorMsge.Required)]
         [Range(Restrictions.RANGE_MIN, Restrictions.RANGE_MAX,ErrorMessage = ErrorMsge.IntMaxMin)]

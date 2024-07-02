@@ -475,9 +475,6 @@ namespace _2024_InstitutoEducativo.Migrations
                 {
                     b.HasBaseType("_2024_InstitutoEducativo.Models.Persona");
 
-                    b.Property<bool>("Activo")
-                        .HasColumnType("bit");
-
                     b.Property<int>("CarreraId")
                         .HasColumnType("int");
 

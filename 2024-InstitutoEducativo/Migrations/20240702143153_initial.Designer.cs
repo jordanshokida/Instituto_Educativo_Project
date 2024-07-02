@@ -12,8 +12,8 @@ using _2024_InstitutoEducativo.Data;
 namespace _2024_InstitutoEducativo.Migrations
 {
     [DbContext(typeof(InstitutoContext))]
-    [Migration("20240622001344_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20240702143153_initial")]
+    partial class initial
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -477,9 +477,6 @@ namespace _2024_InstitutoEducativo.Migrations
             modelBuilder.Entity("_2024_InstitutoEducativo.Models.Alumno", b =>
                 {
                     b.HasBaseType("_2024_InstitutoEducativo.Models.Persona");
-
-                    b.Property<bool>("Activo")
-                        .HasColumnType("bit");
 
                     b.Property<int>("CarreraId")
                         .HasColumnType("int");

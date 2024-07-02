@@ -57,7 +57,7 @@ namespace _2024_InstitutoEducativo.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Activo,NumeroMatricula,CarreraId,Id,Nombre,Apellido,Email,Dni")] Alumno alumno)
+        public async Task<IActionResult> Create([Bind("NumeroMatricula,CarreraId,Id,Nombre,Apellido,Email,Dni")] Alumno alumno)
         {
             if (alumno.CarreraId == 0)
             {
@@ -97,7 +97,7 @@ namespace _2024_InstitutoEducativo.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Activo,NumeroMatricula,CarreraId,Id,Nombre,Apellido,Email,Dni")] Alumno alumnoDelForm)
+        public async Task<IActionResult> Edit(int id, [Bind("NumeroMatricula,CarreraId,Id,Nombre,Apellido,Email,Dni")] Alumno alumnoDelForm)
         {
             if (id != alumnoDelForm.Id)
             {
@@ -121,14 +121,14 @@ namespace _2024_InstitutoEducativo.Controllers
                         alumnoDelForm.CarreraId = _context.Carreras.FirstOrDefault(c => c.Nombre == "Ingeniería Mecánica")?.Id ?? 2;
                     }
 
-                    alumnoEnDb.Activo= alumnoDelForm.Activo;
+                    
                     alumnoEnDb.NumeroMatricula = alumnoDelForm.NumeroMatricula;
                     alumnoEnDb.CarreraId = alumnoDelForm.CarreraId;
                     alumnoEnDb.Id = alumnoDelForm.Id;
                     alumnoEnDb.Nombre = alumnoDelForm.Nombre;
                     alumnoEnDb.Apellido = alumnoDelForm.Apellido;
                     alumnoEnDb.Dni = alumnoDelForm.Dni;
-                    alumnoEnDb.Activo = alumnoDelForm.Activo;
+                    
 
                     if(!ActualizarEmail(alumnoDelForm, alumnoEnDb))
                     {
@@ -286,7 +286,7 @@ namespace _2024_InstitutoEducativo.Controllers
         public List<MateriaCursada> ObtenerMateriasCursadas()
         {
             // Implementación para obtener materias cursadas
-            return  return _context.MateriasCursadas.Include(m => m.Materia).ToList();
+             return _context.MateriasCursadas.Include(m => m.Materia).ToList();
         }*/
 
 

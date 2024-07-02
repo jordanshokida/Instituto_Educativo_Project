@@ -45,14 +45,14 @@ namespace _2024_InstitutoEducativo.Controllers
             /*CrearUsuario().Wait();*/
             /* AgregarDirecciones();
              AgregarTelefonos(); */
-            CrearAlumnos().Wait();
             CrearCarreras().Wait();
+            CrearAlumnos().Wait();          
             CrearProfesores().Wait();
             CrearEmpleados().Wait();
             CrearPersonas().Wait();
-            CrearMaterias().Wait();
+            CrearMaterias().Wait();                      
             CrearMateriasCursadas().Wait();
-            CrearCalificaciones().Wait();
+            CrearCalificaciones().Wait();            
             CrearDirecciones().Wait();
             CrearTelefonos().Wait();
             /*
@@ -122,12 +122,12 @@ namespace _2024_InstitutoEducativo.Controllers
 
         private List<Alumno> alumnos = new List<Alumno>()
         {
-            new Alumno("Jordán16", "Shokida36", "jordii.s22@hotmail.com", "57273736", false, 0234),
-            new Alumno("Jordán17", "Shokida31", "jordii.s21@hotmail.com", "67273737", false,1135),
-            new Alumno("Jordán27", "Shokida32", "jordii.s32@hotmail.com", "77273738", false,1336),
-            new Alumno("Jordán37", "Shokida33", "jordii.s33@hotmail.com", "87273739", false,1537),
-            new Alumno("Jordán47", "Shokida34", "jordii.s34@hotmail.com", "97273730", false,1738),
-            new Alumno("Jordán57", "Shokida35", "jordii.s35@hotmail.com", "07273731", false,1939),
+            new Alumno("Jordán16", "Shokida36", "jordii.s22@hotmail.com", "57273736", 0234),
+            new Alumno("Jordán17", "Shokida31", "jordii.s21@hotmail.com", "67273737",1135),
+            new Alumno("Jordán27", "Shokida32", "jordii.s32@hotmail.com", "77273738",1336),
+            new Alumno("Jordán37", "Shokida33", "jordii.s33@hotmail.com", "87273739",1537),
+            new Alumno("Jordán47", "Shokida34", "jordii.s34@hotmail.com", "97273730",1738),
+            new Alumno("Jordán57", "Shokida35", "jordii.s35@hotmail.com", "07273731",1939)
         };
 
         private async Task CrearAlumnos()
@@ -284,9 +284,9 @@ namespace _2024_InstitutoEducativo.Controllers
 
         private List<Materia> materias = new List<Materia>()
         {
-            new Materia(1, "Matemáticas", 101, "CálculoyÁlgebra", 5,1),
-            new Materia(2, "Física", 102, "MecánicayTermodinámica", 5,2),
-            new Materia(3, "Química", 103, "QuímicaGeneral", 5,4)
+            new Materia( "Matemáticas", 101, "CálculoyÁlgebra", 5,1),
+            new Materia("Física", 102, "MecánicayTermodinámica", 5,2),
+            new Materia("Química", 103, "QuímicaGeneral", 5,3)
         };
 
         public async Task CrearMaterias()
@@ -304,9 +304,9 @@ namespace _2024_InstitutoEducativo.Controllers
 
         private List<MateriaCursada> materiasCursadas = new List<MateriaCursada>()
         {
-            new MateriaCursada(1, "Matemáticas", 2024, "1º Cuatrimestre"),
-            new MateriaCursada(2, "Física", 2024, "1º Cuatrimestre"),
-            new MateriaCursada(3, "Química", 2024, "2º Cuatrimestre")
+            new MateriaCursada("Matemáticas", 2024, "1º",1,7,1),
+            new MateriaCursada("Física", 2024, "1º",2,8,2),
+            new MateriaCursada("Química", 2024, "2º",3,9,3)
         };
 
         public async Task CrearMateriasCursadas()
@@ -324,9 +324,9 @@ namespace _2024_InstitutoEducativo.Controllers
 
         private List<Calificacion> calificaciones = new List<Calificacion>()
         {
-            new Calificacion(1, 8, 1, 32, 46),
-            new Calificacion(2, 9, 2, 33, 47),
-            new Calificacion(3, 10, 3, 34, 48)
+            new Calificacion( 8, 1, 7, 1),
+            new Calificacion(9, 2, 8, 2),
+            new Calificacion( 10, 3, 9, 3)
         };
 
 
@@ -346,9 +346,9 @@ namespace _2024_InstitutoEducativo.Controllers
 
         private List<Direccion> direcciones = new List<Direccion>()
         {
-         new Direccion (24, "Calle1", 111, "3 de Enero", "Buenos aires", "Argentina"),
-         new Direccion (34, "Calle2", 112, "3 de Febrero", "Buenos aires", "Argentina"),
-         new Direccion (49, "Calle3", 113, "3 de Marzo", "Buenos aires", "Argentina"),
+         new Direccion (1, "Calle1", 111, "3 de Enero", "Buenos aires", "Argentina"),
+         new Direccion (8, "Calle2", 112, "3 de Febrero", "Buenos aires", "Argentina"),
+         new Direccion (16, "Calle3", 113, "3 de Marzo", "Buenos aires", "Argentina"),
         };
 
         private async Task CrearDirecciones()

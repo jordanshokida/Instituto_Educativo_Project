@@ -1,0 +1,18 @@
+﻿@model Calificacion
+
+@{
+    ViewData["Title"] = "Calificar Alumno";
+}
+
+<h1>Calificar Alumno</h1>
+
+<form asp-action="CalificarAlumno">
+    <div class="form-group">
+        <label asp-for="NotaFinal" class="control-label">Nota</label>
+        <input asp-for="NotaFinal" class="form-control" />
+        <span asp-validation-for="NotaFinal" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <input type="submit" value="Calificar" class="btn btn-primary" />
+    </div>
+</form>

@@ -11,9 +11,9 @@ namespace _2024_InstitutoEducativo.Models
             
         }
 
-        public Materia(int id, string materiaNombre, int codMateria, string descripcion, int cupoMaximo,int carreraId)
+        public Materia(string materiaNombre, int codMateria, string descripcion, int cupoMaximo,int carreraId)
         {
-            Id = id;
+            
             MateriaNombre = materiaNombre;
             CodMateria = codMateria;
             Descripcion = descripcion;
