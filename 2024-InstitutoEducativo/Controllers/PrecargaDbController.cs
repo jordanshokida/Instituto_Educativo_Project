@@ -37,8 +37,8 @@ namespace _2024_InstitutoEducativo.Controllers
         public IActionResult Seed()
         {
             //Delete Database 
-            /*_context.Database.EnsureDeleted();
-            _context.Database.Migrate();*/
+            _context.Database.EnsureDeleted();
+            _context.Database.Migrate();
             //Re-createDatabase
             //CrearRoles
             CrearRoles().Wait();
