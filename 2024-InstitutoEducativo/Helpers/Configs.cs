@@ -6,7 +6,7 @@
         public const string ProfesorRolName = "ProfesorRol";
         public const string AdminRolName = "AdminRol";
         public const string EmpleadoRolName = "EmpleadoRol";
-        public const string AlumnoRolName = "ClienteRol";
+        public const string AlumnoRolName = "AlumnoRol";
         
     }
 }

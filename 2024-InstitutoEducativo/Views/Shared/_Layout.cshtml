@@ -22,8 +22,20 @@
                         <li class="nav-item">
                             <a class="nav-link text-light" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                         </li>
+                        @if(User.IsInRole(Configs.AlumnoRolName))
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-light" asp-area="" asp-controller="Calificaciones" asp-action="Index">Calificaciones</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-light" asp-area="" asp-controller="Materias" asp-action="Index">Materias</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-light" asp-area="" asp-controller="MateriasCursadas" asp-action="Index">MateriasCursadas</a>
+                            </li>
+                        }
 
-                        @if (signInManager.IsSignedIn(User))
+                        @if (signInManager.IsSignedIn(User) && !User.IsInRole(Configs.AlumnoRolName))
                         {
                             //acá debemos mostrar lo que necesita un usuario con sesión
                         <li class="nav-item">

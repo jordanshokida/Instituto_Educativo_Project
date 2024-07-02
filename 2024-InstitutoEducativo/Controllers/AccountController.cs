@@ -1,4 +1,5 @@
 ﻿using _2024_InstitutoEducativo.Data;
+using _2024_InstitutoEducativo.Helpers;
 using _2024_InstitutoEducativo.Models;
 using _2024_InstitutoEducativo.ViewModels;
 using Azure.Identity;
@@ -6,6 +7,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.VisualStudio.Web.CodeGenerators.Mvc.Templates.BlazorIdentity.Pages.Manage;
+using System.Runtime.InteropServices;
 
 namespace _2024_InstitutoEducativo.Controllers
 {
@@ -35,30 +37,41 @@ namespace _2024_InstitutoEducativo.Controllers
             if (ModelState.IsValid)
             {
                 //Avanzamos con la registracion
-                Alumno clienteAcrear = new Alumno()
+                Alumno alumnoAcrear = new Alumno()
                 {
                     Email = viewModel.Email,
                     UserName = viewModel.Email,
-                    CarreraId = 1
+                    CarreraId = 1,
                 };
-                
-               var resultadoCreate =  await _usermanager.CreateAsync(clienteAcrear,viewModel.Password);
+
+                var resultadoCreate = await _usermanager.CreateAsync(alumnoAcrear, viewModel.Password);
 
                 if (resultadoCreate.Succeeded)
                 {
-                    await _signInManager.SignInAsync(clienteAcrear,isPersistent:false);
+                    var resultadoCreateAddRole = await _usermanager.AddToRoleAsync(alumnoAcrear, Configs.AlumnoRolName);
 
-                    return RedirectToAction("Edit", "Alumnos", new {id = clienteAcrear.Id});
+
+                    if (resultadoCreateAddRole.Succeeded)
+                    {
+                        await _signInManager.SignInAsync(alumnoAcrear, isPersistent: false);
+
+                        return RedirectToAction("Edit", "Alumnos", new { id = alumnoAcrear.Id });
+                    }
+                    else
+                    {
+                        ModelState.AddModelError(string.Empty, $"No se puede agregar el rol {Configs.AlumnoRolName}");
+                    }
+
+                    foreach (var error in resultadoCreate.Errors)
+                    {
+                        //Proceso los errores al momento de crear
+                        ModelState.AddModelError(String.Empty, error.Description);
+                    }
                 }
 
-                foreach(var error in resultadoCreate.Errors)
-                {
-                    //Proceso los errores al momento de crear
-                    ModelState.AddModelError(String.Empty,error.Description);
                 }
-
-            }
-            return View(viewModel);
+                return View(viewModel);
+            
         }
 
 

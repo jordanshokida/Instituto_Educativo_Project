@@ -45,16 +45,16 @@ namespace _2024_InstitutoEducativo.Controllers
             /*CrearUsuario().Wait();*/
             /* AgregarDirecciones();
              AgregarTelefonos(); */
-            CrearAlumnos().Wait();
+            //CrearAlumnos().Wait();
             CrearCarreras().Wait();
-            CrearProfesores().Wait();
-            CrearEmpleados().Wait();
-            CrearPersonas().Wait();
-            CrearMaterias().Wait();
-            CrearMateriasCursadas().Wait();
-            CrearCalificaciones().Wait();
-            CrearDirecciones().Wait();
-            CrearTelefonos().Wait();
+            //CrearProfesores().Wait();
+            //CrearEmpleados().Wait();
+            //CrearPersonas().Wait();
+            //CrearMaterias().Wait();
+            //CrearMateriasCursadas().Wait();
+            //CrearCalificaciones().Wait();
+            //CrearDirecciones().Wait();
+            //CrearTelefonos().Wait();
             /*
             
             ;
