@@ -9,16 +9,19 @@ using _2024_InstitutoEducativo.Data;
 using _2024_InstitutoEducativo.Models;
 using Microsoft.AspNetCore.Authorization;
 using _2024_InstitutoEducativo.Helpers;
+using Microsoft.AspNetCore.Identity;
 
 namespace _2024_InstitutoEducativo.Controllers
 {
     public class CalificacionesController : Controller
     {
         private readonly InstitutoContext _context;
+        private readonly UserManager<Persona> _usermanager;
 
-        public CalificacionesController(InstitutoContext context)
+        public CalificacionesController(InstitutoContext context, UserManager<Persona> usermanager)
         {
             _context = context;
+            _usermanager = usermanager;
         }
 
         // GET: Calificaciones
@@ -78,6 +81,24 @@ namespace _2024_InstitutoEducativo.Controllers
             ViewData["ProfesorId"] = new SelectList(_context.Profesores, "Id", "Apellido", calificacion.ProfesorId);
             return View(calificacion);
         }
+
+       
+        public async Task<IActionResult> CalificacionesAlumno()
+        {
+            Alumno alumno = await _context.Alumnos
+                .Include(c => c.Calificaciones)
+                .ThenInclude(c => c.MateriaCursada)
+                .ThenInclude(c => c.Profesor)                
+                .FirstOrDefaultAsync(c => c.Id == Int32.Parse(_usermanager.GetUserId(User)));
+
+            if (alumno == null)
+            {
+                return NotFound();
+            }
+
+            return View(alumno);
+        }       
+
 
         // GET: Calificaciones/Edit/5
         public async Task<IActionResult> Edit(int? id)
@@ -176,5 +197,48 @@ namespace _2024_InstitutoEducativo.Controllers
         {
             return _context.Calificaciones.Any(e => e.Id == id);
         }
+
+        // Método para listar materias cursadas
+        public IActionResult ListarMateriasCursadas(int profesorId)
+        {
+            var materiasCursadas = _context.MateriasCursadas
+                .Where(mc => mc.ProfesorId == profesorId)
+                .Include(mc => mc.Materia)
+                .Include(mc => mc.Alumno)
+                .ToList();
+            return View(materiasCursadas);
+        }
+
+
+        // Método para calificar alumno
+        public IActionResult CalificarAlumno(int alumnoId, int materiaId)
+        {
+            var viewModel = new Calificacion
+            {
+                AlumnoId = alumnoId,
+                MateriaCursadaId = materiaId
+            };
+            return View(viewModel);
+        }
+
+
+        [HttpPost]
+        public IActionResult CalificarAlumno(Calificacion model)
+        {
+            if (ModelState.IsValid)
+            {
+                var materiaCursada = _context.MateriasCursadas.Find(model.MateriaCursadaId);
+                var alumno = _context.Alumnos.Find(model.AlumnoId);
+
+                if (materiaCursada != null && alumno != null)
+                {
+                    materiaCursada.AlumnoId = model.AlumnoId;
+                    _context.SaveChanges();
+                }
+                return RedirectToAction("VerAlumnos", new { materiaCursadaId = model.MateriaCursadaId });
+            }
+            return View(model);
+        }
+
     }
 }

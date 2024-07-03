@@ -233,6 +233,7 @@ namespace _2024_InstitutoEducativo.Controllers
             return View(model);
         }
 
+
         //Metodo para ver alumnos por materiacursada
         /*public IActionResult VerAlumnos(int materiaCursadaId)
         {

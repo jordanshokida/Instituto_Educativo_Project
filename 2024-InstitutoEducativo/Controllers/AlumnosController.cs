@@ -273,6 +273,21 @@ namespace _2024_InstitutoEducativo.Controllers
 
 
 
+        public async Task<IActionResult> VerAlumnosProfesor()
+        {
+            var materiasCursadasProfesor = await _context.MateriasCursadas.FindAsync()
+               .Include(mc => mc.Alumno)
+               .Include(mc => mc.Profesor)
+               .FirstOrDefaultAsync(mc => mc.ProfesorId == Int32.Parse(_userManager.GetUserId(User)));
+            
+            if (materiasCursadasProfesor == null)
+            {
+                return NotFound();
+            }
+            return View(materiasCursadasProfesor);
+        }
+
+
         //METODOS:
 
         /*// Método para registrar alumno

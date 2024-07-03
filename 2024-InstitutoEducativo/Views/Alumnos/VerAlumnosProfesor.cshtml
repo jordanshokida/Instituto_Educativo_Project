@@ -1,0 +1,51 @@
+﻿@model MateriaCursada
+
+@{
+    ViewData["Title"] = "Calificaciones del profesor @Model.Profesor.NombreCompleto";
+}
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Alumno
+            </th>
+            <th>
+                Cuatrimestre
+            </th>
+            <th>
+                Materia Cursada
+            </th>           
+            <th>
+                Nota Final
+            </th>
+
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Alumnos)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.NombreCompleto)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.MateriasCursadas.Cuatrimestre)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Profesor.NombreCompleto)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Calificaciones)
+                </td>
+
+
+            </tr>
+        }
+    </tbody>
+</table>
+
+<p>
+    <a asp-action="Index">Back to List</a>
+</p>
+
