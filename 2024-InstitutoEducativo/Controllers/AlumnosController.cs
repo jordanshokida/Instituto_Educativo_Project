@@ -273,7 +273,7 @@ namespace _2024_InstitutoEducativo.Controllers
 
 
 
-        public async Task<IActionResult> VerAlumnosProfesor()
+        /*public async Task<IActionResult> VerAlumnosProfesor()
         {
             var materiasCursadasProfesor = await _context.MateriasCursadas.FindAsync()
                .Include(mc => mc.Alumno)
@@ -285,7 +285,7 @@ namespace _2024_InstitutoEducativo.Controllers
                 return NotFound();
             }
             return View(materiasCursadasProfesor);
-        }
+        }*/
 
 
         //METODOS:

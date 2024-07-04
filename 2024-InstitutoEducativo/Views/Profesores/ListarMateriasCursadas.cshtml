@@ -1,4 +1,4 @@
-﻿@model IEnumerable<MateriaCursada>
+﻿@model IEnumerable<_2024_InstitutoEducativo.Models.MateriaCursada>
 
 @{
     ViewData["Title"] = "Materias Cursadas";
@@ -9,19 +9,22 @@
 <table class="table">
     <thead>
         <tr>
-            <th>Materia</th>
-            <th>Estado</th>
-            <th>Acciones</th>
+            <th>@Html.DisplayNameFor(model => model.Nombre)</th>
+            <th>@Html.DisplayNameFor(model => model.AnioCursada)</th>
+            <th>@Html.DisplayNameFor(model => model.Cuatrimestre)</th>
+            <th>@Html.DisplayNameFor(model => model.Materia.MateriaNombre)</th>
+            <th>Nombre Alumno</th>
         </tr>
     </thead>
     <tbody>
         @foreach (var item in Model)
         {
             <tr>
-                <td>@item.Materia.MateriaNombre</td>               
-                <td>
-                    <a asp-action="VerAlumnos" asp-route-id="@item.Id">Ver Alumnos</a>
-                </td>
+                <td>@Html.DisplayFor(modelItem => item.Nombre)</td>
+                <td>@Html.DisplayFor(modelItem => item.AnioCursada)</td>
+                <td>@Html.DisplayFor(modelItem => item.Cuatrimestre)</td>
+                <td>@Html.DisplayFor(modelItem => item.Materia.MateriaNombre)</td>
+                <td>@Html.DisplayFor(modelItem => item.Alumno.NombreCompleto)</td>
             </tr>
         }
     </tbody>
