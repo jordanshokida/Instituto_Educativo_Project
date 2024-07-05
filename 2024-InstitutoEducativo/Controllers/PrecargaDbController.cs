@@ -55,13 +55,14 @@ namespace _2024_InstitutoEducativo.Controllers
             CrearCalificaciones().Wait();            
             CrearDirecciones().Wait();
             CrearTelefonos().Wait();
+            cargarListas().Wait();
             /*
             
             ;
             
             
             ;*/
-            
+
             //Agregas todo lo demas en orden de dependica. 
 
             /* AddDirecciones();*/
@@ -242,6 +243,82 @@ namespace _2024_InstitutoEducativo.Controllers
                         // Puedes usar result.Errors para obtener detalles del error
                     }
                 }
+            }
+        }
+
+        private async Task cargarListas()
+        {
+            foreach (var profesor in profesores)
+            {
+                foreach (var materiasC in materiasCursadas)
+                {
+                    if (materiasC.ProfesorId == profesor.Id)
+                    {
+                        profesor.MateriasCursadaActiva.Add(materiasC);
+                    }
+                }
+                foreach (var calificacion in calificaciones)
+                {
+                    if (calificacion.ProfesorId == profesor.Id)
+                    {
+                        profesor.CalificacionesRealizadas.Add(calificacion);
+                    }
+                }
+                _context.Profesores.Update(profesor);
+                await _context.SaveChangesAsync();
+            }
+
+            foreach (var alumno in alumnos)
+            {
+                foreach (var materiasC in materiasCursadas)
+                {
+                    if (materiasC.AlumnoId == alumno.Id)
+                    {
+                        alumno.MateriasCursadas.Add(materiasC);
+                    }
+                }
+                foreach (var calificacion in calificaciones)
+                {
+                    if (calificacion.AlumnoId == alumno.Id)
+                    {
+                        alumno.Calificaciones.Add(calificacion);
+                    }
+                }
+                _context.Alumnos.Update(alumno);
+                await _context.SaveChangesAsync();
+            }
+
+            foreach (var carrera in carreras)
+            {
+                foreach (var materia in materias)
+                {
+                    if (materia.CarreraId == carrera.Id)
+                    {
+                        carrera.Materias.Add(materia);
+                    }
+                }
+                foreach (var alumno in alumnos)
+                {
+                    if(alumno.CarreraId == carrera.Id)
+                    {
+                        carrera.Alumnos.Add(alumno);
+                    }
+                }
+                _context.Carreras.Update(carrera);
+                await _context.SaveChangesAsync();
+            }
+
+            foreach(var materiasC in materiasCursadas)
+            {
+                foreach (var calificacion in calificaciones)
+                {
+                    if (calificacion.MateriaCursadaId == materiasC.Id)
+                    {
+                        materiasC.Calificaciones.Add(calificacion);
+                    }
+                }
+                _context.MateriasCursadas.Update(materiasC);
+                await _context.SaveChangesAsync();
             }
         }
 

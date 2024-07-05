@@ -36,7 +36,7 @@ namespace _2024_InstitutoEducativo.Controllers
         {
             if (ModelState.IsValid)
             {
-                //Avanzamos con la registracion
+              
                 Alumno alumnoAcrear = new Alumno()
                 {
                     Email = viewModel.Email,

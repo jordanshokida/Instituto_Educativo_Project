@@ -16,13 +16,14 @@ namespace _2024_InstitutoEducativo.Models
             
             
             NumeroMatricula = numeroMatricula;
-            
+            MateriasCursadas = new List<MateriaCursada>();
+            Calificaciones = new List<Calificacion>();
         }
 
-        [Required(ErrorMessage = ErrorMsge.Required)]
+
         [Range(Restrictions.RANGE_MIN, Restrictions.RANGE_MAX,ErrorMessage = ErrorMsge.IntMaxMin)]
         [Display(Name = Alias.Matricula)]
-        public int NumeroMatricula { get; set; }
+        public int? NumeroMatricula { get; set; }
 
         
         public List<MateriaCursada> MateriasCursadas { get; set; }

@@ -20,6 +20,7 @@ namespace _2024_InstitutoEducativo.Models
             MateriaId = materiaId;
             AlumnoId = alumnoId;
             ProfesorId = profesorId;
+            Calificaciones = new List<Calificacion>();
         }
 
         public int Id { get; set; }

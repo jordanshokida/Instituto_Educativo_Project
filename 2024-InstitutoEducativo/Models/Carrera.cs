@@ -13,9 +13,10 @@ namespace _2024_InstitutoEducativo.Models
 
         public Carrera(string nombre)
         {
-            
+
             Nombre = nombre;
-            
+            Materias = new List<Materia>();
+            Alumnos = new List<Alumno>(); 
         }
 
         public int Id { get; set; }

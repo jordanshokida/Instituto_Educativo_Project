@@ -1,15 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using _2024_InstitutoEducativo.Data;
+using _2024_InstitutoEducativo.Helpers;
+using _2024_InstitutoEducativo.Models;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using _2024_InstitutoEducativo.Data;
-using _2024_InstitutoEducativo.Models;
-using _2024_InstitutoEducativo.Helpers;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Identity;
 
 namespace _2024_InstitutoEducativo.Controllers
 {
@@ -133,7 +129,7 @@ namespace _2024_InstitutoEducativo.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("NumeroMatricula,CarreraId,Id,Nombre,Apellido,Email,Dni")] Alumno alumnoDelForm)
+        public async Task<IActionResult> Edit(int id, [Bind("CarreraId,Id,Nombre,Apellido,Email,Dni")] Alumno alumnoDelForm)
         {
             if (id != alumnoDelForm.Id)
             {
@@ -158,7 +154,7 @@ namespace _2024_InstitutoEducativo.Controllers
                     }
 
                     
-                    alumnoEnDb.NumeroMatricula = alumnoDelForm.NumeroMatricula;
+                    alumnoEnDb.NumeroMatricula = new Random().Next(1, 1000001);
                     alumnoEnDb.CarreraId = alumnoDelForm.CarreraId;
                     alumnoEnDb.Id = alumnoDelForm.Id;
                     alumnoEnDb.Nombre = alumnoDelForm.Nombre;
@@ -186,10 +182,10 @@ namespace _2024_InstitutoEducativo.Controllers
                         throw;
                     }
                 }
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction("Index", "Home");
             }
             ViewData["CarreraId"] = new SelectList(_context.Carreras, "Id", "Nombre", alumnoDelForm.CarreraId);
-            return View(alumnoDelForm);
+            return RedirectToAction("Index", "Home");
         }
 
         private bool ActualizarEmail(Alumno alumnoForm, Alumno alumnoDb)

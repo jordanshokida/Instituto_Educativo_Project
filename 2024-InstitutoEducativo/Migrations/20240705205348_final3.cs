@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace _2024_InstitutoEducativo.Migrations
 {
     /// <inheritdoc />
-    public partial class inicial : Migration
+    public partial class final3 : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)

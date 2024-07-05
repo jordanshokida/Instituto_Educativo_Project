@@ -12,9 +12,10 @@ namespace _2024_InstitutoEducativo.Models
 
         public Profesor(string nombre, string apellido, string email, string dni, string legajo) : base(nombre, apellido, email, dni)
         {
-           
+
             Legajo = legajo;
-            
+            MateriasCursadaActiva = new List<MateriaCursada>();
+            CalificacionesRealizadas = new List<Calificacion>();
         }
 
         [Required(ErrorMessage = ErrorMsge.Required)]

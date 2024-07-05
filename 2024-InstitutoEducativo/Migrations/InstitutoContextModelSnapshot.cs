@@ -478,7 +478,7 @@ namespace _2024_InstitutoEducativo.Migrations
                     b.Property<int>("CarreraId")
                         .HasColumnType("int");
 
-                    b.Property<int>("NumeroMatricula")
+                    b.Property<int?>("NumeroMatricula")
                         .HasColumnType("int");
 
                     b.HasIndex("CarreraId");

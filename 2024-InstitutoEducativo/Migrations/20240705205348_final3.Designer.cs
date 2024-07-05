@@ -12,8 +12,8 @@ using _2024_InstitutoEducativo.Data;
 namespace _2024_InstitutoEducativo.Migrations
 {
     [DbContext(typeof(InstitutoContext))]
-    [Migration("20240705020822_inicial")]
-    partial class inicial
+    [Migration("20240705205348_final3")]
+    partial class final3
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -481,7 +481,7 @@ namespace _2024_InstitutoEducativo.Migrations
                     b.Property<int>("CarreraId")
                         .HasColumnType("int");
 
-                    b.Property<int>("NumeroMatricula")
+                    b.Property<int?>("NumeroMatricula")
                         .HasColumnType("int");
 
                     b.HasIndex("CarreraId");
