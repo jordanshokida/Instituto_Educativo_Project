@@ -81,12 +81,12 @@ namespace _2024_InstitutoEducativo.Controllers
 
         private List<Empleado> empleados = new List<Empleado>()
         {
-            new Empleado("Jordán", "Shokida", "jordii.s@hotmail.com", "37273736","0234"),
-            new Empleado("Jordán1", "Shokida1", "jordii.s1@hotmail.com", "37273737","1235"),
-            new Empleado("Jordán2", "Shokida2", "jordii.s2@hotmail.com", "37273738","1236"),
-            new Empleado("Jordán3", "Shokida3", "jordii.s3@hotmail.com", "37273739","1237"),
-            new Empleado("Jordán4", "Shokida4", "jordii.s4@hotmail.com", "37273730","1238"),
-            new Empleado("Jordán5", "Shokida5", "jordii.s5@hotmail.com", "37273731","1239"),
+            new Empleado("Empleado1", "Empleado1", "empleado1@hotmail.com", "37273736","0234"),
+            new Empleado("Empleado2", "Empleado2", "empleado2@hotmail.com", "37273737","1235"),
+            new Empleado("Empleado3", "Empleado3", "empleado3@hotmail.com", "37273738","1236"),
+            new Empleado("Empleado4", "Empleado4", "empleado4@hotmail.com", "37273739","1237"),
+            new Empleado("Empleado5", "Empleado5", "empleado5@hotmail.com", "37273730","1238"),
+            new Empleado("Empleado6", "Empleado6", "empleado6@hotmail.com", "37273731","1239"),
         };
 
         private async Task CrearEmpleados()
@@ -100,7 +100,7 @@ namespace _2024_InstitutoEducativo.Controllers
 
                     if (result.Succeeded)
                     {
-                        if (empleado.Apellido.Equals("Shokida"))
+                        if (empleado.Apellido.Equals("Empleado1"))
                         {
                             await _userManager.AddToRoleAsync(empleado, Configs.AdminRolName);
                         }
@@ -122,13 +122,28 @@ namespace _2024_InstitutoEducativo.Controllers
 
         private List<Alumno> alumnos = new List<Alumno>()
         {
-            new Alumno("Jordán16", "Shokida36", "jordii.s22@hotmail.com", "57273736", 0234),
-            new Alumno("Jordán17", "Shokida31", "jordii.s21@hotmail.com", "67273737",1135),
-            new Alumno("Jordán27", "Shokida32", "jordii.s32@hotmail.com", "77273738",1336),
-            new Alumno("Jordán37", "Shokida33", "jordii.s33@hotmail.com", "87273739",1537),
-            new Alumno("Jordán47", "Shokida34", "jordii.s34@hotmail.com", "97273730",1738),
-            new Alumno("Jordán57", "Shokida35", "jordii.s35@hotmail.com", "07273731",1939)
+            new Alumno("Alumno1", "Alumno1", "alumno1@hotmail.com", "57273736", 0234),
+            new Alumno("Alumno2", "Alumno2", "alumno2@hotmail.com", "67273737",1135),
+            new Alumno("Alumno3", "Alumno3", "alumno3@hotmail.com", "77273738",1336),
+            new Alumno("Alumno4", "Alumno4", "alumno4@hotmail.com", "87273739",1537),
+            new Alumno("Alumno5", "Alumno5", "alumno5@hotmail.com", "97273730",1738),
+            new Alumno("Alumno6", "Alumno6", "alumno6@hotmail.com", "07273431",1939),
+            new Alumno("Alumno7", "Alumno7", "alumno7@hotmail.com", "07273331",1934),
+            new Alumno("Alumno8", "Alumno8", "alumno8@hotmail.com", "07273231",1935),
+            new Alumno("Alumno9", "Alumno9", "alumno9@hotmail.com", "07273131",1936),
+            new Alumno("Alumno10", "Alumno10", "alumno10@hotmail.com", "07373731",1937),
+            new Alumno("Alumno11", "Alumno11", "alumno11@hotmail.com", "07473731",1938),
+            new Alumno("Alumno12", "Alumno12", "alumno12@hotmail.com", "07573731",1929),
+            new Alumno("Alumno13", "Alumno13", "alumno13@hotmail.com", "07673731",1919),
+            new Alumno("Alumno14", "Alumno14", "alumno14@hotmail.com", "07773731",1949),
+            new Alumno("Alumno15", "Alumno15", "alumno15@hotmail.com", "07873731",1959),
+            new Alumno("Alumno16", "Alumno16", "alumno16@hotmail.com", "07973731",1969),
+            new Alumno("Alumno17", "Alumno17", "alumno17@hotmail.com", "07274731",1979),
+            new Alumno("Alumno18", "Alumno18", "alumno18@hotmail.com", "07275731",1989),
+            new Alumno("Alumno19", "Alumno19", "alumno19@hotmail.com", "07276731",1999),
+
         };
+
 
         private async Task CrearAlumnos()
         {
@@ -151,7 +166,7 @@ namespace _2024_InstitutoEducativo.Controllers
 
                     if (result.Succeeded)
                     {
-                        if (alumno.Apellido.Equals("Shokida36"))
+                        if (alumno.Apellido.Equals("Alumno1"))
                         {
                             await _userManager.AddToRoleAsync(alumno, Configs.AdminRolName);
                         }
@@ -193,12 +208,12 @@ namespace _2024_InstitutoEducativo.Controllers
 
         private List<Profesor> profesores = new List<Profesor>()
         {
-            new Profesor("Jordán8", "Shokida8", "jordii.s8@hotmail.com", "36273736","1334"),
-            new Profesor("Jordán9", "Shokida9", "jordii.s10@hotmail.com", "35273737","1435"),
-            new Profesor("Jordán10", "Shokida10", "jordii.s12@hotmail.com", "34273738","1536"),
-            new Profesor("Jordán11", "Shokida11", "jordii.s13@hotmail.com", "33273739","1637"),
-            new Profesor("Jordán12", "Shokida12", "jordii.s14@hotmail.com", "32273730","1738"),
-            new Profesor("Jordán13", "Shokida13", "jordii.s15@hotmail.com", "31273731","1839"),
+            new Profesor("Profesor1", "Profesor1", "profesor1@hotmail.com", "36273736","1334"),
+            new Profesor("Profesor2", "Profesor2", "profesor2@hotmail.com", "35273737","1435"),
+            new Profesor("Profesor3", "Profesor3", "profesor3@hotmail.com", "34273738","1536"),
+            new Profesor("Profesor4", "Profesor4", "profesor4@hotmail.com", "33273739","1637"),
+            new Profesor("Profesor5", "Profesor5", "profesor5@hotmail.com", "32273730","1738"),
+            new Profesor("Profesor6", "Profesor6", "profesor6@hotmail.com", "31273731","1839"),
         };
 
         private async Task CrearProfesores()
@@ -286,7 +301,13 @@ namespace _2024_InstitutoEducativo.Controllers
         {
             new Materia( "Matemáticas", 101, "CálculoyÁlgebra", 5,1),
             new Materia("Física", 102, "MecánicayTermodinámica", 5,2),
-            new Materia("Química", 103, "QuímicaGeneral", 5,3)
+            new Materia("Química", 103, "QuímicaGeneral", 5,3),
+            new Materia("Taller de Programacion 1", 104, "Java", 5,2),
+            new Materia("Taller de Programacion 2", 105, "React", 5,2),
+            new Materia("Programacion 1", 106, "Uml", 5,2),
+            new Materia("Programacion 2", 107, "Patrones de diseño", 5,2),
+            new Materia("PNT1", 108, "Proyecto .NET", 5,2),
+            new Materia("PNT2", 109, "Proyecto React", 5,2)
         };
 
         public async Task CrearMaterias()
@@ -304,18 +325,15 @@ namespace _2024_InstitutoEducativo.Controllers
 
         private List<MateriaCursada> materiasCursadas = new List<MateriaCursada>()
         {
-            new MateriaCursada("Matemáticas", 2024, "1º",1,7,1),
-            new MateriaCursada("Física", 1984, "1º",2,8,2),
-            new MateriaCursada("Química", 1950, "2º",3,9,3),
-            new MateriaCursada("Matemáticas", 2022, "1º",1,7,1),
-            new MateriaCursada("Física", 2024, "1º",2,8,2),
-            new MateriaCursada("Química", 1840, "2º",3,9,3),
-            new MateriaCursada("Matemáticas", 1000, "1º",1,7,1),
-            new MateriaCursada("Física", 2000, "1º",2,8,2),
-            new MateriaCursada("Química", 1992, "2º",3,9,3),
-            new MateriaCursada("Matemáticas", 1000, "1º",1,7,1),
-            new MateriaCursada("Física", 2000, "1º",2,8,2),
-            new MateriaCursada("Química", 1992, "2º",3,9,3)
+            new MateriaCursada("Matemáticas", 2024, "1º",1,1,1),
+            new MateriaCursada("Física", 2024, "1º",2,2,2),
+            new MateriaCursada("Química", 2024, "2º",3,3,3),
+            new MateriaCursada("Taller de Programacion 1", 2024,"1º",4,2,2),
+            new MateriaCursada("Taller de Programacion 2", 2024, "2º",5,3,3),
+            new MateriaCursada("Programacion 1", 2024,"1º",6,2,2),
+            new MateriaCursada("Programacion 2", 2024, "2º",7,4,3),
+            new MateriaCursada("PNT1", 2024,"1º",8,5,2),
+            new MateriaCursada("PNT2", 2024, "2º",9,6,3)
         };
 
         public async Task CrearMateriasCursadas()
