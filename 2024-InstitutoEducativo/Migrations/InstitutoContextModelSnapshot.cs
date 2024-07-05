@@ -258,7 +258,7 @@ namespace _2024_InstitutoEducativo.Migrations
                     b.Property<int?>("MateriaId")
                         .HasColumnType("int");
 
-                    b.Property<int>("NotaFinal")
+                    b.Property<int?>("NotaFinal")
                         .HasColumnType("int");
 
                     b.Property<int>("ProfesorId")

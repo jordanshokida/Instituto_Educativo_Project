@@ -297,7 +297,7 @@ namespace _2024_InstitutoEducativo.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    NotaFinal = table.Column<int>(type: "int", nullable: false),
+                    NotaFinal = table.Column<int>(type: "int", nullable: true),
                     MateriaCursadaId = table.Column<int>(type: "int", nullable: false),
                     ProfesorId = table.Column<int>(type: "int", nullable: false),
                     AlumnoId = table.Column<int>(type: "int", nullable: false),

@@ -12,7 +12,7 @@ using _2024_InstitutoEducativo.Data;
 namespace _2024_InstitutoEducativo.Migrations
 {
     [DbContext(typeof(InstitutoContext))]
-    [Migration("20240702202150_inicial")]
+    [Migration("20240705020822_inicial")]
     partial class inicial
     {
         /// <inheritdoc />
@@ -261,7 +261,7 @@ namespace _2024_InstitutoEducativo.Migrations
                     b.Property<int?>("MateriaId")
                         .HasColumnType("int");
 
-                    b.Property<int>("NotaFinal")
+                    b.Property<int?>("NotaFinal")
                         .HasColumnType("int");
 
                     b.Property<int>("ProfesorId")

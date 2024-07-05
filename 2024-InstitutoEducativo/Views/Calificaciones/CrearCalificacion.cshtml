@@ -1,0 +1,24 @@
+﻿@model CalificacionViewModel
+
+@{
+    ViewData["Title"] = "Calificar Alumno " + @Model.NombreCompleto;
+}
+<h2>Calificar Alumno @Model.NombreCompleto</h2>
+
+<form asp-action="CrearCalificacion" method="post">
+    <div class="form-group">
+        <label asp-for="NotaFinal" class="control-label"></label>
+        <input asp-for="NotaFinal" class="form-control" />
+        <span asp-validation-for="NotaFinal" class="text-danger"></span>
+    </div>
+    <input type="hidden" asp-for="AlumnoId" />
+    <input type="hidden" asp-for="MateriaCursadaId" />
+    <button type="submit" class="btn btn-primary">Guardar</button>
+</form>
+
+<p>
+    <a asp-action="Index">Back to List</a>
+</p>
+
+
+

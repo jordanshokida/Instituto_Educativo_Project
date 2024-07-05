@@ -1,0 +1,57 @@
+﻿@model IEnumerable<_2024_InstitutoEducativo.ViewModels.CalificacionViewModel>
+
+@{
+    ViewData["Title"] = "Alumnos del Profesor";
+}
+
+<h2>Alumnos</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.NombreCompleto)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Nombre)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.NotaFinal)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.NombreCompleto)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Nombre)
+                </td>
+                <td>
+                    @if (item.NotaFinal.HasValue)
+                    {
+                        @Html.DisplayFor(modelItem => item.NotaFinal)
+                    }
+                    else
+                    {
+                        <span class="text-warning">Sin calificar</span>
+                    }
+                </td>
+                <td>
+                    @if (!item.NotaFinal.HasValue)
+                    {
+                        <a asp-action="CrearCalificacion" asp-route-id="@item.MateriaCursadaId" class="btn btn-primary">Calificar</a>
+                    }
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<p>
+    <a asp-controller="Home" asp-action="Index">Back</a>
+</p>

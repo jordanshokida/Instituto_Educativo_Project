@@ -10,6 +10,7 @@ using _2024_InstitutoEducativo.Models;
 using _2024_InstitutoEducativo.Helpers;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
+using _2024_InstitutoEducativo.ViewModels;
 
 namespace _2024_InstitutoEducativo.Controllers
 {
@@ -192,74 +193,74 @@ namespace _2024_InstitutoEducativo.Controllers
         //METODOS:
 
         // Método para listar materias cursadas
-        public IActionResult ListarMateriasCursadas(int profesorId)
+        [Authorize(Roles = $"{Configs.AdminRolName},{Configs.ProfesorRolName}")]
+        public async Task<IActionResult> ListarMateriasCursadas()
         {
-            var materiasCursadas = _context.MateriasCursadas
-                .Where(mc => mc.ProfesorId == profesorId)
+            int userId = Int32.Parse(_userManager.GetUserId(User));
+
+            var materiasCursadas = await _context.MateriasCursadas
+                .Where(mc => mc.ProfesorId == userId)
                 .Include(mc => mc.Materia)
-                .Include(mc => mc.Alumno)
-                .ToList();
+                .ThenInclude(mc => mc.Carrera)
+                .ToListAsync();
+
             return View(materiasCursadas);
         }
 
 
-        // Método para calificar alumno
-        public IActionResult CalificarAlumno(int alumnoId, int materiaId)
+       
+
+
+        // GET: Calificaciones/CrearCalificacion
+       /* [Authorize(Roles = $"{Configs.AdminRolName},{Configs.ProfesorRolName}")]
+        public async Task<IActionResult> CrearCalificacion(int id)
         {
-            var viewModel = new Calificacion
+            var materiaCursada = await _context.MateriasCursadas
+                .Include(mc => mc.Alumno)
+                .FirstOrDefaultAsync(mc => mc.Id == id);
+
+            if (materiaCursada == null)
             {
-                AlumnoId = alumnoId,
-                MateriaCursadaId = materiaId
+                return NotFound();
+            }
+
+            var viewModel = new CalificacionViewModel
+            {
+                AlumnoId = materiaCursada.AlumnoId,
+                MateriaCursadaId = materiaCursada.Id,
+                NombreCompleto = materiaCursada.Alumno.NombreCompleto
             };
+
             return View(viewModel);
         }
 
-
+        // POST: Calificaciones/CrearCalificacion
+        [Authorize(Roles = $"{Configs.AdminRolName},{Configs.ProfesorRolName}")]
         [HttpPost]
-        public IActionResult CalificarAlumno(Calificacion model)
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> CrearCalificacion(CalificacionViewModel viewModel)
         {
             if (ModelState.IsValid)
-            {
-                var materiaCursada = _context.MateriasCursadas.Find(model.MateriaCursadaId);
-                var alumno = _context.Alumnos.Find(model.AlumnoId);
 
-                if (materiaCursada != null && alumno != null)
+            {
+                int userId = Int32.Parse(_userManager.GetUserId(User));
+
+                var calificacion = new Calificacion
                 {
-                    materiaCursada.AlumnoId = model.AlumnoId;
-                    _context.SaveChanges();
-                }
-                return RedirectToAction("VerAlumnos", new { materiaCursadaId = model.MateriaCursadaId });
+                    NotaFinal = viewModel.NotaFinal,
+                    MateriaCursadaId = viewModel.MateriaCursadaId,
+                    AlumnoId = viewModel.AlumnoId,
+                    ProfesorId = userId
+            };
+
+                _context.Add(calificacion);
+                await _context.SaveChangesAsync();
+                return RedirectToAction(nameof(Index));
             }
-            return View(model);
-        }
 
-
-        //Metodo para ver alumnos por materiacursada
-        /*public IActionResult VerAlumnos(int materiaCursadaId)
-        {
-            var materiaCursada = _context.MateriasCursadas
-                .Include(mc => mc.Alumno)
-                .FirstOrDefault(mc => mc.Id == materiaCursadaId);
-            return View(materiaCursada);
+            return View(viewModel);
         }*/
-
-        // Método para obtener promedio de notas
-        public IActionResult ObtenerPromedioNotas(int materiaId)
-        {
-            var materiaCursada = _context.MateriasCursadas
-                .Include(mc => mc.Alumno)
-                .FirstOrDefault(mc => mc.Id == materiaId);
-
-            if (materiaCursada != null)
-            {
-                var promedio = materiaCursada.Alumno.Calificaciones.Average(a => a.NotaFinal);
-                return View(promedio);
-            }
-            return NotFound();
-        }
-
-
-
-
     }
+
 }
+

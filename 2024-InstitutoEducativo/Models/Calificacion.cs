@@ -10,7 +10,7 @@ namespace _2024_InstitutoEducativo.Models
             
         }
 
-        public Calificacion(int notaFinal, int materiaCursadaId, int profesorId, int alumnoId)
+        public Calificacion(int? notaFinal, int materiaCursadaId, int profesorId, int alumnoId)
         {
            
             NotaFinal = notaFinal;
@@ -21,10 +21,10 @@ namespace _2024_InstitutoEducativo.Models
 
         public int Id { get; set; }
         
-        [Required(ErrorMessage = ErrorMsge.NotaFinalRequerida)]
+        
         [Range (1,10, ErrorMessage = ErrorMsge.NotaFinalRango)]
         [Display(Name = Alias.NotaFinal)]
-        public int NotaFinal { get; set; }
+        public int? NotaFinal { get; set; }
 
        //public int MateriaId { get; set; }
 

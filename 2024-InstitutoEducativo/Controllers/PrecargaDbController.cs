@@ -175,8 +175,8 @@ namespace _2024_InstitutoEducativo.Controllers
 
             new Carrera("Ingeniería Mecánica"),
             new Carrera("Ingeniero de IA"),
-            new Carrera("Ingeniero de BigData")
-
+            new Carrera("Ingeniero de BigData"),
+            new Carrera("Ingeniería Robótica")
         };
 
         
@@ -305,8 +305,17 @@ namespace _2024_InstitutoEducativo.Controllers
         private List<MateriaCursada> materiasCursadas = new List<MateriaCursada>()
         {
             new MateriaCursada("Matemáticas", 2024, "1º",1,7,1),
+            new MateriaCursada("Física", 1984, "1º",2,8,2),
+            new MateriaCursada("Química", 1950, "2º",3,9,3),
+            new MateriaCursada("Matemáticas", 2022, "1º",1,7,1),
             new MateriaCursada("Física", 2024, "1º",2,8,2),
-            new MateriaCursada("Química", 2024, "2º",3,9,3)
+            new MateriaCursada("Química", 1840, "2º",3,9,3),
+            new MateriaCursada("Matemáticas", 1000, "1º",1,7,1),
+            new MateriaCursada("Física", 2000, "1º",2,8,2),
+            new MateriaCursada("Química", 1992, "2º",3,9,3),
+            new MateriaCursada("Matemáticas", 1000, "1º",1,7,1),
+            new MateriaCursada("Física", 2000, "1º",2,8,2),
+            new MateriaCursada("Química", 1992, "2º",3,9,3)
         };
 
         public async Task CrearMateriasCursadas()
@@ -326,7 +335,7 @@ namespace _2024_InstitutoEducativo.Controllers
         {
             new Calificacion( 8, 1, 7, 1),
             new Calificacion(9, 2, 8, 2),
-            new Calificacion( 10, 3, 9, 3)
+            new Calificacion( null , 3, 9, 3)
         };
 
 

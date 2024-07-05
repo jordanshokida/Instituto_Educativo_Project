@@ -14,7 +14,7 @@
 
         public const string NotValid = "{0} inválido";
 
-        public const string NotaFinalRango = "Sólo se permiten poner números del 1 al 10";
+        public const string NotaFinalRango = "La nota debe estar entre 0 y 10";
 
         public const string NotaFinalRequerida = "La Nota Final es requerida";
 

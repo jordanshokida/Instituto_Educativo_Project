@@ -10,6 +10,7 @@ using _2024_InstitutoEducativo.Models;
 using Microsoft.AspNetCore.Authorization;
 using _2024_InstitutoEducativo.Helpers;
 using Microsoft.AspNetCore.Identity;
+using _2024_InstitutoEducativo.ViewModels;
 
 namespace _2024_InstitutoEducativo.Controllers
 {
@@ -24,6 +25,7 @@ namespace _2024_InstitutoEducativo.Controllers
             _usermanager = usermanager;
         }
 
+        [Authorize(Roles = $"{Configs.AdminRolName}")]
         // GET: Calificaciones
         public async Task<IActionResult> Index()
         {
@@ -82,8 +84,33 @@ namespace _2024_InstitutoEducativo.Controllers
             return View(calificacion);
         }
 
-       
-        public async Task<IActionResult> CalificacionesAlumno()
+
+        // GET: Calificaciones/ListarAlumnos
+        [Authorize(Roles = $"{Configs.AdminRolName},{Configs.ProfesorRolName}")]
+        public async Task<IActionResult> ListarAlumnos()
+        {
+            int profesorId = Int32.Parse(_usermanager.GetUserId(User));
+
+            var alumnos = await _context.Calificaciones
+                .Where(c => c.ProfesorId == profesorId)
+                .Include(c => c.Alumno)
+                .Include(c => c.MateriaCursada)
+                .Select(c => new CalificacionViewModel
+                {
+                    AlumnoId = c.AlumnoId,
+                    NombreCompleto = c.Alumno.NombreCompleto,
+                    MateriaCursadaId = c.MateriaCursadaId,
+                    Nombre = c.MateriaCursada.Nombre,                   
+                    NotaFinal = c.NotaFinal
+                })
+                .ToListAsync();
+
+            return View(alumnos);
+        }
+
+
+
+    public async Task<IActionResult> CalificacionesAlumno()
         {
             Alumno alumno = await _context.Alumnos
                 .Include(c => c.Calificaciones)
@@ -198,6 +225,7 @@ namespace _2024_InstitutoEducativo.Controllers
             return _context.Calificaciones.Any(e => e.Id == id);
         }
 
+        /*[Authorize(Roles = $"{Configs.AdminRolName},{Configs.ProfesorRolName}")]
         // Método para listar materias cursadas
         public IActionResult ListarMateriasCursadas(int profesorId)
         {
@@ -207,38 +235,73 @@ namespace _2024_InstitutoEducativo.Controllers
                 .Include(mc => mc.Alumno)
                 .ToList();
             return View(materiasCursadas);
-        }
+        }*/
 
-
-        // Método para calificar alumno
-        public IActionResult CalificarAlumno(int alumnoId, int materiaId)
+        // GET: Calificaciones/CrearCalificacion
+        [Authorize(Roles = $"{Configs.AdminRolName},{Configs.ProfesorRolName}")]
+        public async Task<IActionResult> CrearCalificacion(int id)
         {
-            var viewModel = new Calificacion
+            var materiaCursada = await _context.MateriasCursadas
+                .Include(mc => mc.Alumno)
+                .FirstOrDefaultAsync(mc => mc.Id == id);
+
+            if (materiaCursada == null)
             {
-                AlumnoId = alumnoId,
-                MateriaCursadaId = materiaId
+                return NotFound();
+            }
+
+            var viewModel = new CalificacionViewModel
+            {
+                AlumnoId = materiaCursada.AlumnoId,
+                MateriaCursadaId = materiaCursada.Id,
+                NombreCompleto = materiaCursada.Alumno.NombreCompleto
             };
+
             return View(viewModel);
         }
 
-
+        [Authorize(Roles = $"{Configs.AdminRolName},{Configs.ProfesorRolName}")]
         [HttpPost]
-        public IActionResult CalificarAlumno(Calificacion model)
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> CrearCalificacion(CalificacionViewModel viewModel)
         {
             if (ModelState.IsValid)
             {
-                var materiaCursada = _context.MateriasCursadas.Find(model.MateriaCursadaId);
-                var alumno = _context.Alumnos.Find(model.AlumnoId);
+                int userId = Int32.Parse(_usermanager.GetUserId(User));
 
-                if (materiaCursada != null && alumno != null)
+                // Buscar si ya existe una calificación para esta materia y alumno
+                var existingCalificacion = await _context.Calificaciones
+                    .FirstOrDefaultAsync(c =>
+                        c.MateriaCursadaId == viewModel.MateriaCursadaId &&
+                        c.AlumnoId == viewModel.AlumnoId);
+
+                if (existingCalificacion != null)
                 {
-                    materiaCursada.AlumnoId = model.AlumnoId;
-                    _context.SaveChanges();
+                    // Si existe, actualiza la nota existente
+                    existingCalificacion.NotaFinal = viewModel.NotaFinal;
+                    existingCalificacion.ProfesorId = userId;
+                    _context.Update(existingCalificacion);
                 }
-                return RedirectToAction("VerAlumnos", new { materiaCursadaId = model.MateriaCursadaId });
+                else
+                {
+                    // Si no existe, crea una nueva calificación
+                    var newCalificacion = new Calificacion
+                    {
+                        NotaFinal = viewModel.NotaFinal,
+                        MateriaCursadaId = viewModel.MateriaCursadaId,
+                        AlumnoId = viewModel.AlumnoId,
+                        ProfesorId = userId
+                    };
+                    _context.Add(newCalificacion);
+                }
+
+                await _context.SaveChangesAsync();
+                return RedirectToAction("ListarAlumnos", new { alumnoId = viewModel.AlumnoId });
             }
-            return View(model);
+
+            return View(viewModel);
         }
+
 
     }
 }
