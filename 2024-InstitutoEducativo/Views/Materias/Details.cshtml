@@ -61,6 +61,21 @@
                         <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
                     </td>
                 }
+                else if (User.IsInRole(Configs.AlumnoRolName))
+                {
+                  @*   var hasCalificacion = alumno.MateriasCursadas
+                    .Any(mc => mc.MateriaId == item.Id && mc.Calificaciones.Any(c => c.NotaFinal.HasValue));
+
+                    if (!hasCalificacion)
+            { *@
+                    <td>
+                        <form asp-action="Inscribir" method="post">
+                            <input type="hidden" name="materiaId" value="@item.Id" />
+                            <button type="submit" class="btn btn-primary">Inscribir</button>
+                        </form>
+                        </td>
+                    @* } *@
+                }
             </tr>
         }
     </tbody>

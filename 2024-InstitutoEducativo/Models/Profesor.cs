@@ -26,10 +26,8 @@ namespace _2024_InstitutoEducativo.Models
             set {_legajo = value.ToUpper();}
         }
 
-        //public Calificacion Calificacion { get; set; }
         public List<Calificacion> CalificacionesRealizadas { get; set; }
-       
-        //public MateriaCursada MateriaCursada { get; set; }
+
         public List<MateriaCursada> MateriasCursadaActiva { get; set; }
     }
 }
