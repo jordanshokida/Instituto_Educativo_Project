@@ -2,11 +2,19 @@
 
 @{
     ViewData["Title"] = "Materias";
+    var materiasCursadas = ViewBag.MateriasCursadas as IEnumerable<_2024_InstitutoEducativo.Models.MateriaCursada>;
 }
 
 <h1>Materias</h1>
 
-@if (User.IsInRole(Configs.ProfesorRolName))
+@if (TempData["InscripcionExitosa"] != null)
+{
+    <div class="alert alert-success">
+        ¡Inscripción exitosa!
+    </div>
+}
+
+@if (User.IsInRole(Configs.EmpleadoRolName))
 {
     <p>
         <a asp-action="Create">Create New</a>
@@ -53,13 +61,28 @@
                 <td>
                     @Html.DisplayFor(modelItem => item.Carrera.Nombre)
                 </td>
-                @if (User.IsInRole(Configs.ProfesorRolName) || (User.IsInRole(Configs.AdminRolName)))
+                @if (User.IsInRole(Configs.EmpleadoRolName) || (User.IsInRole(Configs.AdminRolName)))
                 {
                     <td>
                         <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
                         <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
                         <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
                     </td>
+                }
+                else if (User.IsInRole(Configs.AlumnoRolName))
+                {
+                    var hasCalificacion = materiasCursadas
+                    .Any(mc => mc.MateriaId == item.Id && mc.Calificaciones.Any(c => c.NotaFinal.HasValue));
+
+                    if (!hasCalificacion)
+                    {
+                        <td>
+                            <form asp-controller="Alumnos" asp-action="Inscribir" method="post">
+                                <input type="hidden" name="id" value="@item.Id" />
+                                <button type="submit" class="btn btn-primary">Inscribir</button>
+                            </form>
+                        </td>
+                    }
                 }
             </tr>
         }

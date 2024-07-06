@@ -114,7 +114,7 @@ namespace _2024_InstitutoEducativo.Controllers
         {
             int userId = Int32.Parse(_usermanager.GetUserId(User));
 
-            // Obtener las calificaciones del alumno incluyendo las materias cursadas y sus profesores
+            
             var calificaciones = await _context.Calificaciones
                 .Include(c => c.MateriaCursada)
                 .Include(mc => mc.Profesor)
@@ -346,6 +346,7 @@ namespace _2024_InstitutoEducativo.Controllers
                         c.AlumnoId == viewModel.AlumnoId);
 
                 var alumno = _context.Alumnos.Include(a => a.Calificaciones)
+                    .Include(a => a.MateriasCursadas)
                     .FirstOrDefault(a => a.Id == viewModel.AlumnoId);
 
                 var profesor = _context.Profesores.Include(p => p.CalificacionesRealizadas)
@@ -363,6 +364,7 @@ namespace _2024_InstitutoEducativo.Controllers
                     alumno.Calificaciones.Add(existingCalificacion);
                     profesor.CalificacionesRealizadas.Add(existingCalificacion);
                     materiacursada.Calificaciones.Add(existingCalificacion);
+
                     _context.Update(materiacursada);
                     _context.Update(profesor);
                     _context.Update(alumno);
@@ -384,6 +386,15 @@ namespace _2024_InstitutoEducativo.Controllers
                     _context.Update(profesor);
                     _context.Update(alumno);
 
+                }
+
+                var materiaCursadaToRemove = alumno.MateriasCursadas
+                .FirstOrDefault(mc => mc.Id == viewModel.MateriaCursadaId);
+
+                if (materiaCursadaToRemove != null)
+                {
+                    alumno.MateriasCursadas.Remove(materiaCursadaToRemove);
+                    _context.Update(alumno);
                 }
 
                 await _context.SaveChangesAsync();
