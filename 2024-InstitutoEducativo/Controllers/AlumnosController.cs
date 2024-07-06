@@ -279,6 +279,7 @@ namespace _2024_InstitutoEducativo.Controllers
 
             var alumno = await _context.Alumnos
                 .Include(p => p.MateriasCursadas)
+                .Include(p => p.Calificaciones)
                 .FirstOrDefaultAsync(a => a.Id == userId);
 
             if (alumno == null)
@@ -297,11 +298,20 @@ namespace _2024_InstitutoEducativo.Controllers
 
             var materiaCursada = new MateriaCursada
             {
+                Id = new Random().Next(9,400),
                 Nombre = materia.MateriaNombre,
                 AnioCursada = DateTime.Now.Year,
                 Cuatrimestre = "1", 
                 MateriaId = materia.Id,
                 ProfesorId = new Random().Next(20,26),
+                AlumnoId = alumno.Id
+            };
+            var calificacion = new Calificacion
+            {
+                Id = new Random().Next(20, 400),
+                NotaFinal = null,
+                MateriaCursadaId = materiaCursada.Id,
+                ProfesorId = materiaCursada.ProfesorId,
                 AlumnoId = alumno.Id
             };
 
@@ -312,7 +322,6 @@ namespace _2024_InstitutoEducativo.Controllers
 
             if (profesor != null)
             {
-                // Verifica que no exista una MateriaCursada con el mismo MateriaId y Cuatrimestre
                 bool exists = profesor.MateriasCursadaActiva
                                       .Any(mc => mc.MateriaId == materiaCursada.MateriaId
                                                  && mc.Cuatrimestre == materiaCursada.Cuatrimestre);
@@ -324,6 +333,7 @@ namespace _2024_InstitutoEducativo.Controllers
 
             if (alumno.MateriasCursadas.Count < 6 && profesor != null){
                 alumno.MateriasCursadas.Add(materiaCursada);
+                alumno.Calificaciones.Add(calificacion);
                 _context.Alumnos.Update(alumno);
                 _context.MateriasCursadas.Add(materiaCursada);
             }

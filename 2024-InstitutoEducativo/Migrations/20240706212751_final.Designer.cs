@@ -12,8 +12,8 @@ using _2024_InstitutoEducativo.Data;
 namespace _2024_InstitutoEducativo.Migrations
 {
     [DbContext(typeof(InstitutoContext))]
-    [Migration("20240705221043_inicial")]
-    partial class inicial
+    [Migration("20240706212751_final")]
+    partial class final
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

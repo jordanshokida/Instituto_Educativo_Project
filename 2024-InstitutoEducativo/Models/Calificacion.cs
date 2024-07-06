@@ -26,10 +26,6 @@ namespace _2024_InstitutoEducativo.Models
         [Display(Name = Alias.NotaFinal)]
         public int? NotaFinal { get; set; }
 
-       //public int MateriaId { get; set; }
-
-        //public Materia Materia { get; set; }
-
         public int MateriaCursadaId { get; set; }
 
         public MateriaCursada MateriaCursada { get; set; }
