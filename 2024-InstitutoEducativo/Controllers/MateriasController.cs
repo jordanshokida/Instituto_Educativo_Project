@@ -36,7 +36,7 @@ namespace _2024_InstitutoEducativo.Controllers
         // GET: Materias/Details/5
         public async Task<IActionResult> Details(int? id)
         {
-            // Obtén el usuario actual
+            
             int userId = Int32.Parse(_usermanager.GetUserId(User));
 
             if (userId == null)
@@ -44,25 +44,30 @@ namespace _2024_InstitutoEducativo.Controllers
                 return NotFound("Usuario no encontrado.");
             }
 
-            // Obtén el alumno asociado al usuario actual
+            
             var alumno = await _context.Alumnos
-                .FirstOrDefaultAsync(a => a.Id == userId); // Cambio aquí para usar el UserId
+                .FirstOrDefaultAsync(a => a.Id == userId); 
             if (alumno == null)
             {
                 return NotFound("Alumno no encontrado.");
             }
 
-            // Agrega un mensaje de depuración para verificar el CarreraId del alumno
+            
             System.Diagnostics.Debug.WriteLine($"AlumnoId: {alumno.Id}, CarreraId: {alumno.CarreraId}");
 
-            // Obtén las materias de la carrera del alumno
+            
             var materias = await _context.Materias
                                          .Where(m => m.CarreraId == alumno.CarreraId)
                                          .Include(m => m.Carrera)
                                          .ToListAsync();
 
-            // Agrega un mensaje de depuración para verificar las materias obtenidas
+            
             System.Diagnostics.Debug.WriteLine($"Materias obtenidas: {materias.Count()}");
+
+            
+            var materiasCursadas = _context.MateriasCursadas.Include(mc => mc.Calificaciones).ToList();
+
+            ViewBag.MateriasCursadas = materiasCursadas;           
 
             return View(materias);
         }
@@ -185,125 +190,9 @@ namespace _2024_InstitutoEducativo.Controllers
         }
 
 
-        [Authorize(Roles = $"{Configs.AlumnoRolName}")]
-        public async Task<IActionResult> Inscribir(int id)
-        {
-            var userId = Int32.Parse(_usermanager.GetUserId(User));
 
-            var alumno = await _context.Alumnos.FirstOrDefaultAsync(a => a.Id == userId);
-
-            if (alumno == null)
-            {
-                return NotFound("Alumno no encontrado.");
-            }
-
-            var materia = await _context.Materias
-                                        .Include(m => m.MateriaCursada)
-                                        .FirstOrDefaultAsync(m => m.Id == id);
-
-            if (materia == null)
-            {
-                return NotFound("Materia no encontrada.");
-            }
-
-            var materiaCursada = new MateriaCursada
-            {
-                Nombre = materia.MateriaNombre,
-                AnioCursada = DateTime.Now.Year,
-                Cuatrimestre = "1", // O ajustar según la lógica de tu aplicación
-                MateriaId = materia.Id,
-                ProfesorId = 4,
-                AlumnoId = alumno.Id
-            };
-
-          
-            var profesor = await _context.Profesores
-                                         .Include(p => p.MateriasCursadaActiva)
-                                         .FirstOrDefaultAsync(p => p.Id == materiaCursada.ProfesorId);
-
-            if (profesor != null)
-            {
-                profesor.MateriasCursadaActiva.Add(materiaCursada);
-            }
-
-            _context.MateriasCursadas.Add(materiaCursada);
-            await _context.SaveChangesAsync();
-
-            return RedirectToAction(nameof(Index));
-        }
-
-
-        // GET: Materias
-        /* public async Task<IActionResult> ListarMateriasAlumno()
-         {
-             //.Where(mc => mc.ProfesorId == profesorId)
-             var alumno =  _context.Alumnos.FirstOrDefault(a => a.Id == Int32.Parse(_usermanager.GetUserId(User)));
-             var materias = await _context.Materias
-                 .Where(m => m.CarreraId == alumno.CarreraId)
-                 .Include(m => m.MateriaCursada)
-                 .Include(m => m.Carrera)          
-                 .ToListAsync();              
-                  return View(materias);
-         }*/
-
-        /* [Authorize(Roles = $"{Configs.AdminRolName},{Configs.AlumnoRolName}")]
-         public async Task<IActionResult> ListarMateriasAlumno()
-         {
-             var user = await _usermanager.GetUserAsync(User);
-             var alumno = await _context.Alumnos
-                                        .Include(a => a.Carrera)
-                                        .FirstOrDefaultAsync(a => a.Email == user.Email);
-
-             if (alumno == null)
-             {
-                 return NotFound("Alumno no encontrado.");
-             }
-
-             var materias = await _context.Materias
-                                          .Where(m => m.CarreraId == alumno.CarreraId)
-                                          .ToListAsync();
-
-             return View(materias);
-         }*/
+        
     }
-
-
-    //METODOS:
-
-    /*// Método para agregar materia cursada
-    public void AgregarMateriaCursada(MateriaCursada materiaCursada)
-    {
-        // Implementación para agregar materia cursada
-        _context.MateriasCursadas.Add(materiaCursada);
-        _context.SaveChanges();
-    }*/
-
-    /*// Método para obtener calificaciones
-    public List<Calificacion> ObtenerCalificaciones()
-    {
-        // Implementación para obtener calificaciones
-        return _context.Calificaciones.ToList();
-    }*/
-
-    /*// Método para verificar cupo
-    public bool VerificarCupo()
-    {
-        // Implementación para verificar cupo
-        var materia = _context.Materias.Include(m => m.MateriasCursadas).FirstOrDefault(m => m.Id == materiaId);
-        if (materia != null)
-        {
-            return materia.MateriasCursadas.Count < materia.CupoMaximo;
-        }
-        return false;
-    }*/
-
-
-
-
-
-
-
-
 
 
 

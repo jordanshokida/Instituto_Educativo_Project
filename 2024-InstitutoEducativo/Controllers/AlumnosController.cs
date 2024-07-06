@@ -267,102 +267,75 @@ namespace _2024_InstitutoEducativo.Controllers
             return _context.Alumnos.Any(e => e.Id == id);
         }
 
-        /*[HttpPost]
-        [Authorize(Roles = $"{Configs.AdminRolName},{Configs.AlumnoRolName}")]
-        public async Task<IActionResult> ListarMateriasAlumno()
+
+
+
+
+
+        [Authorize(Roles = $"{Configs.AlumnoRolName}")]
+        public async Task<IActionResult> Inscribir(int id)
         {
-            var user = await _userManager.GetUserAsync(User);
+            var userId = Int32.Parse(_userManager.GetUserId(User));
+
             var alumno = await _context.Alumnos
-                                       .Include(a => a.Carrera)
-                                       .FirstOrDefaultAsync(a => a.Id == user.Id);
+                .Include(p => p.MateriasCursadas)
+                .FirstOrDefaultAsync(a => a.Id == userId);
 
             if (alumno == null)
             {
                 return NotFound("Alumno no encontrado.");
             }
 
-            var materias = await _context.Materias
-                                         .Where(m => m.CarreraId == alumno.CarreraId)
-                                         .ToListAsync();
+            var materia = await _context.Materias
+                                        .Include(m => m.MateriaCursada)
+                                        .FirstOrDefaultAsync(m => m.Id == id);
 
-            return View(materias);
-        }*/
+            if (materia == null)
+            {
+                return NotFound("Materia no encontrada.");
+            }
+
+            var materiaCursada = new MateriaCursada
+            {
+                Nombre = materia.MateriaNombre,
+                AnioCursada = DateTime.Now.Year,
+                Cuatrimestre = "1", 
+                MateriaId = materia.Id,
+                ProfesorId = new Random().Next(20,26),
+                AlumnoId = alumno.Id
+            };
 
 
-        /*public async Task<IActionResult> VerAlumnosProfesor()
-        {
-            var materiasCursadasProfesor = await _context.MateriasCursadas.FindAsync()
-               .Include(mc => mc.Alumno)
-               .Include(mc => mc.Profesor)
-               .FirstOrDefaultAsync(mc => mc.ProfesorId == Int32.Parse(_userManager.GetUserId(User)));
+            var profesor = await _context.Profesores
+                                         .Include(p => p.MateriasCursadaActiva)
+                                         .FirstOrDefaultAsync(p => p.Id == materiaCursada.ProfesorId);
+
+            if (profesor != null)
+            {
+                // Verifica que no exista una MateriaCursada con el mismo MateriaId y Cuatrimestre
+                bool exists = profesor.MateriasCursadaActiva
+                                      .Any(mc => mc.MateriaId == materiaCursada.MateriaId
+                                                 && mc.Cuatrimestre == materiaCursada.Cuatrimestre);
+                if (!exists)
+                {
+                    profesor.MateriasCursadaActiva.Add(materiaCursada);
+                }
+            }
+
+            if (alumno.MateriasCursadas.Count < 6 && profesor != null){
+                alumno.MateriasCursadas.Add(materiaCursada);
+                _context.Alumnos.Update(alumno);
+                _context.MateriasCursadas.Add(materiaCursada);
+            }
             
-            if (materiasCursadasProfesor == null)
-            {
-                return NotFound();
-            }
-            return View(materiasCursadasProfesor);
-        }*/
+            await _context.SaveChangesAsync();
+
+            TempData["InscripcionExitosa"] = true;
+
+            return RedirectToAction("Details", "Materias");
+        }
 
 
-        //METODOS:
-
-        /*// Método para registrar alumno
-        public void RegistrarAlumno(Alumno alumno)
-        {
-             if (alumno != null)
-            {
-                _context.Alumnos.Add(alumno);
-                _context.SaveChanges();
-            }
-        }*/
-
-
-        /*/// Método para inscribir alumno en materia
-        public void InscribirEnMateria(MateriaCursada materia)
-        {
-            // Verificar si el alumno está activo y si la materia pertenece a su carrera
-            // Implementación de inscripción
-             var alumno = _context.Alumnos.Find(materia.AlumnoId);
-            var carrera = _context.Carreras.Find(alumno?.CarreraId);
-
-            if (alumno != null && alumno.Activo && carrera != null && carrera.Materias.Any(m => m.Id == materia.MateriaId))
-            {
-                _context.MateriasCursadas.Add(materia);
-                _context.SaveChanges();
-            }
-
-        }*/
-
-
-        /*// Método para cancelar inscripción en materia
-        public void CancelarInscripcion(MateriaCursada materia)
-        {
-            // Verificar si no tiene calificaciones asociadas
-            // Implementación de cancelación
-             var materiaCursada = _context.MateriasCursadas.Include(m => m.Calificaciones).FirstOrDefault(m => m.Id == materia.Id);
-
-            if (materiaCursada != null && !materiaCursada.Calificaciones.Any())
-            {
-                _context.MateriasCursadas.Remove(materiaCursada);
-                _context.SaveChanges();
-            }
-        }*/
-
-
-        /*// Método para obtener materias cursadas
-        public List<MateriaCursada> ObtenerMateriasCursadas()
-        {
-            // Implementación para obtener materias cursadas
-             return _context.MateriasCursadas.Include(m => m.Materia).ToList();
-        }*/
-
-
-        /*// Método para obtener calificaciones
-        public List<Calificacion> ObtenerCalificaciones()
-        {
-            // Implementación para obtener calificaciones
-            return _context.Calificaciones.Include(c => c.MateriaCursada).ToList();
-        }*/
-
+        
     }
 }

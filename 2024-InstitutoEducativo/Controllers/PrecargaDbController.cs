@@ -410,7 +410,7 @@ namespace _2024_InstitutoEducativo.Controllers
             new MateriaCursada("Programacion 1", 2024,"1º",6,21,6),
             new MateriaCursada("Programacion 2", 2024, "2º",7,22,1),
             new MateriaCursada("PNT1", 2024,"1º",8,20,2),
-            new MateriaCursada("PNT2", 2024, "2º",9,23,3)
+            new MateriaCursada("PNT2", 2024, "2º",9,23,8)
         };
 
         public async Task CrearMateriasCursadas()

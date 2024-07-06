@@ -25,7 +25,7 @@ namespace _2024_InstitutoEducativo.Controllers
             _usermanager = usermanager;
         }
 
-        [Authorize(Roles = $"{Configs.AdminRolName}")]
+        [Authorize(Roles = $"{Configs.AdminRolName},{Configs.EmpleadoRolName}")]
         // GET: Calificaciones
         public async Task<IActionResult> Index()
         {
@@ -114,7 +114,7 @@ namespace _2024_InstitutoEducativo.Controllers
         {
             int userId = Int32.Parse(_usermanager.GetUserId(User));
 
-            // Obtener las calificaciones del alumno incluyendo las materias cursadas y sus profesores
+            
             var calificaciones = await _context.Calificaciones
                 .Include(c => c.MateriaCursada)
                 .Include(mc => mc.Profesor)
@@ -228,25 +228,91 @@ namespace _2024_InstitutoEducativo.Controllers
             return _context.Calificaciones.Any(e => e.Id == id);
         }
 
-        /*[Authorize(Roles = $"{Configs.AdminRolName},{Configs.ProfesorRolName}")]
-        // Método para listar materias cursadas
-        public IActionResult ListarMateriasCursadas(int profesorId)
-        {
-            var materiasCursadas = _context.MateriasCursadas
-                .Where(mc => mc.ProfesorId == profesorId)
-                .Include(mc => mc.Materia)
-                .Include(mc => mc.Alumno)
-                .ToList();
-            return View(materiasCursadas);
-        }*/
+
 
         // GET: Calificaciones/CrearCalificacion
+        /* [Authorize(Roles = $"{Configs.AdminRolName},{Configs.ProfesorRolName}")]
+         public async Task<IActionResult> CrearCalificacion(int id)
+         {
+             var materiaCursada = await _context.MateriasCursadas
+                 .Include(mc => mc.Alumno)
+                 .FirstOrDefaultAsync(mc => mc.Id == id);
+
+             if (materiaCursada == null)
+             {
+                 return NotFound();
+             }
+
+             var viewModel = new CalificacionViewModel
+             {
+                 AlumnoId = materiaCursada.Alumno.Id,
+                 MateriaCursadaId = materiaCursada.Id,
+                 NombreCompleto = materiaCursada.Alumno.NombreCompleto
+             };
+
+             return View(viewModel);
+         }*/
+
+        /* [Authorize(Roles = $"{Configs.AdminRolName},{Configs.ProfesorRolName}")]
+         [HttpPost]
+         [ValidateAntiForgeryToken]
+         public async Task<IActionResult> CrearCalificacion(CalificacionViewModel viewModel)
+         {
+             if (ModelState.IsValid)
+             {
+                 int userId = Int32.Parse(_usermanager.GetUserId(User));
+
+                 // Buscar si ya existe una calificación para esta materia y alumno
+                 var existingCalificacion = await _context.Calificaciones
+                     .FirstOrDefaultAsync(c =>
+                         c.MateriaCursadaId == viewModel.MateriaCursadaId &&
+                         c.AlumnoId == viewModel.AlumnoId);
+
+                 if (existingCalificacion != null)
+                 {
+                     // Si existe, actualiza la nota existente
+                     existingCalificacion.NotaFinal = viewModel.NotaFinal;
+                     existingCalificacion.ProfesorId = userId;
+                     _context.Update(existingCalificacion);
+                 }
+                 else
+                 {
+                     // Si no existe, crea una nueva calificación
+                     var newCalificacion = new Calificacion
+                     {
+                         NotaFinal = viewModel.NotaFinal,
+                         MateriaCursadaId = viewModel.MateriaCursadaId,
+                         AlumnoId = viewModel.AlumnoId,
+                         ProfesorId = userId
+                     };
+                     _context.Add(newCalificacion);
+                     Alumno alumno = _context.Alumnos.FirstOrDefault(a => a.Id == viewModel.AlumnoId);
+                     alumno.Calificaciones.Add(newCalificacion);
+                     Profesor profesor = _context.Profesores.FirstOrDefault(p => p.Id == userId);
+                     profesor.CalificacionesRealizadas.Add(newCalificacion);
+                     MateriaCursada materiaCursada = _context.MateriasCursadas.FirstOrDefault(mc => mc.Id == viewModel.MateriaCursadaId);
+                     materiaCursada.Calificaciones.Add(newCalificacion);
+                     _context.Alumnos.Update(alumno);
+                     _context.Profesores.Update(profesor);
+                     _context.MateriasCursadas.Update(materiaCursada);
+
+                 }
+
+                 await _context.SaveChangesAsync();
+                 return RedirectToAction("ListarAlumnos", new { alumnoId = viewModel.AlumnoId });
+             }
+
+             return View(viewModel);
+         }*/
+
+
+        [HttpGet]
         [Authorize(Roles = $"{Configs.AdminRolName},{Configs.ProfesorRolName}")]
         public async Task<IActionResult> CrearCalificacion(int id)
         {
             var materiaCursada = await _context.MateriasCursadas
                 .Include(mc => mc.Alumno)
-                .FirstOrDefaultAsync(mc => mc.Id == id);
+                .FirstOrDefaultAsync(mc => mc.AlumnoId == id);
 
             if (materiaCursada == null)
             {
@@ -272,22 +338,39 @@ namespace _2024_InstitutoEducativo.Controllers
             {
                 int userId = Int32.Parse(_usermanager.GetUserId(User));
 
-                // Buscar si ya existe una calificación para esta materia y alumno
+
+
                 var existingCalificacion = await _context.Calificaciones
                     .FirstOrDefaultAsync(c =>
                         c.MateriaCursadaId == viewModel.MateriaCursadaId &&
                         c.AlumnoId == viewModel.AlumnoId);
 
+                var alumno = _context.Alumnos.Include(a => a.Calificaciones)
+                    .Include(a => a.MateriasCursadas)
+                    .FirstOrDefault(a => a.Id == viewModel.AlumnoId);
+
+                var profesor = _context.Profesores.Include(p => p.CalificacionesRealizadas)
+                    .FirstOrDefault(a => a.Id == userId);
+
+                var materiacursada = _context.MateriasCursadas.Include(mc => mc.Calificaciones)
+                    .FirstOrDefault(a => a.Id == viewModel.MateriaCursadaId);
+
+
                 if (existingCalificacion != null)
                 {
-                    // Si existe, actualiza la nota existente
                     existingCalificacion.NotaFinal = viewModel.NotaFinal;
                     existingCalificacion.ProfesorId = userId;
                     _context.Update(existingCalificacion);
+                    alumno.Calificaciones.Add(existingCalificacion);
+                    profesor.CalificacionesRealizadas.Add(existingCalificacion);
+                    materiacursada.Calificaciones.Add(existingCalificacion);
+
+                    _context.Update(materiacursada);
+                    _context.Update(profesor);
+                    _context.Update(alumno);
                 }
                 else
                 {
-                    // Si no existe, crea una nueva calificación
                     var newCalificacion = new Calificacion
                     {
                         NotaFinal = viewModel.NotaFinal,
@@ -296,16 +379,22 @@ namespace _2024_InstitutoEducativo.Controllers
                         ProfesorId = userId
                     };
                     _context.Add(newCalificacion);
-                    Alumno alumno = _context.Alumnos.FirstOrDefault(a => a.Id == viewModel.AlumnoId);
                     alumno.Calificaciones.Add(newCalificacion);
-                    Profesor profesor = _context.Profesores.FirstOrDefault(p => p.Id == userId);
                     profesor.CalificacionesRealizadas.Add(newCalificacion);
-                    MateriaCursada materiaCursada = _context.MateriasCursadas.FirstOrDefault(mc => mc.Id == viewModel.MateriaCursadaId);
-                    materiaCursada.Calificaciones.Add(newCalificacion);
-                    _context.Alumnos.Update(alumno);
-                    _context.Profesores.Update(profesor);
-                    _context.MateriasCursadas.Update(materiaCursada);
-                    
+                    materiacursada.Calificaciones.Add(newCalificacion);
+                    _context.Update(materiacursada);
+                    _context.Update(profesor);
+                    _context.Update(alumno);
+
+                }
+
+                var materiaCursadaToRemove = alumno.MateriasCursadas
+                .FirstOrDefault(mc => mc.Id == viewModel.MateriaCursadaId);
+
+                if (materiaCursadaToRemove != null)
+                {
+                    alumno.MateriasCursadas.Remove(materiaCursadaToRemove);
+                    _context.Update(alumno);
                 }
 
                 await _context.SaveChangesAsync();
@@ -314,6 +403,10 @@ namespace _2024_InstitutoEducativo.Controllers
 
             return View(viewModel);
         }
+
+
+
+
 
 
     }
