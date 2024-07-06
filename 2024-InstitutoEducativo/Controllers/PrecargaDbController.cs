@@ -402,15 +402,15 @@ namespace _2024_InstitutoEducativo.Controllers
 
         private List<MateriaCursada> materiasCursadas = new List<MateriaCursada>()
         {
-            new MateriaCursada("Matemáticas", 2024, "1º",1,1,1),
-            new MateriaCursada("Física", 2024, "1º",2,2,2),
-            new MateriaCursada("Química", 2024, "2º",3,3,3),
-            new MateriaCursada("Taller de Programacion 1", 2024,"1º",4,2,2),
-            new MateriaCursada("Taller de Programacion 2", 2024, "2º",5,3,3),
-            new MateriaCursada("Programacion 1", 2024,"1º",6,2,2),
-            new MateriaCursada("Programacion 2", 2024, "2º",7,4,3),
-            new MateriaCursada("PNT1", 2024,"1º",8,5,2),
-            new MateriaCursada("PNT2", 2024, "2º",9,6,3)
+            new MateriaCursada("Matemáticas", 2024, "1º",1,20,1),
+            new MateriaCursada("Física", 2024, "1º",2,21,2),
+            new MateriaCursada("Química", 2024, "2º",3,22,3),
+            new MateriaCursada("Taller de Programacion 1", 2024,"1º",4,23,2),
+            new MateriaCursada("Taller de Programacion 2", 2024, "2º",5,20,3),
+            new MateriaCursada("Programacion 1", 2024,"1º",6,21,2),
+            new MateriaCursada("Programacion 2", 2024, "2º",7,22,1),
+            new MateriaCursada("PNT1", 2024,"1º",8,20,2),
+            new MateriaCursada("PNT2", 2024, "2º",9,23,3)
         };
 
         public async Task CrearMateriasCursadas()
@@ -428,9 +428,14 @@ namespace _2024_InstitutoEducativo.Controllers
 
         private List<Calificacion> calificaciones = new List<Calificacion>()
         {
-            new Calificacion( 8, 1, 7, 1),
-            new Calificacion(9, 2, 8, 2),
-            new Calificacion( null , 3, 9, 3)
+            new Calificacion( 8, 1, 20, 1),
+            new Calificacion(9, 2, 21, 2),
+            new Calificacion( null , 3, 22, 3),
+            new Calificacion( 8, 4, 23, 2),
+            new Calificacion(null, 5, 20, 3),
+            new Calificacion( null , 6, 21, 2),
+            new Calificacion( null , 8, 20, 2),
+            new Calificacion( null , 9, 23, 3)
         };
 
 
