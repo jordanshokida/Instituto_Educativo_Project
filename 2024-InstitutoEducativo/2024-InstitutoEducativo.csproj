@@ -20,4 +20,16 @@
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="8.0.2" />
   </ItemGroup>
 
+  <ItemGroup>
+    <UpToDateCheckInput Remove="Views\Materias\ListarMateriasAlumno.cshtml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <_ContentIncludedByDefault Remove="Views\Materias\ListarMateriasAlumno.cshtml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="Views\Materias\ListarMateriasAlumno.cshtml" />
+  </ItemGroup>
+
 </Project>

@@ -112,18 +112,21 @@ namespace _2024_InstitutoEducativo.Controllers
 
     public async Task<IActionResult> CalificacionesAlumno()
         {
-            Alumno alumno = await _context.Alumnos
-                .Include(c => c.Calificaciones)
-                .ThenInclude(c => c.MateriaCursada)
-                .ThenInclude(c => c.Profesor)                
-                .FirstOrDefaultAsync(c => c.Id == Int32.Parse(_usermanager.GetUserId(User)));
+            int userId = Int32.Parse(_usermanager.GetUserId(User));
 
-            if (alumno == null)
+            // Obtener las calificaciones del alumno incluyendo las materias cursadas y sus profesores
+            var calificaciones = await _context.Calificaciones
+                .Include(c => c.MateriaCursada)
+                .Include(mc => mc.Profesor)
+                .Include(a => a.Alumno).Where(c => c.AlumnoId == userId)
+                .ToListAsync();
+
+            if (calificaciones == null || calificaciones.Count == 0)
             {
                 return NotFound();
             }
 
-            return View(alumno);
+            return View(calificaciones);
         }       
 
 
@@ -252,7 +255,7 @@ namespace _2024_InstitutoEducativo.Controllers
 
             var viewModel = new CalificacionViewModel
             {
-                AlumnoId = materiaCursada.AlumnoId,
+                AlumnoId = materiaCursada.Alumno.Id,
                 MateriaCursadaId = materiaCursada.Id,
                 NombreCompleto = materiaCursada.Alumno.NombreCompleto
             };
@@ -293,6 +296,16 @@ namespace _2024_InstitutoEducativo.Controllers
                         ProfesorId = userId
                     };
                     _context.Add(newCalificacion);
+                    Alumno alumno = _context.Alumnos.FirstOrDefault(a => a.Id == viewModel.AlumnoId);
+                    alumno.Calificaciones.Add(newCalificacion);
+                    Profesor profesor = _context.Profesores.FirstOrDefault(p => p.Id == userId);
+                    profesor.CalificacionesRealizadas.Add(newCalificacion);
+                    MateriaCursada materiaCursada = _context.MateriasCursadas.FirstOrDefault(mc => mc.Id == viewModel.MateriaCursadaId);
+                    materiaCursada.Calificaciones.Add(newCalificacion);
+                    _context.Alumnos.Update(alumno);
+                    _context.Profesores.Update(profesor);
+                    _context.MateriasCursadas.Update(materiaCursada);
+                    
                 }
 
                 await _context.SaveChangesAsync();

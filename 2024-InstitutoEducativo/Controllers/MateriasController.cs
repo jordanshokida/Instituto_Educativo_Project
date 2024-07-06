@@ -9,16 +9,19 @@ using _2024_InstitutoEducativo.Data;
 using _2024_InstitutoEducativo.Models;
 using _2024_InstitutoEducativo.Helpers;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 
 namespace _2024_InstitutoEducativo.Controllers
 {
     public class MateriasController : Controller
     {
         private readonly InstitutoContext _context;
+        private readonly UserManager<Persona> _usermanager;
 
-        public MateriasController(InstitutoContext context)
+        public MateriasController(InstitutoContext context, UserManager<Persona> usermanager)
         {
             _context = context;
+            _usermanager = usermanager;
         }
 
         // GET: Materias
@@ -28,23 +31,40 @@ namespace _2024_InstitutoEducativo.Controllers
             return View(await institutoContext.ToListAsync());
         }
 
+        
+
         // GET: Materias/Details/5
         public async Task<IActionResult> Details(int? id)
         {
-            if (id == null)
+            // Obtén el usuario actual
+            int userId = Int32.Parse(_usermanager.GetUserId(User));
+
+            if (userId == null)
             {
-                return NotFound();
+                return NotFound("Usuario no encontrado.");
             }
 
-            var materia = await _context.Materias
-                .Include(m => m.Carrera)
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (materia == null)
+            // Obtén el alumno asociado al usuario actual
+            var alumno = await _context.Alumnos
+                .FirstOrDefaultAsync(a => a.Id == userId); // Cambio aquí para usar el UserId
+            if (alumno == null)
             {
-                return NotFound();
+                return NotFound("Alumno no encontrado.");
             }
 
-            return View(materia);
+            // Agrega un mensaje de depuración para verificar el CarreraId del alumno
+            System.Diagnostics.Debug.WriteLine($"AlumnoId: {alumno.Id}, CarreraId: {alumno.CarreraId}");
+
+            // Obtén las materias de la carrera del alumno
+            var materias = await _context.Materias
+                                         .Where(m => m.CarreraId == alumno.CarreraId)
+                                         .Include(m => m.Carrera)
+                                         .ToListAsync();
+
+            // Agrega un mensaje de depuración para verificar las materias obtenidas
+            System.Diagnostics.Debug.WriteLine($"Materias obtenidas: {materias.Count()}");
+
+            return View(materias);
         }
 
         // GET: Materias/Create
@@ -166,44 +186,79 @@ namespace _2024_InstitutoEducativo.Controllers
 
 
 
-        //METODOS:
+        // GET: Materias
+        /* public async Task<IActionResult> ListarMateriasAlumno()
+         {
+             //.Where(mc => mc.ProfesorId == profesorId)
+             var alumno =  _context.Alumnos.FirstOrDefault(a => a.Id == Int32.Parse(_usermanager.GetUserId(User)));
+             var materias = await _context.Materias
+                 .Where(m => m.CarreraId == alumno.CarreraId)
+                 .Include(m => m.MateriaCursada)
+                 .Include(m => m.Carrera)          
+                 .ToListAsync();              
+                  return View(materias);
+         }*/
 
-        /*// Método para agregar materia cursada
-        public void AgregarMateriaCursada(MateriaCursada materiaCursada)
+       /* [Authorize(Roles = $"{Configs.AdminRolName},{Configs.AlumnoRolName}")]
+        public async Task<IActionResult> ListarMateriasAlumno()
         {
-            // Implementación para agregar materia cursada
-            _context.MateriasCursadas.Add(materiaCursada);
-            _context.SaveChanges();
-        }*/
+            var user = await _usermanager.GetUserAsync(User);
+            var alumno = await _context.Alumnos
+                                       .Include(a => a.Carrera)
+                                       .FirstOrDefaultAsync(a => a.Email == user.Email);
 
-        /*// Método para obtener calificaciones
-        public List<Calificacion> ObtenerCalificaciones()
-        {
-            // Implementación para obtener calificaciones
-            return _context.Calificaciones.ToList();
-        }*/
-
-        /*// Método para verificar cupo
-        public bool VerificarCupo()
-        {
-            // Implementación para verificar cupo
-            var materia = _context.Materias.Include(m => m.MateriasCursadas).FirstOrDefault(m => m.Id == materiaId);
-            if (materia != null)
+            if (alumno == null)
             {
-                return materia.MateriasCursadas.Count < materia.CupoMaximo;
+                return NotFound("Alumno no encontrado.");
             }
-            return false;
+
+            var materias = await _context.Materias
+                                         .Where(m => m.CarreraId == alumno.CarreraId)
+                                         .ToListAsync();
+
+            return View(materias);
         }*/
-
-
-
-
-
-
-
-
-
-
-
     }
+
+
+    //METODOS:
+
+    /*// Método para agregar materia cursada
+    public void AgregarMateriaCursada(MateriaCursada materiaCursada)
+    {
+        // Implementación para agregar materia cursada
+        _context.MateriasCursadas.Add(materiaCursada);
+        _context.SaveChanges();
+    }*/
+
+    /*// Método para obtener calificaciones
+    public List<Calificacion> ObtenerCalificaciones()
+    {
+        // Implementación para obtener calificaciones
+        return _context.Calificaciones.ToList();
+    }*/
+
+    /*// Método para verificar cupo
+    public bool VerificarCupo()
+    {
+        // Implementación para verificar cupo
+        var materia = _context.Materias.Include(m => m.MateriasCursadas).FirstOrDefault(m => m.Id == materiaId);
+        if (materia != null)
+        {
+            return materia.MateriasCursadas.Count < materia.CupoMaximo;
+        }
+        return false;
+    }*/
+
+
+
+
+
+
+
+
+
+
+
 }
+

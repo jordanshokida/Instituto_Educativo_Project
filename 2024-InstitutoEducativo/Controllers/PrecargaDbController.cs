@@ -407,7 +407,7 @@ namespace _2024_InstitutoEducativo.Controllers
             new MateriaCursada("Química", 2024, "2º",3,22,3),
             new MateriaCursada("Taller de Programacion 1", 2024,"1º",4,23,2),
             new MateriaCursada("Taller de Programacion 2", 2024, "2º",5,20,3),
-            new MateriaCursada("Programacion 1", 2024,"1º",6,21,2),
+            new MateriaCursada("Programacion 1", 2024,"1º",6,21,6),
             new MateriaCursada("Programacion 2", 2024, "2º",7,22,1),
             new MateriaCursada("PNT1", 2024,"1º",8,20,2),
             new MateriaCursada("PNT2", 2024, "2º",9,23,3)
@@ -431,11 +431,11 @@ namespace _2024_InstitutoEducativo.Controllers
             new Calificacion( 8, 1, 20, 1),
             new Calificacion(9, 2, 21, 2),
             new Calificacion( null , 3, 22, 3),
-            new Calificacion( 8, 4, 23, 2),
-            new Calificacion(null, 5, 20, 3),
-            new Calificacion( null , 6, 21, 2),
-            new Calificacion( null , 8, 20, 2),
-            new Calificacion( null , 9, 23, 3)
+            new Calificacion( 8, 4, 23, 4),
+            new Calificacion(null, 5, 20, 5),
+            new Calificacion( null , 6, 21, 6),
+            new Calificacion( null , 8, 20, 7),
+            new Calificacion( null , 9, 23, 8)
         };
 
 

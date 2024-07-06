@@ -1,47 +1,36 @@
-﻿@model Alumno
+﻿@model List<Calificacion>
 
 @{
-    ViewData["Title"] = "Calificaciones de @Model.NombreCompleto";
+    ViewData["Title"] = "Calificaciones del Alumno";
 }
 
-<h1>Calificaciones de @Model.NombreCompleto</h1>
+<h1>Calificaciones del Alumno</h1>
 
 <table class="table">
     <thead>
         <tr>
-            <th>
-                Cuatrimestre
-            </th>
-            <th>
-                Materia Cursada
-            </th>
-            <th>
-                Profesor
-            </th>            
-            <th>
-                Nota Final
-            </th>
-            
+            <th>Cuatrimestre</th>
+            <th>Materia Cursada</th>
+            <th>Profesor</th>
+            <th>Nota Final</th>
         </tr>
     </thead>
     <tbody>
-        @foreach (var item in Model.MateriasCursadas)
+        @foreach (var item in Model)
         {
             <tr>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Cuatrimestre)
+                    @Html.DisplayFor(modelItem => item.MateriaCursada.Cuatrimestre)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Nombre)
+                    @Html.DisplayFor(modelItem => item.MateriaCursada.Nombre)
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.Profesor.NombreCompleto)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Calificaciones)
+                    @Html.DisplayFor(modelItem => item.NotaFinal)
                 </td>
-                
-                
             </tr>
         }
     </tbody>

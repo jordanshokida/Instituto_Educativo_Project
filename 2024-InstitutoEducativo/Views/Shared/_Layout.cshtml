@@ -32,7 +32,7 @@
                                     <a class="nav-link text-light" asp-area="" asp-controller="Calificaciones" asp-action="CalificacionesAlumno">Calificaciones</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link text-light" asp-area="" asp-controller="Materias" asp-action="Index">Materias</a>
+                                    <a class="nav-link text-light" asp-area="" asp-controller="Materias" asp-action="Details">Materias</a>
                                 </li>                             
                             }
 
@@ -46,7 +46,7 @@
                                 </li>
                             }
 
-                            @if (signInManager.IsSignedIn(User) && !User.IsInRole(Configs.AlumnoRolName) && !User.IsInRole(Configs.ProfesorRolName))
+                            @if (User.IsInRole(Configs.AdminRolName) || User.IsInRole(Configs.EmpleadoRolName))
                             {
                                 //acá debemos mostrar lo que necesita un usuario con sesión
                                 <li class="nav-item">
@@ -66,10 +66,7 @@
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link text-light" asp-area="" asp-controller="Materias" asp-action="Index">Materias</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link text-light" asp-area="" asp-controller="MateriasCursadas" asp-action="Index">MateriasCursadas</a>
-                                </li>
+                                </li>                               
                                 <li class="nav-item">
                                     <a class="nav-link text-light" asp-area="" asp-controller="Profesores" asp-action="Index">Profesores</a>
                                 </li>

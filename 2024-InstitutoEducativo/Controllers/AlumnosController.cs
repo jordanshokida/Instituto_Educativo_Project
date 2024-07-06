@@ -267,6 +267,26 @@ namespace _2024_InstitutoEducativo.Controllers
             return _context.Alumnos.Any(e => e.Id == id);
         }
 
+        /*[HttpPost]
+        [Authorize(Roles = $"{Configs.AdminRolName},{Configs.AlumnoRolName}")]
+        public async Task<IActionResult> ListarMateriasAlumno()
+        {
+            var user = await _userManager.GetUserAsync(User);
+            var alumno = await _context.Alumnos
+                                       .Include(a => a.Carrera)
+                                       .FirstOrDefaultAsync(a => a.Id == user.Id);
+
+            if (alumno == null)
+            {
+                return NotFound("Alumno no encontrado.");
+            }
+
+            var materias = await _context.Materias
+                                         .Where(m => m.CarreraId == alumno.CarreraId)
+                                         .ToListAsync();
+
+            return View(materias);
+        }*/
 
 
         /*public async Task<IActionResult> VerAlumnosProfesor()
