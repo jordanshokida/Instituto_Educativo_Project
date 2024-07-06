@@ -48,7 +48,7 @@
             <td>
                 @Html.DisplayFor(modelItem => item.Carrera.Nombre)
             </td>
-                @if (User.IsInRole(Configs.ProfesorRolName) || (User.IsInRole(Configs.AdminRolName))) {
+                @if (User.IsInRole(Configs.EmpleadoRolName) || (User.IsInRole(Configs.AdminRolName))) {
             <td>
                 <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
                 <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
