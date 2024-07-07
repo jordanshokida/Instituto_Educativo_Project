@@ -15,6 +15,8 @@ namespace _2024_InstitutoEducativo.ViewModels
      
         public int MateriaCursadaId { get; set; }
 
+        public MateriaCursada MateriaCursada { get; set; }
+
         [Display(Name = Alias.MateriaCursada)]
         public string Nombre { get; set; }
 

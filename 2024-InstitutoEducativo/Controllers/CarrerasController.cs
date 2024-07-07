@@ -159,50 +159,7 @@ namespace _2024_InstitutoEducativo.Controllers
 
 
 
-        //METODOS:
-
-
-        /*// Método para agregar materia a carrera
-        public void AgregarMateria(Materia materia)
-        {
-            // Implementación para agregar materia
-         
-            public void AgregarMateria(Materia materia)
-            {
-            var carrera = _context.Carreras.Find(materia.CarreraId);
-            if (carrera != null)
-            {
-                carrera.Materias.Add(materia);
-                _context.SaveChanges();
-            }
-        }
-        }*/
-
-
-        /*// Método para listar alumnos de carrera
-        public List<Alumno> ListarAlumnos()
-        {
-            // Implementación para listar alumnos
-             var carrera = _context.Carreras
-                .Include(c => c.Alumnos)
-                .FirstOrDefault(c => c.Id == carreraId);
-
-            return carrera?.Alumnos.ToList() ?? new List<Alumno>();
-        }*/
-
-
-        /*// Método para obtener materias de carrera
-        public List<Materia> ObtenerMaterias()
-        {
-            // Implementación para obtener materias
-            var carrera = _context.Carreras
-                .Include(c => c.Materias)
-                .FirstOrDefault(c => c.Id == carreraId);
-
-            return carrera?.Materias.ToList() ?? new List<Materia>();
-        }*/
-
-
+        
 
 
 

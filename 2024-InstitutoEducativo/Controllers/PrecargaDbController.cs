@@ -142,7 +142,7 @@ namespace _2024_InstitutoEducativo.Controllers
             new Alumno("Alumno17", "Alumno17", "alumno17@hotmail.com", "07274731",1979),
             new Alumno("Alumno18", "Alumno18", "alumno18@hotmail.com", "07275731",1989),
             new Alumno("Alumno19", "Alumno19", "alumno19@hotmail.com", "07276731",1999),
-
+            
         };
 
 
@@ -215,6 +215,7 @@ namespace _2024_InstitutoEducativo.Controllers
             new Profesor("Profesor4", "Profesor4", "profesor4@hotmail.com", "33273739","1637"),
             new Profesor("Profesor5", "Profesor5", "profesor5@hotmail.com", "32273730","1738"),
             new Profesor("Profesor6", "Profesor6", "profesor6@hotmail.com", "31273731","1839"),
+            
         };
 
         private async Task CrearProfesores()
@@ -405,11 +406,11 @@ namespace _2024_InstitutoEducativo.Controllers
             new MateriaCursada("Matemáticas", 2024, "1º",1,20,1),
             new MateriaCursada("Física", 2024, "1º",2,21,2),
             new MateriaCursada("Química", 2024, "2º",3,22,3),
-            new MateriaCursada("Taller de Programacion 1", 2024,"1º",4,23,2),
-            new MateriaCursada("Taller de Programacion 2", 2024, "2º",5,20,3),
+            new MateriaCursada("Taller de Programacion 1", 2024,"1º",4,23,4),
+            new MateriaCursada("Taller de Programacion 2", 2024, "2º",5,20,5),
             new MateriaCursada("Programacion 1", 2024,"1º",6,21,6),
-            new MateriaCursada("Programacion 2", 2024, "2º",7,22,1),
-            new MateriaCursada("PNT1", 2024,"1º",8,20,2),
+            new MateriaCursada("Programacion 2", 2024, "2º",7,22,7),
+            new MateriaCursada("PNT1", 2024,"1º",8,20,9),
             new MateriaCursada("PNT2", 2024, "2º",9,23,8)
         };
 
@@ -431,11 +432,11 @@ namespace _2024_InstitutoEducativo.Controllers
             new Calificacion( 8, 1, 20, 1),
             new Calificacion(9, 2, 21, 2),
             new Calificacion( null , 3, 22, 3),
-            new Calificacion( 8, 4, 23, 4),
-            new Calificacion(null, 5, 20, 5),
-            new Calificacion( null , 6, 21, 6),
-            new Calificacion( null , 8, 20, 7),
-            new Calificacion( null , 9, 23, 8)
+            new Calificacion( 8, 4, 23, 1),
+            new Calificacion(null, 5, 20, 2),
+            new Calificacion( null , 6, 21, 3),
+            new Calificacion( null , 8, 20, 1),
+            new Calificacion( null , 9, 23, 2)
         };
 
 

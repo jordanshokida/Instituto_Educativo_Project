@@ -21,7 +21,7 @@ namespace _2024_InstitutoEducativo.Data
         {
             base.OnModelCreating(modelBuilder);
 
-            modelBuilder.Entity<MateriaCursada>()
+           /* modelBuilder.Entity<MateriaCursada>()
             .HasMany(mc => mc.Calificaciones)
             .WithOne(c => c.MateriaCursada)
             .HasForeignKey(c => c.MateriaCursadaId)
@@ -31,7 +31,7 @@ namespace _2024_InstitutoEducativo.Data
             .HasOne(c => c.MateriaCursada)
             .WithMany(mc => mc.Calificaciones)
             .HasForeignKey(c => c.MateriaCursadaId)
-            .OnDelete(DeleteBehavior.Cascade);
+            .OnDelete(DeleteBehavior.Cascade);*/
 
             #region Establecer nombres para los Identity Stores
 

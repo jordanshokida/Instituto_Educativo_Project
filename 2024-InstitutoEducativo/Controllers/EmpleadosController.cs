@@ -244,53 +244,7 @@ namespace _2024_InstitutoEducativo.Controllers
         }
 
 
-        //METODOS:
-
-        /* // Método para crear alumno
-         public void CrearAlumno(Alumno alumno)
-         {
-             // Implementación de creación de alumno
-            _context.Alumnos.Add(alumno);
-            _context.SaveChanges();
-         }*/
-
-
-        /*// Método para crear profesor
-        public void CrearProfesor(Profesor profesor)
-        {
-            // Implementación de creación de profesor
-            _context.Profesores.Add(profesor);
-            _context.SaveChanges();
-        }*/
-
-
-        /*// Método para crear carrera
-        public void CrearCarrera(Carrera carrera)
-        {
-            // Implementación de creación de carrera
-            _context.Carreras.Add(carrera);
-            _context.SaveChanges();
-        }*/
-
-
-        /*// Método para crear materia
-        public void CrearMateria(Materia materia)
-        {
-            // Implementación de creación de materia
-            _context.Materias.Add(materia);
-            _context.SaveChanges();
-        }*/
-
-
-        /*// Método para asignar profesor a materia cursada
-        public void AsignarProfesorAMateria(Profesor profesor, MateriaCursada materia)
-        {
-            // Implementación de asignación de profesor
-             materia.ProfesorId = profesor.Id;
-            _context.MateriasCursadas.Update(materia);
-            _context.SaveChanges();
-        }*/
-
+       
 
     }
 }

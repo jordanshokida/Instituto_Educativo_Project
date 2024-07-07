@@ -64,7 +64,7 @@ namespace _2024_InstitutoEducativo.Controllers
 
                     foreach (var error in resultadoCreate.Errors)
                     {
-                        //Proceso los errores al momento de crear
+                        
                         ModelState.AddModelError(String.Empty, error.Description);
                     }
                 }
@@ -111,11 +111,11 @@ namespace _2024_InstitutoEducativo.Controllers
             var personaExistente = await _usermanager.FindByEmailAsync(email);
             if (personaExistente == null)
             {
-                //No hay una persona existente con ese email
+                
                 return Json(true);
             }else
             {
-                //El email ya está en uso
+                
                 return Json($"El correo {email} ya está en uso.");
             }
         }

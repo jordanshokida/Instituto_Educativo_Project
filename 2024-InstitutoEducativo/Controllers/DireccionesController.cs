@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using _2024_InstitutoEducativo.Data;
 using _2024_InstitutoEducativo.Models;
+using _2024_InstitutoEducativo.Helpers;
+using Microsoft.AspNetCore.Authorization;
 
 namespace _2024_InstitutoEducativo.Controllers
 {
@@ -70,6 +72,7 @@ namespace _2024_InstitutoEducativo.Controllers
         }
 
         // GET: Direcciones/Edit/5
+        [Authorize(Roles = $"{Configs.AdminRolName},{Configs.EmpleadoRolName}")]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -91,6 +94,7 @@ namespace _2024_InstitutoEducativo.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = $"{Configs.AdminRolName},{Configs.EmpleadoRolName}")]
         public async Task<IActionResult> Edit(int id, [Bind("Id,PersonaId,Calle,Numero,Localidad,Provincia,Pais")] Direccion direccion)
         {
             if (id != direccion.Id)
@@ -123,6 +127,7 @@ namespace _2024_InstitutoEducativo.Controllers
         }
 
         // GET: Direcciones/Delete/5
+        [Authorize(Roles = $"{Configs.AdminRolName},{Configs.EmpleadoRolName}")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -142,6 +147,7 @@ namespace _2024_InstitutoEducativo.Controllers
         }
 
         // POST: Direcciones/Delete/5
+        [Authorize(Roles = $"{Configs.AdminRolName},{Configs.EmpleadoRolName}")]
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)

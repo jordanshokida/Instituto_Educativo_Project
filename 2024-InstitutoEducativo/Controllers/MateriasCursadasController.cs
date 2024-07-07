@@ -180,34 +180,6 @@ namespace _2024_InstitutoEducativo.Controllers
 
 
 
-        //METODOS:
-
-        /*// Método para agregar calificación
-        public void AgregarCalificacion(Calificacion calificacion)
-        {
-            // Implementación para agregar calificación
-             _context.Calificaciones.Add(calificacion);
-            _context.SaveChanges();
-        }*/
-
-
-        /*// Método para obtener alumnos inscriptos
-        public List<Alumno> ObtenerAlumnosInscriptos()
-        {
-            // Implementación para obtener alumnos inscriptos
-            return _context.Alumnos.Include(a => a.MateriasCursadas).ToList();
-        }*/
-
-
-        /*// Método para obtener promedio de calificaciones
-        public double ObtenerPromedioCalificaciones()
-        {
-            // Implementación para obtener promedio de calificaciones
-            return _context.Calificaciones.Average(c => c.NotaFinal);
-        }*/
-
-
-
 
 
     }

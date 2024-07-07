@@ -51,9 +51,10 @@ namespace _2024_InstitutoEducativo.Models
 
         public Alumno Alumno { get; set; }
 
-        public List<Calificacion> Calificaciones { get; set; }  
+        public List<Calificacion> Calificaciones { get; set; }
 
-       
+        
+
 
     }
 }

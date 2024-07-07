@@ -25,6 +25,7 @@ namespace _2024_InstitutoEducativo.Controllers
         }
 
         // GET: Materias
+        [Authorize(Roles = $"{Configs.AdminRolName},{Configs.EmpleadoRolName}")]
         public async Task<IActionResult> Index()
         {
             var institutoContext = _context.Materias.Include(m => m.Carrera);

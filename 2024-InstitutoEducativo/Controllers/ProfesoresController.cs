@@ -207,59 +207,7 @@ namespace _2024_InstitutoEducativo.Controllers
             return View(materiasCursadas);
         }
 
-
        
-
-
-        // GET: Calificaciones/CrearCalificacion
-       /* [Authorize(Roles = $"{Configs.AdminRolName},{Configs.ProfesorRolName}")]
-        public async Task<IActionResult> CrearCalificacion(int id)
-        {
-            var materiaCursada = await _context.MateriasCursadas
-                .Include(mc => mc.Alumno)
-                .FirstOrDefaultAsync(mc => mc.Id == id);
-
-            if (materiaCursada == null)
-            {
-                return NotFound();
-            }
-
-            var viewModel = new CalificacionViewModel
-            {
-                AlumnoId = materiaCursada.AlumnoId,
-                MateriaCursadaId = materiaCursada.Id,
-                NombreCompleto = materiaCursada.Alumno.NombreCompleto
-            };
-
-            return View(viewModel);
-        }
-
-        // POST: Calificaciones/CrearCalificacion
-        [Authorize(Roles = $"{Configs.AdminRolName},{Configs.ProfesorRolName}")]
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> CrearCalificacion(CalificacionViewModel viewModel)
-        {
-            if (ModelState.IsValid)
-
-            {
-                int userId = Int32.Parse(_userManager.GetUserId(User));
-
-                var calificacion = new Calificacion
-                {
-                    NotaFinal = viewModel.NotaFinal,
-                    MateriaCursadaId = viewModel.MateriaCursadaId,
-                    AlumnoId = viewModel.AlumnoId,
-                    ProfesorId = userId
-            };
-
-                _context.Add(calificacion);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
-            }
-
-            return View(viewModel);
-        }*/
     }
 
 }

@@ -97,16 +97,16 @@ namespace _2024_InstitutoEducativo.Controllers
                 //return RedirectToAction(nameof(Index));
             }
 
-            // ViewData["DireccionId"] = new SelectList(_context.Direcciones, "Id", "Calle", empleado.DireccionId);
+            
            ViewData["CarreraId"] = new SelectList(_context.Carreras, "Id", "Nombre", alumno.CarreraId);
              return View(alumno);
 
         }
-        
-        
 
 
 
+
+        [Authorize(Roles = $"{Configs.AdminRolName},{Configs.EmpleadoRolName}")]
         // GET: Alumnos/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
@@ -123,10 +123,11 @@ namespace _2024_InstitutoEducativo.Controllers
             ViewData["CarreraId"] = new SelectList(_context.Carreras, "Id", "Nombre", alumno.CarreraId);
             return View(alumno);
         }
-
+        
         // POST: Alumnos/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [Authorize(Roles = $"{Configs.AdminRolName},{Configs.EmpleadoRolName}")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("CarreraId,Id,Nombre,Apellido,Email,Dni")] Alumno alumnoDelForm)
@@ -195,16 +196,15 @@ namespace _2024_InstitutoEducativo.Controllers
             {
                 if (!alumnoDb.NormalizedEmail.Equals(alumnoForm.Email.ToUpper()))
                 {
-                    //si no son iguales - tengo que procesar
-                    //verifico si ya existe el email
+                    
                     if (ExistEmail(alumnoForm.Email))
                     {
-                        //si existe, no puede ser actualizado
+                        
                         resultado = false;
                     }
                     else
                     {
-                        //como no existe, puedo actualizar
+                        
                         alumnoDb.Email = alumnoForm.Email;
                         alumnoDb.NormalizedEmail = alumnoForm.Email.ToUpper();
                         alumnoDb.UserName = alumnoForm.Email;
@@ -213,7 +213,7 @@ namespace _2024_InstitutoEducativo.Controllers
                 }
                 else
                 {
-                    //son iguales, No actualicé pero está actualizado
+                    
                 }
             }
             catch
@@ -229,6 +229,7 @@ namespace _2024_InstitutoEducativo.Controllers
         }
 
         // GET: Alumnos/Delete/5
+        [Authorize(Roles = $"{Configs.AdminRolName},{Configs.EmpleadoRolName}")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -248,6 +249,7 @@ namespace _2024_InstitutoEducativo.Controllers
         }
 
         // POST: Alumnos/Delete/5
+        [Authorize(Roles = $"{Configs.AdminRolName},{Configs.EmpleadoRolName}")]
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
@@ -337,10 +339,17 @@ namespace _2024_InstitutoEducativo.Controllers
                 _context.Alumnos.Update(alumno);
                 _context.MateriasCursadas.Add(materiaCursada);
             }
-            
-            await _context.SaveChangesAsync();
 
-            TempData["InscripcionExitosa"] = true;
+            try
+            {
+                await _context.SaveChangesAsync();
+                TempData["InscripcionExitosa"] = true;
+            }
+            catch (DbUpdateException ex)
+            {
+                
+                return StatusCode(500, "Ocurrió un error al inscribir a la materia: " + ex.Message);
+            }         
 
             return RedirectToAction("Details", "Materias");
         }

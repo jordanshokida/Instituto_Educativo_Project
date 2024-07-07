@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using _2024_InstitutoEducativo.Data;
 using _2024_InstitutoEducativo.Models;
+using _2024_InstitutoEducativo.Helpers;
+using Microsoft.AspNetCore.Authorization;
 
 namespace _2024_InstitutoEducativo.Controllers
 {
@@ -46,6 +48,7 @@ namespace _2024_InstitutoEducativo.Controllers
         }
 
         // GET: Telefonos/Create
+        
         public IActionResult Create()
         {
             ViewData["PersonaId"] = new SelectList(_context.Personas, "Id", "Apellido");
@@ -70,6 +73,7 @@ namespace _2024_InstitutoEducativo.Controllers
         }
 
         // GET: Telefonos/Edit/5
+        [Authorize(Roles = $"{Configs.AdminRolName},{Configs.EmpleadoRolName}")]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -89,6 +93,7 @@ namespace _2024_InstitutoEducativo.Controllers
         // POST: Telefonos/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [Authorize(Roles = $"{Configs.AdminRolName},{Configs.EmpleadoRolName}")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("Id,CodArea,Numero,PersonaId")] Telefono telefono)
@@ -123,6 +128,7 @@ namespace _2024_InstitutoEducativo.Controllers
         }
 
         // GET: Telefonos/Delete/5
+        [Authorize(Roles = $"{Configs.AdminRolName},{Configs.EmpleadoRolName}")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -142,6 +148,7 @@ namespace _2024_InstitutoEducativo.Controllers
         }
 
         // POST: Telefonos/Delete/5
+        [Authorize(Roles = $"{Configs.AdminRolName},{Configs.EmpleadoRolName}")]
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)

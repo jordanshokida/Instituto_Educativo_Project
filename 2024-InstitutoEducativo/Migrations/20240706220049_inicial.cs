@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace _2024_InstitutoEducativo.Migrations
 {
     /// <inheritdoc />
-    public partial class final : Migration
+    public partial class inicial : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -60,7 +60,7 @@ namespace _2024_InstitutoEducativo.Migrations
                         column: x => x.CarreraId,
                         principalTable: "Carreras",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.NoAction);
                 });
 
             migrationBuilder.CreateTable(
@@ -101,7 +101,7 @@ namespace _2024_InstitutoEducativo.Migrations
                         column: x => x.CarreraId,
                         principalTable: "Carreras",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.NoAction);
                 });
 
             migrationBuilder.CreateTable(
@@ -122,7 +122,7 @@ namespace _2024_InstitutoEducativo.Migrations
                         column: x => x.RoleId,
                         principalTable: "Roles",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.NoAction);
                 });
 
             migrationBuilder.CreateTable(
@@ -143,7 +143,7 @@ namespace _2024_InstitutoEducativo.Migrations
                         column: x => x.UserId,
                         principalTable: "Personas",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.NoAction);
                 });
 
             migrationBuilder.CreateTable(
@@ -163,7 +163,7 @@ namespace _2024_InstitutoEducativo.Migrations
                         column: x => x.UserId,
                         principalTable: "Personas",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.NoAction);
                 });
 
             migrationBuilder.CreateTable(
@@ -183,7 +183,7 @@ namespace _2024_InstitutoEducativo.Migrations
                         column: x => x.UserId,
                         principalTable: "Personas",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.NoAction);
                 });
 
             migrationBuilder.CreateTable(
@@ -207,7 +207,7 @@ namespace _2024_InstitutoEducativo.Migrations
                         column: x => x.PersonaId,
                         principalTable: "Personas",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.NoAction);
                 });
 
             migrationBuilder.CreateTable(
@@ -231,19 +231,19 @@ namespace _2024_InstitutoEducativo.Migrations
                         column: x => x.MateriaId,
                         principalTable: "Materias",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.NoAction);
                     table.ForeignKey(
                         name: "FK_MateriasCursadas_Personas_AlumnoId",
                         column: x => x.AlumnoId,
                         principalTable: "Personas",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.NoAction);
                     table.ForeignKey(
                         name: "FK_MateriasCursadas_Personas_ProfesorId",
                         column: x => x.ProfesorId,
                         principalTable: "Personas",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.NoAction);
                 });
 
             migrationBuilder.CreateTable(
@@ -261,13 +261,13 @@ namespace _2024_InstitutoEducativo.Migrations
                         column: x => x.UserId,
                         principalTable: "Personas",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.NoAction);
                     table.ForeignKey(
                         name: "FK_PersonasRoles_Roles_RoleId",
                         column: x => x.RoleId,
                         principalTable: "Roles",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.NoAction);
                 });
 
             migrationBuilder.CreateTable(
@@ -288,7 +288,7 @@ namespace _2024_InstitutoEducativo.Migrations
                         column: x => x.PersonaId,
                         principalTable: "Personas",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.NoAction);
                 });
 
             migrationBuilder.CreateTable(
@@ -311,7 +311,7 @@ namespace _2024_InstitutoEducativo.Migrations
                         column: x => x.MateriaCursadaId,
                         principalTable: "MateriasCursadas",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.NoAction);
                     table.ForeignKey(
                         name: "FK_Calificaciones_Materias_MateriaId",
                         column: x => x.MateriaId,
@@ -322,13 +322,13 @@ namespace _2024_InstitutoEducativo.Migrations
                         column: x => x.AlumnoId,
                         principalTable: "Personas",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.NoAction);
                     table.ForeignKey(
                         name: "FK_Calificaciones_Personas_ProfesorId",
                         column: x => x.ProfesorId,
                         principalTable: "Personas",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.NoAction);
                 });
 
             migrationBuilder.CreateIndex(

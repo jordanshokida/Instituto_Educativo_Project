@@ -44,7 +44,7 @@
                 <td>
                     @if (!item.NotaFinal.HasValue)
                     {
-                        <a asp-action="CrearCalificacion" asp-route-id="@item.AlumnoId" class="btn btn-primary">Calificar</a>
+                        <a asp-action="CrearCalificacion" asp-route-id="@item.AlumnoId" asp-route-materiaCursadaId="@item.MateriaCursadaId" class="btn btn-primary">Calificar</a>
                     }
                 </td>
             </tr>
