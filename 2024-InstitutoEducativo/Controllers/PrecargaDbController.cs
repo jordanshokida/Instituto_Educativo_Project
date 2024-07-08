@@ -406,12 +406,12 @@ namespace _2024_InstitutoEducativo.Controllers
             new MateriaCursada("Matemáticas", 2024, "1º",1,20,1),
             new MateriaCursada("Física", 2024, "1º",2,21,2),
             new MateriaCursada("Química", 2024, "2º",3,22,3),
-            new MateriaCursada("Taller de Programacion 1", 2024,"1º",4,23,4),
-            new MateriaCursada("Taller de Programacion 2", 2024, "2º",5,20,5),
-            new MateriaCursada("Programacion 1", 2024,"1º",6,21,6),
-            new MateriaCursada("Programacion 2", 2024, "2º",7,22,7),
-            new MateriaCursada("PNT1", 2024,"1º",8,20,9),
-            new MateriaCursada("PNT2", 2024, "2º",9,23,8)
+            new MateriaCursada("Taller de Programacion 1", 2024,"1º",4,23,1),
+            new MateriaCursada("Taller de Programacion 2", 2024, "2º",5,20,2),
+            new MateriaCursada("Programacion 1", 2024,"1º",6,21,3),
+            new MateriaCursada("Programacion 2", 2024, "2º",7,23,2),
+            new MateriaCursada("PNT1", 2024,"1º",8,20,1),
+            new MateriaCursada("PNT2", 2024, "2º",9,23,2)
         };
 
         public async Task CrearMateriasCursadas()
@@ -435,8 +435,10 @@ namespace _2024_InstitutoEducativo.Controllers
             new Calificacion( 8, 4, 23, 1),
             new Calificacion(null, 5, 20, 2),
             new Calificacion( null , 6, 21, 3),
+            new Calificacion( null , 7, 23, 2),
             new Calificacion( null , 8, 20, 1),
             new Calificacion( null , 9, 23, 2)
+            
         };
 
 

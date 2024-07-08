@@ -123,14 +123,15 @@ namespace _2024_InstitutoEducativo.Controllers
 
             if (calificaciones == null || calificaciones.Count == 0)
             {
-                return NotFound();
+                return RedirectToAction("Index", "Home", new { mensaje = "Aún no tiene una materia con calificación" });
             }
 
             return View(calificaciones);
-        }       
+        }
 
 
         // GET: Calificaciones/Edit/5
+        [Authorize(Roles = $"{Configs.AdminRolName},{Configs.ProfesorRolName}")]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -144,7 +145,7 @@ namespace _2024_InstitutoEducativo.Controllers
                 return NotFound();
             }
             ViewData["AlumnoId"] = new SelectList(_context.Alumnos, "Id", "Apellido", calificacion.AlumnoId);
-            ViewData["MateriaCursadaId"] = new SelectList(_context.MateriasCursadas, "Id", "Cuatrimestre", calificacion.MateriaCursadaId);
+            ViewData["MateriaCursadaId"] = new SelectList(_context.MateriasCursadas, "Id", "Nombre", calificacion.MateriaCursadaId);
             ViewData["ProfesorId"] = new SelectList(_context.Profesores, "Id", "Apellido", calificacion.ProfesorId);
             return View(calificacion);
         }
@@ -152,6 +153,7 @@ namespace _2024_InstitutoEducativo.Controllers
         // POST: Calificaciones/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [Authorize(Roles = $"{Configs.AdminRolName},{Configs.ProfesorRolName}")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("Id,NotaFinal,MateriaCursadaId,ProfesorId,AlumnoId")] Calificacion calificacion)

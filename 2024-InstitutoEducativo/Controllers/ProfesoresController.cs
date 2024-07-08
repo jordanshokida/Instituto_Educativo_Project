@@ -11,6 +11,7 @@ using _2024_InstitutoEducativo.Helpers;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using _2024_InstitutoEducativo.ViewModels;
+using Microsoft.Data.SqlClient;
 
 namespace _2024_InstitutoEducativo.Controllers
 {
@@ -99,6 +100,7 @@ namespace _2024_InstitutoEducativo.Controllers
         }
 
         // GET: Profesores/Edit/5
+        [Authorize(Roles = $"{Configs.AdminRolName},{Configs.EmpleadoRolName}")]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -114,28 +116,91 @@ namespace _2024_InstitutoEducativo.Controllers
             return View(profesor);
         }
 
+        private void VerificarLegajo(Profesor profesor)
+        {
+            if (LegajoExist(profesor))
+            {
+                ModelState.AddModelError("Legajo", "El legajo ya existe, verificado en BE");
+            }
+        }
+        private bool LegajoExist(Profesor profesor)
+        {
+            bool resultado = false;
+            if (!string.IsNullOrEmpty(profesor.Legajo))
+            {
+                if (profesor.Id != null && profesor.Id != 0)
+                {
+                    //
+                    resultado = _context.Empleados.Any(e => e.Legajo == profesor.Legajo && e.Id != profesor.Id);
+                }
+                else
+                {
+                    //Es una creación, solo me interesa que no exista lapatente
+                    resultado = _context.Empleados.Any(e => e.Legajo == profesor.Legajo);
+                }
+
+            }
+            return resultado;
+        }
+
+        private void ProcesarDuplicado(DbUpdateException dbex)
+        {
+            SqlException innerException = dbex.InnerException as SqlException;
+            if (innerException != null && (innerException.Number == 2627 || innerException.Number == 2601))
+            {
+                ModelState.AddModelError("Legajo", ErrorMsge.LegajoExistente);
+            }
+            else
+            {
+                ModelState.AddModelError(string.Empty, dbex.Message);
+            }
+        }
+
         // POST: Profesores/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [Authorize(Roles = $"{Configs.AdminRolName},{Configs.EmpleadoRolName}")]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Legajo,Id,Nombre,Apellido,Email,Dni")] Profesor profesor)
+        public async Task<IActionResult> Edit(int id, [Bind("Legajo,Id,Nombre,Apellido,Email,Dni")] Profesor profesorDelForm)
         {
-            if (id != profesor.Id)
+            if (id != profesorDelForm.Id)
             {
                 return NotFound();
             }
+
+            VerificarLegajo(profesorDelForm);
 
             if (ModelState.IsValid)
             {
                 try
                 {
-                    _context.Update(profesor);
+                    var profesorEnDb = _context.Profesores.Find(profesorDelForm.Id);
+                    if (profesorEnDb == null)
+                    {
+                        return NotFound();
+                    }
+
+
+                    profesorEnDb.Legajo = profesorDelForm.Legajo;
+                    profesorEnDb.Nombre = profesorDelForm.Nombre;
+                    profesorEnDb.Apellido = profesorDelForm.Apellido;
+                    profesorEnDb.Email = profesorDelForm.Email;
+                    profesorEnDb.Dni = profesorDelForm.Dni;
+
+
+                    if (!ActualizarEmail(profesorDelForm, profesorEnDb))
+                    {
+                        ModelState.AddModelError("Email", "El mail ya está en uso");
+                        return View(profesorDelForm);
+                    }
+
+                    _context.Update(profesorEnDb);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!ProfesorExists(profesor.Id))
+                    if (!ProfesorExists(profesorDelForm.Id))
                     {
                         return NotFound();
                     }
@@ -144,12 +209,59 @@ namespace _2024_InstitutoEducativo.Controllers
                         throw;
                     }
                 }
-                return RedirectToAction(nameof(Index));
+                catch (DbUpdateException dbex)
+                {
+                    ProcesarDuplicado(dbex);
+                }
+                
             }
-            return View(profesor);
+            return RedirectToAction("Index", "Home");
         }
 
+
+
+        private bool ActualizarEmail(Profesor profesorDelForm, Profesor profesorEnDb)
+        {
+            bool resultado = true;
+            try
+            {
+                if (!profesorEnDb.NormalizedEmail.Equals(profesorDelForm.Email.ToUpper()))
+                {
+
+                    if (ExistEmail(profesorDelForm.Email))
+                    {
+
+                        resultado = false;
+                    }
+                    else
+                    {
+
+                        profesorEnDb.Email = profesorDelForm.Email;
+                        profesorEnDb.NormalizedEmail = profesorDelForm.Email.ToUpper();
+                        profesorEnDb.UserName = profesorDelForm.Email;
+                        profesorEnDb.NormalizedUserName = profesorDelForm.NormalizedEmail;
+                    }
+                }
+                else
+                {
+
+                }
+            }
+            catch
+            {
+                resultado = false;
+            }
+            return resultado;
+        }
+
+        private bool ExistEmail(string email)
+        {
+            return _context.Personas.Any(p => p.NormalizedEmail == email.ToUpper());
+        }
+
+
         // GET: Profesores/Delete/5
+        [Authorize(Roles = $"{Configs.AdminRolName},{Configs.EmpleadoRolName}")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -168,6 +280,7 @@ namespace _2024_InstitutoEducativo.Controllers
         }
 
         // POST: Profesores/Delete/5
+        [Authorize(Roles = $"{Configs.AdminRolName},{Configs.EmpleadoRolName}")]
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)

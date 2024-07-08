@@ -104,7 +104,7 @@ namespace _2024_InstitutoEducativo.Controllers
         {
             if (LegajoExist(empleado))
             {
-                ModelState.AddModelError("Legajo", "El legajo ya existe, verificao en BE");
+                ModelState.AddModelError("Legajo", "El legajo ya existe, verificado en BE");
             }
         }
 
@@ -142,6 +142,7 @@ namespace _2024_InstitutoEducativo.Controllers
         }
 
         // GET: Empleados/Edit/5
+        [Authorize(Roles = $"{Configs.AdminRolName},{Configs.EmpleadoRolName}")]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -160,33 +161,57 @@ namespace _2024_InstitutoEducativo.Controllers
         // POST: Empleados/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [Authorize(Roles = $"{Configs.AdminRolName},{Configs.EmpleadoRolName}")]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Legajo,Id,Nombre,Apellido,Email,Dni")] Empleado empleado)
+        public async Task<IActionResult> Edit(int id, [Bind("Legajo,Id,Nombre,Apellido,Email,Dni")] Empleado empleadoDelForm)
         {
 
             
 
             
 
-            if (id != empleado.Id)
+            if (id != empleadoDelForm.Id)
             {
                 return NotFound();
             }
 
-            VerificarLegajo(empleado);
+            VerificarLegajo(empleadoDelForm);
 
             if (ModelState.IsValid)
             {
                 try
                 {
-                    _context.Update(empleado);
+                    var empleadoEnDb = _context.Empleados.Find(empleadoDelForm.Id);
+                    if (empleadoEnDb == null)
+                    {
+                        return NotFound();
+                    }
+
+ 
+
+                    empleadoEnDb.Legajo = empleadoDelForm.Legajo;                                      
+                    empleadoEnDb.Nombre = empleadoDelForm.Nombre;
+                    empleadoEnDb.Apellido = empleadoDelForm.Apellido;
+                    empleadoEnDb.Email = empleadoDelForm.Email;
+                    empleadoEnDb.Dni = empleadoDelForm.Dni;
+
+
+                    if (!ActualizarEmail(empleadoDelForm, empleadoEnDb))
+                    {
+                        ModelState.AddModelError("Email", "El mail ya está en uso");
+                        return View(empleadoDelForm);
+                    }
+
+                    _context.Update(empleadoEnDb);
                     await _context.SaveChangesAsync();
-                    return RedirectToAction(nameof(Index));
+                    /*_context.Update(empleado);
+                    await _context.SaveChangesAsync();
+                    return RedirectToAction(nameof(Index));*/
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!EmpleadoExists(empleado.Id))
+                    if (!EmpleadoExists(empleadoDelForm.Id))
                     {
                         return NotFound();
                     }
@@ -200,12 +225,54 @@ namespace _2024_InstitutoEducativo.Controllers
                     ProcesarDuplicado(dbex);
                 }
             }
-            return View(empleado);
+            return RedirectToAction("Index", "Home");
         }
 
-        
+
+        private bool ActualizarEmail(Empleado empleadoForm, Empleado empleadoDb)
+        {
+            bool resultado = true;
+            try
+            {
+                if (!empleadoDb.NormalizedEmail.Equals(empleadoForm.Email.ToUpper()))
+                {
+
+                    if (ExistEmail(empleadoForm.Email))
+                    {
+
+                        resultado = false;
+                    }
+                    else
+                    {
+
+                        empleadoDb.Email = empleadoForm.Email;
+                        empleadoDb.NormalizedEmail = empleadoForm.Email.ToUpper();
+                        empleadoDb.UserName = empleadoForm.Email;
+                        empleadoDb.NormalizedUserName = empleadoForm.NormalizedEmail;
+                    }
+                }
+                else
+                {
+
+                }
+            }
+            catch
+            {
+                resultado = false;
+            }
+            return resultado;
+        }
+
+        private bool ExistEmail(string email)
+        {
+            return _context.Personas.Any(p => p.NormalizedEmail == email.ToUpper());
+        }
+
+
+
 
         // GET: Empleados/Delete/5
+        [Authorize(Roles = $"{Configs.AdminRolName},{Configs.EmpleadoRolName}")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -224,6 +291,7 @@ namespace _2024_InstitutoEducativo.Controllers
         }
 
         // POST: Empleados/Delete/5
+        [Authorize(Roles = $"{Configs.AdminRolName},{Configs.EmpleadoRolName}")]
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)

@@ -106,7 +106,7 @@ namespace _2024_InstitutoEducativo.Controllers
 
 
 
-        [Authorize(Roles = $"{Configs.AdminRolName},{Configs.EmpleadoRolName}")]
+        [Authorize(Roles = $"{Configs.AdminRolName},{Configs.EmpleadoRolName},{Configs.AlumnoRolName}")]
         // GET: Alumnos/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
@@ -127,7 +127,7 @@ namespace _2024_InstitutoEducativo.Controllers
         // POST: Alumnos/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [Authorize(Roles = $"{Configs.AdminRolName},{Configs.EmpleadoRolName}")]
+        [Authorize(Roles = $"{Configs.AdminRolName},{Configs.EmpleadoRolName},{Configs.AlumnoRolName}")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("CarreraId,Id,Nombre,Apellido,Email,Dni")] Alumno alumnoDelForm)

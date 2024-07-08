@@ -74,6 +74,7 @@ namespace _2024_InstitutoEducativo.Controllers
         }
 
         // GET: Materias/Create
+        [Authorize(Roles = $"{Configs.AdminRolName},{Configs.EmpleadoRolName}")]
         public IActionResult Create()
         {
             ViewData["CarreraId"] = new SelectList(_context.Carreras, "Id", "Nombre");
