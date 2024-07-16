@@ -219,3 +219,4 @@ De la misma manera Uds. deben definir los tipos de datos asociados a cada una de
 
 ![image](https://github.com/KarinaAuday/2024-1C-E-InstitutoEducativo/assets/95180785/17fe9d23-cd2e-4367-878e-70ef0e97133a)
 
+"# Instituto_Educativo_Project" 
